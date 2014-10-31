@@ -177,6 +177,8 @@
         rotate.values = @[[NSNumber numberWithFloat:self.angleInRad], [NSNumber numberWithFloat:(self.angleInRad + M_PI_4)]];
         rotate.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
         rotate.delegate = self;
+        rotate.fillMode = kCAFillModeForwards;
+        rotate.removedOnCompletion = NO;
         
         [rotate setValue:@"anim2" forKey:@"animation"];
         
