@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *widthsArray;
 @property (nonatomic, strong) NSMutableArray *heightArray;
 @property (nonatomic) CGFloat angleInRad;
+@property (nonatomic) CGFloat fontSize;
 @property (nonatomic) CALayer *loaderLayer;
 @property (nonatomic) BOOL animate;
 @property (nonatomic, strong) UIView *loaderView;
@@ -33,15 +34,12 @@
     self.center = view.center;
     //self.backgroundColor = [UIColor blueColor];
     
-#warning uncomment!
-    //[self setClipsToBounds:YES];
+    [self setClipsToBounds:YES];
     
     [view addSubview:self];
     
     //Loader View Initialization
     self.loaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 10, self.barHeightMax*2 + 10)];
-#warning Change color!!!!
-    //self.loaderView.backgroundColor = [UIColor redColor];
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
     [self addSubview:self.loaderView];
     
@@ -50,10 +48,8 @@
 
 - (void)defaultValues{
     self.numberOfBars = 40;
-#warning uncomment!
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-    self.loaderAlpha = 0.9; //HEY!!!
-    //self.loaderAlpha = 1.0;
+    self.loaderAlpha = 1.0;
     self.cornerRadius = 10;
     self.loaderColor = [UIColor flatCloudsColor];
     self.barHeightMin = 20;
@@ -63,6 +59,8 @@
     self.angleInRad = degreesToRadians(0);
     self.rotationSpeed = 6.0;
     self.barsSpeed = 0.5;
+    self.fontSize = 14.0;
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 30, self.fontSize*2+10)];
     
     self.frame = CGRectMake(0, 0, self.barHeightMax*2 + 20, self.barHeightMax*2 + 20);
 }
@@ -137,29 +135,25 @@
 - (void)autolayoutByCode {
     
     //Loader View
-    CGFloat fontSize = 14.0;
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 30, fontSize*2+10)];
-    //self.label.backgroundColor = [UIColor orangeColor];
     self.label.textAlignment = NSTextAlignmentCenter;
     self.label.numberOfLines = 3;
-    //self.label.text = @"Loading all your images";
     self.label.textColor = [UIColor whiteColor];
-    self.label.font = [UIFont systemFontOfSize:fontSize];
+    self.label.font = [UIFont systemFontOfSize:self.fontSize];
     
     if (self.label.text) {
         CGFloat xCenter = self.center.x;
         CGFloat yCenter = self.center.y;
 
-        self.frame = CGRectMake(0, 0, self.loaderView.frame.size.height + fontSize*2 + 10, self.loaderView.frame.size.height + fontSize*2 + 10);
+        self.frame = CGRectMake(0, 0, self.loaderView.frame.size.height + self.fontSize*2 + 10, self.loaderView.frame.size.height + self.fontSize*2 + 10);
         self.center = CGPointMake(xCenter, yCenter);
         
         CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
         CGFloat yPoint = CGRectGetHeight(self.loaderLayer.frame)/2 + self.barHeightMax + CGRectGetHeight(self.label.frame);
         
-        self.label.center = CGPointMake(xPoint, yPoint + fontSize/2*(self.label.numberOfLines));
+        self.label.center = CGPointMake(xPoint, yPoint + self.fontSize/2*(self.label.numberOfLines));
         [self.loaderView addSubview:self.label];
         
-        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + fontSize*2);
+        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);
         self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
     }
 

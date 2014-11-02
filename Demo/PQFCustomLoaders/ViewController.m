@@ -26,7 +26,6 @@
     self.loader = [[PQFBarsInCircle alloc] initLoaderOnView:self.view];
     
     [self.loader show];
-    
 }
 
 - (IBAction)removeLoader:(id)sender {
