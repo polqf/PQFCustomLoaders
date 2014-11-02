@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,10 +17,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Loader Text" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="55O-lf-UcX">
+                                <rect key="frame" x="16" y="50" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qWn-or-kPl">
+                                <rect key="frame" x="237" y="88" width="127" height="30"/>
+                                <state key="normal" title="Show BarsInCircle">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showBarsInCircle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PK8-ID-RvG"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XS7-ZE-RTo">
+                                <rect key="frame" x="229" y="126" width="142" height="30"/>
+                                <state key="normal" title="Show BouncingBalls">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showBouncingBalls:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eh0-VZ-82u"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8F-JN-lu7">
+                                <rect key="frame" x="218" y="164" width="164" height="30"/>
+                                <state key="normal" title="Show CirclesInTriangles">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showCirclesInTriangles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PvP-Sw-zQh"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZJ-LP-Hgq">
-                                <rect key="frame" x="234" y="550" width="133" height="30"/>
+                                <rect key="frame" x="208" y="202" width="185" height="30"/>
                                 <color key="tintColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Remove From View">
+                                <state key="normal" title="Remove Loader From View">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -28,10 +61,23 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="fZJ-LP-Hgq" secondAttribute="centerX" id="bKK-Wh-iWI"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fZJ-LP-Hgq" secondAttribute="bottom" constant="20" id="ya3-qW-DZ1"/>
+                            <constraint firstItem="55O-lf-UcX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="01w-1x-6I8"/>
+                            <constraint firstItem="55O-lf-UcX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2Dc-o4-fEC"/>
+                            <constraint firstAttribute="centerX" secondItem="B8F-JN-lu7" secondAttribute="centerX" id="Azl-BS-DwC"/>
+                            <constraint firstAttribute="centerX" secondItem="qWn-or-kPl" secondAttribute="centerX" id="CwY-Ep-VTF"/>
+                            <constraint firstItem="55O-lf-UcX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="FGO-G2-hQM"/>
+                            <constraint firstItem="qWn-or-kPl" firstAttribute="top" secondItem="55O-lf-UcX" secondAttribute="bottom" constant="8" id="FSh-hY-mHQ"/>
+                            <constraint firstItem="B8F-JN-lu7" firstAttribute="top" secondItem="XS7-ZE-RTo" secondAttribute="bottom" constant="8" id="Fz1-aH-lRb"/>
+                            <constraint firstAttribute="centerX" secondItem="fZJ-LP-Hgq" secondAttribute="centerX" id="HcC-W7-aUK"/>
+                            <constraint firstItem="XS7-ZE-RTo" firstAttribute="top" secondItem="qWn-or-kPl" secondAttribute="bottom" constant="8" id="MQb-nN-iHO"/>
+                            <constraint firstAttribute="centerX" secondItem="55O-lf-UcX" secondAttribute="centerX" id="agH-Qu-GGz"/>
+                            <constraint firstItem="fZJ-LP-Hgq" firstAttribute="top" secondItem="B8F-JN-lu7" secondAttribute="bottom" constant="8" id="bd7-EC-YKT"/>
+                            <constraint firstAttribute="centerX" secondItem="XS7-ZE-RTo" secondAttribute="centerX" id="cXZ-OH-veq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textField" destination="55O-lf-UcX" id="0LR-mD-S0G"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
