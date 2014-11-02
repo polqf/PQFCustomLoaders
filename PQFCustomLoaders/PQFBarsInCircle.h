@@ -21,6 +21,7 @@
 @property (nonatomic) CGFloat barHeightMin;
 @property (nonatomic) CGFloat barsSpeed;
 @property (nonatomic) CGFloat rotationSpeed;
+@property (nonatomic, strong) UILabel *label;
 
 - (instancetype)initLoaderOnView:(UIView *)view;
 

@@ -19,29 +19,41 @@
 @property (nonatomic) CGFloat angleInRad;
 @property (nonatomic) CALayer *loaderLayer;
 @property (nonatomic) BOOL animate;
+@property (nonatomic, strong) UIView *loaderView;
 
 @end
 
 @implementation PQFBarsInCircle
 
 - (instancetype)initLoaderOnView:(UIView *)view {
-    CGRect frame = CGRectMake(0, 0, 200, 100);
-    self = [super initWithFrame:frame];
-    
+    self = [super init];
+
     [self defaultValues];
     
     self.center = view.center;
+    //self.backgroundColor = [UIColor blueColor];
+    
+#warning uncomment!
+    //[self setClipsToBounds:YES];
     
     [view addSubview:self];
-    [self setClipsToBounds:YES];
+    
+    //Loader View Initialization
+    self.loaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 10, self.barHeightMax*2 + 10)];
+#warning Change color!!!!
+    //self.loaderView.backgroundColor = [UIColor redColor];
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    [self addSubview:self.loaderView];
     
     return self;
 }
 
 - (void)defaultValues{
     self.numberOfBars = 40;
+#warning uncomment!
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-    self.loaderAlpha = 1.0;
+    self.loaderAlpha = 0.9; //HEY!!!
+    //self.loaderAlpha = 1.0;
     self.cornerRadius = 10;
     self.loaderColor = [UIColor flatCloudsColor];
     self.barHeightMin = 20;
@@ -52,14 +64,9 @@
     self.rotationSpeed = 6.0;
     self.barsSpeed = 0.5;
     
-    if (self.frame.size.height < self.barHeightMax*2) {
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.x, self.frame.size.width, self.barHeightMax*2 + 10);
-    }
-    if (self.frame.size.width < self.barHeightMax*2) {
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.x, self.barHeightMax*2 + 10, self.frame.size.height);
-    }
-    
+    self.frame = CGRectMake(0, 0, self.barHeightMax*2 + 20, self.barHeightMax*2 + 20);
 }
+
 
 #pragma mark - public methods
 
@@ -81,8 +88,6 @@
     [self removeFromSuperview];
 }
 
-#pragma mark - private methods
-
 #pragma mark Custom Setters
 
 - (void)setBackgroundAlpha:(CGFloat)backgroundAlpha {
@@ -90,20 +95,23 @@
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:backgroundAlpha];
 }
 
+#pragma mark - private methods
+
 - (void)generateLoader {
     
     self.widthsArray = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
     self.heightArray = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
     
+    //Main View
     self.layer.cornerRadius = self.cornerRadius;
     
     NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
     self.loaderLayer = [CALayer layer];
-    self.loaderLayer.bounds = self.bounds;
-    self.loaderLayer.position = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    self.loaderLayer.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2);
     self.loaderLayer.opacity = self.loaderAlpha;
     
-    [self.layer addSublayer:self.loaderLayer];
+    //Loader View
+    [self.loaderView.layer addSublayer:self.loaderLayer];
     
     for (int i = 0 ; i < self.numberOfBars ; i++) {
         CALayer *bar = [CALayer layer];
@@ -114,15 +122,47 @@
         [self.widthsArray addObject:[NSNumber numberWithFloat:randomWidth]];
         bar.bounds = CGRectMake(0, 0, 0, 0);
         bar.anchorPoint = CGPointMake(0.5, 1.0);
-        bar.position = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+        bar.position = CGPointMake(CGRectGetWidth(self.loaderLayer.frame)/2, CGRectGetHeight(self.loaderLayer.frame)/2);
         CGFloat angle = degreesToRadians(360/self.numberOfBars*(i+1));
         CATransform3D rotate = CATransform3DMakeRotation(angle, 0, 0, 1);
         bar.transform = rotate;
         [temp addObject:bar];
         [self.loaderLayer addSublayer:bar];
     }
+    [self autolayoutByCode];
     
     self.bars = [temp copy];
+}
+
+- (void)autolayoutByCode {
+    
+    //Loader View
+    CGFloat fontSize = 14.0;
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 30, fontSize*2+10)];
+    //self.label.backgroundColor = [UIColor orangeColor];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    self.label.numberOfLines = 3;
+    //self.label.text = @"Loading all your images";
+    self.label.textColor = [UIColor whiteColor];
+    self.label.font = [UIFont systemFontOfSize:fontSize];
+    
+    if (self.label.text) {
+        CGFloat xCenter = self.center.x;
+        CGFloat yCenter = self.center.y;
+
+        self.frame = CGRectMake(0, 0, self.loaderView.frame.size.height + fontSize*2 + 10, self.loaderView.frame.size.height + fontSize*2 + 10);
+        self.center = CGPointMake(xCenter, yCenter);
+        
+        CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
+        CGFloat yPoint = CGRectGetHeight(self.loaderLayer.frame)/2 + self.barHeightMax + CGRectGetHeight(self.label.frame);
+        
+        self.label.center = CGPointMake(xPoint, yPoint + fontSize/2*(self.label.numberOfLines));
+        [self.loaderView addSubview:self.label];
+        
+        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + fontSize*2);
+        self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    }
+
 }
 
 - (CGFloat)randomFloatBetween:(CGFloat)a and:(CGFloat)b {
