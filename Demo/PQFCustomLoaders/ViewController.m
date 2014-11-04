@@ -12,7 +12,12 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) PQFBarsInCircle *loader;
+@property (nonatomic, strong) PQFBarsInCircle *barsInCircle;
+@property (nonatomic, strong) PQFBouncingBalls *bouncingBalls;
+@property (nonatomic, strong) PQFCirclesInTriangle *circlesInTriangle;
+@property (nonatomic) BOOL showLabels;
+@property (nonatomic) BOOL showBackground;
+
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @end
@@ -23,34 +28,60 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor flatTurquoiseColor];
+    self.showLabels = YES;
+    self.showBackground = YES;
+    [self showLoaders];
 }
 
-- (IBAction)showBarsInCircle:(id)sender {
-    [self.loader remove];
-
-    self.loader = [[PQFBarsInCircle alloc] initLoaderOnView:self.view];
-    self.loader.label.text = self.textField.text;
+- (void)showLoaders {
+    //BOUNCING BALLS
+    self.bouncingBalls = [[PQFBouncingBalls alloc] init];
+    self.bouncingBalls.frame = CGRectMake(0, 0, 0, 150);
     
-    [self.loader show];
+    self.barsInCircle = [[PQFBarsInCircle alloc] initLoaderOnView:self.view];
+    self.barsInCircle.center = CGPointMake(self.barsInCircle.center.x, self.barsInCircle.center.y - self.bouncingBalls.frame.size.height - 20);
+    
+    self.circlesInTriangle = [[PQFCirclesInTriangle alloc] initLoaderOnView:self.view];
+    self.circlesInTriangle.center = CGPointMake(self.circlesInTriangle.center.x, self.circlesInTriangle.center.y + self.bouncingBalls.frame.size.height + 20);
+    if (self.showLabels) {
+        self.barsInCircle.label.text = self.textField.text;
+        self.circlesInTriangle.label.text = self.textField.text;
+    }
+    if (!self.showBackground) {
+        self.barsInCircle.backgroundColor = [UIColor clearColor];
+        self.circlesInTriangle.backgroundColor = [UIColor clearColor];
+    }
+    
+    [self.barsInCircle show];
+    [self.circlesInTriangle show];
+    
 }
 
-- (IBAction)showBouncingBalls:(id)sender {
-    [self.loader remove];
-    
+- (IBAction)addLabelsButton:(id)sender {
+    self.showLabels = YES;
+    [self removeLoaders];
+    [self showLoaders];
+}
+- (IBAction)removeLabelsButton:(id)sender {
+    self.showLabels = NO;
+    [self removeLoaders];
+    [self showLoaders];
+}
+- (IBAction)addBackgroundButton:(id)sender {
+    self.showBackground = YES;
+    [self removeLoaders];
+    [self showLoaders];
 }
 
-- (IBAction)showCirclesInTriangles:(id)sender {
-    [self.loader remove];
-    
-    self.loader = [[PQFCirclesInTriangle alloc] initLoaderOnView:self.view];
-    self.loader.label.text = self.textField.text;
-    
-    [self.loader show];
-
+- (IBAction)removeBackgroundButton:(id)sender {
+    self.showBackground = NO;
+    [self removeLoaders];
+    [self showLoaders];
 }
 
-- (IBAction)removeLoader:(id)sender {
-    [self.loader remove];
+- (IBAction)removeLoaders {
+    [self.barsInCircle remove];
+    [self.circlesInTriangle remove];
 }
 
 - (void)didReceiveMemoryWarning {

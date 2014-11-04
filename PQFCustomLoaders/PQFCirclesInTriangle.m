@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UIView *loaderView;
 @property (nonatomic) CGFloat fontSize;
 @property (nonatomic) CGFloat rectSize;
-@property (nonatomic) CGRect mainViewFrame;
 
 @end
 
@@ -27,8 +26,8 @@
     
     [self defaultValues];
     
+    self.frame = CGRectMake(0, 0, view.frame.size.width, self.rectSize + 20);
     self.center = view.center;
-    self.mainViewFrame = view.frame;
     
     [self setClipsToBounds:YES];
     
@@ -45,7 +44,7 @@
 - (void)defaultValues {
     self.numberOfCircles = 6;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-    self.cornerRadius = 10;
+    self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
     self.maxDiam = 50;
@@ -56,8 +55,6 @@
     self.fontSize = 14.0;
     self.rectSize = self.separation*2 + self.maxDiam;
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 30, self.fontSize*2+10)];
-    
-    self.frame = CGRectMake(0, 0, self.rectSize + 20, self.rectSize + 20);
 }
 
 #pragma mark - public methods
@@ -144,7 +141,7 @@
         
         self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);
     
-        self.frame = CGRectMake(0, 0, self.loaderView.frame.size.height + 10, self.loaderView.frame.size.height + 10);
+        self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10);
         self.center = CGPointMake(xCenter, yCenter);
         self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, self.loaderView.center.y);
     

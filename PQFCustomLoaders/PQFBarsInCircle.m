@@ -21,7 +21,6 @@
 @property (nonatomic) CALayer *loaderLayer;
 @property (nonatomic) BOOL animate;
 @property (nonatomic, strong) UIView *loaderView;
-@property (nonatomic) CGRect mainViewFrame;
 
 @end
 
@@ -32,8 +31,8 @@
 
     [self defaultValues];
     
-    self.center = view.center;
-    //self.backgroundColor = [UIColor blueColor];
+    self.frame = CGRectMake(0, 0, view.frame.size.width, self.barHeightMax*2 + 20);
+    self.center = view.center;    
     
     [self setClipsToBounds:YES];
     
@@ -51,7 +50,7 @@
     self.numberOfBars = 35;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     self.loaderAlpha = 1.0;
-    self.cornerRadius = 10;
+    self.cornerRadius = 0;
     self.loaderColor = [UIColor flatCloudsColor];
     self.barHeightMin = 20;
     self.barHeightMax = 32;
@@ -62,8 +61,6 @@
     self.barsSpeed = 0.5;
     self.fontSize = 14.0;
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 30, self.fontSize*2+10)];
-    
-    self.frame = CGRectMake(0, 0, self.barHeightMax*2 + 20, self.barHeightMax*2 + 20);
 }
 
 
@@ -148,7 +145,7 @@
         CGFloat xCenter = self.center.x;
         CGFloat yCenter = self.center.y;
 
-        self.frame = CGRectMake(0, 0, self.loaderView.frame.size.height + self.fontSize*2 + 10, self.loaderView.frame.size.height + self.fontSize*2 + 10);
+        self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2 + 10);
         self.center = CGPointMake(xCenter, yCenter);
 
         self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);

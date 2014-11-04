@@ -22,58 +22,71 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qWn-or-kPl">
-                                <rect key="frame" x="237" y="88" width="127" height="30"/>
-                                <state key="normal" title="Show BarsInCircle">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qt-V0-xjd">
+                                <rect key="frame" x="438" y="512" width="106" height="30"/>
+                                <state key="normal" title="Remove Labels">
+                                    <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showBarsInCircle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PK8-ID-RvG"/>
+                                    <action selector="removeLabelsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zey-QB-auH"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XS7-ZE-RTo">
-                                <rect key="frame" x="229" y="126" width="142" height="30"/>
-                                <state key="normal" title="Show BouncingBalls">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmJ-4E-5Xw">
+                                <rect key="frame" x="56" y="512" width="78" height="30"/>
+                                <state key="normal" title="Add Labels">
+                                    <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showBouncingBalls:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eh0-VZ-82u"/>
+                                    <action selector="addLabelsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xvx-kR-2PS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8F-JN-lu7">
-                                <rect key="frame" x="218" y="164" width="164" height="30"/>
-                                <state key="normal" title="Show CirclesInTriangles">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKe-Ox-n7V">
+                                <rect key="frame" x="36" y="550" width="116" height="30"/>
+                                <state key="normal" title="Add Background">
+                                    <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="showCirclesInTriangles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PvP-Sw-zQh"/>
+                                    <action selector="addBackgroundButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lHe-mO-EG0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZJ-LP-Hgq">
-                                <rect key="frame" x="208" y="202" width="185" height="30"/>
+                                <rect key="frame" x="420" y="550" width="144" height="30"/>
                                 <color key="tintColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Remove Loader From View">
+                                <state key="normal" title="Remove Background">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="removeLoader:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Op4-1b-RHM"/>
+                                    <action selector="removeBackgroundButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nbg-sy-Qwf"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="55O-lf-UcX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="01w-1x-6I8"/>
                             <constraint firstItem="55O-lf-UcX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2Dc-o4-fEC"/>
-                            <constraint firstAttribute="centerX" secondItem="B8F-JN-lu7" secondAttribute="centerX" id="Azl-BS-DwC"/>
-                            <constraint firstAttribute="centerX" secondItem="qWn-or-kPl" secondAttribute="centerX" id="CwY-Ep-VTF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3qt-V0-xjd" secondAttribute="trailing" constant="40" id="5Ik-YU-xy0"/>
                             <constraint firstItem="55O-lf-UcX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="FGO-G2-hQM"/>
-                            <constraint firstItem="qWn-or-kPl" firstAttribute="top" secondItem="55O-lf-UcX" secondAttribute="bottom" constant="8" id="FSh-hY-mHQ"/>
-                            <constraint firstItem="B8F-JN-lu7" firstAttribute="top" secondItem="XS7-ZE-RTo" secondAttribute="bottom" constant="8" id="Fz1-aH-lRb"/>
-                            <constraint firstAttribute="centerX" secondItem="fZJ-LP-Hgq" secondAttribute="centerX" id="HcC-W7-aUK"/>
-                            <constraint firstItem="XS7-ZE-RTo" firstAttribute="top" secondItem="qWn-or-kPl" secondAttribute="bottom" constant="8" id="MQb-nN-iHO"/>
+                            <constraint firstItem="vKe-Ox-n7V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="MwB-0D-Tj6"/>
                             <constraint firstAttribute="centerX" secondItem="55O-lf-UcX" secondAttribute="centerX" id="agH-Qu-GGz"/>
-                            <constraint firstItem="fZJ-LP-Hgq" firstAttribute="top" secondItem="B8F-JN-lu7" secondAttribute="bottom" constant="8" id="bd7-EC-YKT"/>
-                            <constraint firstAttribute="centerX" secondItem="XS7-ZE-RTo" secondAttribute="centerX" id="cXZ-OH-veq"/>
+                            <constraint firstItem="hmJ-4E-5Xw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="bM0-dE-Xjc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="vKe-Ox-n7V" secondAttribute="bottom" constant="20" id="bmD-KA-ES2"/>
+                            <constraint firstItem="3qt-V0-xjd" firstAttribute="leading" secondItem="hmJ-4E-5Xw" secondAttribute="trailing" constant="8" id="bvM-jS-kEK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fZJ-LP-Hgq" secondAttribute="trailing" constant="20" id="dEL-gR-MXB"/>
+                            <constraint firstAttribute="centerX" secondItem="hmJ-4E-5Xw" secondAttribute="centerX" constant="60" id="e5m-w5-YNK"/>
+                            <constraint firstItem="3qt-V0-xjd" firstAttribute="leading" secondItem="hmJ-4E-5Xw" secondAttribute="trailing" constant="48" id="gXb-3j-HhZ"/>
+                            <constraint firstItem="vKe-Ox-n7V" firstAttribute="top" secondItem="hmJ-4E-5Xw" secondAttribute="bottom" constant="8" id="rxN-0M-sBB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fZJ-LP-Hgq" secondAttribute="bottom" constant="20" id="vfc-ie-ACJ"/>
+                            <constraint firstItem="fZJ-LP-Hgq" firstAttribute="top" secondItem="3qt-V0-xjd" secondAttribute="bottom" constant="8" id="zJB-GU-d1a"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="e5m-w5-YNK"/>
+                                <exclude reference="bvM-jS-kEK"/>
+                                <exclude reference="gXb-3j-HhZ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="textField" destination="55O-lf-UcX" id="0LR-mD-S0G"/>
