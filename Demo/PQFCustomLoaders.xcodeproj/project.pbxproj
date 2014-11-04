@@ -95,13 +95,13 @@
 		C11B4DA619FFD7A50058C794 /* PQFCustomLoaders */ = {
 			isa = PBXGroup;
 			children = (
+				C12D904519FFEE7E001497F7 /* PQFCustomLoaders.h */,
 				C11B4DB019FFD7F40058C794 /* PQFBarsInCircle.h */,
 				C11B4DB119FFD7F40058C794 /* PQFBarsInCircle.m */,
 				C11B4DB219FFD7F40058C794 /* PQFBouncingBalls.h */,
 				C11B4DB319FFD7F40058C794 /* PQFBouncingBalls.m */,
 				C11B4DB419FFD7F40058C794 /* PQFCirclesInTriangle.h */,
 				C11B4DB519FFD7F40058C794 /* PQFCirclesInTriangle.m */,
-				C12D904519FFEE7E001497F7 /* PQFCustomLoaders.h */,
 			);
 			name = PQFCustomLoaders;
 			sourceTree = "<group>";

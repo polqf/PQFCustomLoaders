@@ -40,7 +40,7 @@
                                     <action selector="showBouncingBalls:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eh0-VZ-82u"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8F-JN-lu7">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8F-JN-lu7">
                                 <rect key="frame" x="218" y="164" width="164" height="30"/>
                                 <state key="normal" title="Show CirclesInTriangles">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

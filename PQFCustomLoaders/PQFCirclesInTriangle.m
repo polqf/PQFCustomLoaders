@@ -12,100 +12,199 @@
 @interface PQFCirclesInTriangle ()
 
 @property (nonatomic, strong) NSArray *balls;
+@property (nonatomic) BOOL animate;
+@property (nonatomic, strong) UIView *loaderView;
+@property (nonatomic) CGFloat fontSize;
+@property (nonatomic) CGFloat rectSize;
 
 @end
 
 @implementation PQFCirclesInTriangle
 
-#warning Overwrite init method!!!!
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self generateLoader];
-    }
+- (instancetype)initLoaderOnView:(UIView *)view {
+    self = [super init];
+    
+    [self defaultValues];
+    
+    self.center = view.center;
+    
+    [self setClipsToBounds:YES];
+    
+    [view addSubview:self];
+    
+    //Loader View Initialization
+    self.loaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 10, self.rectSize + 10)];
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    [self addSubview:self.loaderView];
+    
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self generateLoader];
-    }
-    return self;
-}
-
-- (void)generateLoader {
+- (void)defaultValues {
     self.numberOfCircles = 6;
-    self.delay = 0.5;
-    self.width = 2.0;
+    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    self.cornerRadius = 10;
+    self.loaderAlpha = 1.0;
+    self.loaderColor = [UIColor flatCloudsColor];
     self.maxDiam = 50;
     self.separation = 8.0;
+    self.borderWidth = 2.0;
+    self.delay = 0.5;
     self.duration = 2.0;
-    self.color = [UIColor flatCloudsColor];
-    self.backgroundColor = [UIColor flatTurquoiseColor];
+    self.fontSize = 14.0;
+    self.rectSize = self.separation*2 + self.maxDiam;
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 30, self.fontSize*2+10)];
+    
+    self.frame = CGRectMake(0, 0, self.rectSize + 20, self.rectSize + 20);
+}
+
+#pragma mark - public methods
+
+- (void)show {
+    self.alpha = 1.0;
+    self.animate = YES;
+    [self generateLoader];
+    [self startAnimation];
+}
+
+- (void)hide {
+    self.alpha = 0.0;
+    self.animate = NO;
+}
+
+- (void)remove {
+    [self hide];
+    [self removeFromSuperview];
+}
+
+#pragma mark Custom Setters
+
+
+#pragma mark - private methods
+
+- (void)generateLoader {
     
     NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:3];
+    
+    self.layer.cornerRadius = self.cornerRadius;
     
     for (int i = 0; i< self.numberOfCircles; i++) {
         CALayer *ball = [CALayer layer];
         ball.bounds = CGRectMake(0, 0, 0 , 0);
-        ball.borderWidth = self.width;
-        ball.borderColor = self.color.CGColor;
+        ball.borderWidth = self.borderWidth;
+        ball.borderColor = self.loaderColor.CGColor;
         
         switch (i) {
             case 0:
-                ball.position = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2 -self.separation);
+                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
                 break;
             case 1:
-                ball.position = CGPointMake(CGRectGetWidth(self.frame)/2 - self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
+                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
                 break;
             case 2:
-                ball.position = CGPointMake(CGRectGetWidth(self.frame)/2 + self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
+                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
                 break;
             case 3:
-                ball.position = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2 -self.separation);
+                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
                 break;
             case 4:
-                ball.position = CGPointMake(CGRectGetWidth(self.frame)/2 - self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
+                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
                 break;
             case 5:
-                ball.position = CGPointMake(CGRectGetWidth(self.frame)/2 + self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
+                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
                 break;
         }
         
-        [self.layer addSublayer:ball];
+        [self.loaderView.layer addSublayer:ball];
         [temp addObject:ball];
     }
+    
+    [self autolayoutByCode];
     
     self.balls = [temp copy];
     
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self startAnimation];
-    if (self.numberOfCircles > 3) {
-        [self performSelector:@selector(startSecondAnimation) withObject:self afterDelay:self.delay];
+- (void)autolayoutByCode {
+    
+    if ([self.label.text isEqualToString:@""]) {
+        self.label.text = nil;
     }
+    
+    if (self.label.text) {
+        self.label.textAlignment = NSTextAlignmentCenter;
+        self.label.numberOfLines = 3;
+        self.label.textColor = [UIColor whiteColor];
+        self.label.font = [UIFont systemFontOfSize:self.fontSize];
+        
+        CGFloat xCenter = self.center.x;
+        CGFloat yCenter = self.center.y;
+        
+        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);
+    
+        self.frame = CGRectMake(0, 0, self.loaderView.frame.size.height + 10, self.loaderView.frame.size.height + 10);
+        self.center = CGPointMake(xCenter, yCenter);
+        self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, self.loaderView.center.y);
+    
+        CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
+        CGFloat yPoint = CGRectGetWidth(self.loaderView.frame)/2;
+        self.label.center = CGPointMake(xPoint, yPoint + self.maxDiam/2 + self.fontSize/2*(self.label.numberOfLines));
+        [self.loaderView addSubview:self.label];
+
+    }
+    
 }
 
 - (void)startAnimation {
-    for (int i = 0; i<3; i++) {
-        CALayer *ball = [self.balls objectAtIndex:i];
-        [self animateBall:ball atIndex:i];
+    [self startFirstAnimation];
+    [self performSelector:@selector(startSecondAnimation) withObject:nil afterDelay:self.delay];
+}
+
+- (void)startFirstAnimation {
+    if (self.animate) {
+        for (int i = 0; i<3; i++) {
+            CALayer *ball = [self.balls objectAtIndex:i];
+            [self animateBall:ball atIndex:i];
+        }
     }
+    
 }
 
 - (void)startSecondAnimation {
-    for (int i = 3; i<6; i++) {
-        CALayer *ball = [self.balls objectAtIndex:i];
-        [self animateBall:ball atIndex:i];
+    if (self.animate) {
+        for (int i = 3; i<6; i++) {
+            CALayer *ball = [self.balls objectAtIndex:i];
+            [self animateBall:ball atIndex:i];
+        }
     }
 }
 
 - (void)animateBall:(CALayer *)ball atIndex:(int)index {
+    CGPoint point;
+    switch (index) {
+        case 0:
+            point = CGPointMake(ball.position.x, ball.position.y + self.separation);
+            break;
+        case 1:
+            point = CGPointMake(ball.position.x + self.separation, ball.position.y - self.separation);
+            break;
+        case 2:
+            point = CGPointMake(ball.position.x - self.separation, ball.position.y - self.separation);
+            break;
+        case 3:
+            point = CGPointMake(ball.position.x, ball.position.y + self.separation);
+        case 4:
+            if (index == 4) {
+                point = CGPointMake(ball.position.x + self.separation, ball.position.y - self.separation);
+            }
+            break;
+        case 5:
+            point = CGPointMake(ball.position.x - self.separation, ball.position.y - self.separation);
+            break;
+            
+        default:
+            break;
+    }
     
     CAKeyframeAnimation *bounds1 = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
     bounds1.duration = self.duration;
@@ -122,33 +221,8 @@
     
     CAKeyframeAnimation *position = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     position.duration = self.duration/2;
-    CGPoint point;
-    switch (index) {
-        case 0:
-            point = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2 - self.separation);
-            break;
-        case 1:
-            point = CGPointMake(CGRectGetWidth(self.frame)/2 - self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
-            break;
-        case 2:
-            point = CGPointMake(CGRectGetWidth(self.frame)/2 + self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
-            break;
-        case 3:
-            point = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2 - self.separation);
-            break;
-        case 4:
-            point = CGPointMake(CGRectGetWidth(self.frame)/2 - self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
-            break;
-        case 5:
-            point = CGPointMake(CGRectGetWidth(self.frame)/2 + self.separation, CGRectGetHeight(self.frame)/2 + self.separation);
-            break;
-            
-        default:
-            break;
-    }
-    
-    position.values = @[[NSValue valueWithCGPoint:point],
-                        [NSValue valueWithCGPoint:CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2)]];
+    position.values = @[[NSValue valueWithCGPoint:ball.position],
+                        [NSValue valueWithCGPoint:point]];
     position.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
     position.beginTime = CACurrentMediaTime() + self.duration/2;
     
@@ -172,8 +246,8 @@
     
     CAKeyframeAnimation *position2 = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     position2.duration = self.duration/2;
-    position2.values = @[[NSValue valueWithCGPoint:CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2)],
-                         [NSValue valueWithCGPoint:CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2)]];
+    position2.values = @[[NSValue valueWithCGPoint:point],
+                         [NSValue valueWithCGPoint:point]];
     position2.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
     position2.beginTime = CACurrentMediaTime() + self.duration;
     
@@ -188,7 +262,7 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self touchesBegan:nil withEvent:nil];
+    [self startAnimation];
 }
 
 

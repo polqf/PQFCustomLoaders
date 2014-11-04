@@ -47,15 +47,15 @@
 }
 
 - (void)defaultValues{
-    self.numberOfBars = 40;
+    self.numberOfBars = 35;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     self.loaderAlpha = 1.0;
     self.cornerRadius = 10;
     self.loaderColor = [UIColor flatCloudsColor];
     self.barHeightMin = 20;
-    self.barHeightMax = 40;
+    self.barHeightMax = 32;
     self.barWidthMin = 2;
-    self.barWidthMax = 5;
+    self.barWidthMax = 4;
     self.angleInRad = degreesToRadians(0);
     self.rotationSpeed = 6.0;
     self.barsSpeed = 0.5;
@@ -139,6 +139,9 @@
     self.label.numberOfLines = 3;
     self.label.textColor = [UIColor whiteColor];
     self.label.font = [UIFont systemFontOfSize:self.fontSize];
+    if ([self.label.text isEqualToString:@""]) {
+        self.label.text = nil;
+    }
     
     if (self.label.text) {
         CGFloat xCenter = self.center.x;
@@ -148,7 +151,7 @@
         self.center = CGPointMake(xCenter, yCenter);
         
         CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
-        CGFloat yPoint = CGRectGetHeight(self.loaderLayer.frame)/2 + self.barHeightMax + CGRectGetHeight(self.label.frame);
+        CGFloat yPoint = self.barHeightMax + CGRectGetHeight(self.label.frame);
         
         self.label.center = CGPointMake(xPoint, yPoint + self.fontSize/2*(self.label.numberOfLines));
         [self.loaderView addSubview:self.label];

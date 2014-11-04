@@ -41,6 +41,11 @@
 
 - (IBAction)showCirclesInTriangles:(id)sender {
     [self.loader remove];
+    
+    self.loader = [[PQFCirclesInTriangle alloc] initLoaderOnView:self.view];
+    self.loader.label.text = self.textField.text;
+    
+    [self.loader show];
 
 }
 

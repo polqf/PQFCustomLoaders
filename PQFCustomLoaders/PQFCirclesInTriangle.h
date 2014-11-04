@@ -10,12 +10,21 @@
 
 @interface PQFCirclesInTriangle : UIView
 
-@property (nonatomic) NSInteger numberOfCircles;
-@property (nonatomic) NSTimeInterval delay;
-@property (nonatomic) CGFloat width;
+@property (nonatomic) NSUInteger numberOfCircles;
+@property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic) CGFloat loaderAlpha;
+@property (nonatomic, strong) UIColor *loaderColor;
 @property (nonatomic) CGFloat maxDiam;
 @property (nonatomic) CGFloat separation;
+@property (nonatomic) CGFloat borderWidth;
+@property (nonatomic) CGFloat delay;
 @property (nonatomic) CGFloat duration;
-@property (nonatomic, strong) UIColor *color;
+@property (nonatomic, strong) UILabel *label;
+
+- (instancetype)initLoaderOnView:(UIView *)view;
+
+- (void)remove;
+- (void)show;
+- (void)hide;
 
 @end
