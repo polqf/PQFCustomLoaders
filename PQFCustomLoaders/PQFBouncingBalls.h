@@ -10,10 +10,20 @@
 
 @interface PQFBouncingBalls : UIView
 
+@property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic) CGFloat loaderAlpha;
+@property (nonatomic, strong) UIColor *loaderColor;
 @property (nonatomic) CGFloat diameter;
 @property (nonatomic) CGFloat jumpAmount;
 @property (nonatomic) CGFloat separation;
 @property (nonatomic) CGFloat zoomAmount;
-@property (nonatomic, strong) UIColor *color;
+@property (nonatomic) CGFloat duration;
+@property (nonatomic, strong) UILabel *label;
+
+- (instancetype)initLoaderOnView:(UIView *)view;
+
+- (void)remove;
+- (void)show;
+- (void)hide;
 
 @end
