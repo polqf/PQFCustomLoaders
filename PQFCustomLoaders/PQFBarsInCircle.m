@@ -21,6 +21,7 @@
 @property (nonatomic) CALayer *loaderLayer;
 @property (nonatomic) BOOL animate;
 @property (nonatomic, strong) UIView *loaderView;
+@property (nonatomic) CGRect mainViewFrame;
 
 @end
 
@@ -149,15 +150,15 @@
 
         self.frame = CGRectMake(0, 0, self.loaderView.frame.size.height + self.fontSize*2 + 10, self.loaderView.frame.size.height + self.fontSize*2 + 10);
         self.center = CGPointMake(xCenter, yCenter);
-        
-        CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
-        CGFloat yPoint = self.barHeightMax + CGRectGetHeight(self.label.frame);
-        
-        self.label.center = CGPointMake(xPoint, yPoint + self.fontSize/2*(self.label.numberOfLines));
-        [self.loaderView addSubview:self.label];
-        
+
         self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);
         self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+        
+        CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
+        CGFloat yPoint = CGRectGetHeight(self.loaderView.frame)/2 + self.barHeightMax;
+        
+        self.label.center = CGPointMake(xPoint, yPoint);
+        [self.loaderView addSubview:self.label];
     }
 
 }

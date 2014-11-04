@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIView *loaderView;
 @property (nonatomic) CGFloat fontSize;
 @property (nonatomic) CGFloat rectSize;
+@property (nonatomic) CGRect mainViewFrame;
 
 @end
 
@@ -27,6 +28,7 @@
     [self defaultValues];
     
     self.center = view.center;
+    self.mainViewFrame = view.frame;
     
     [self setClipsToBounds:YES];
     
