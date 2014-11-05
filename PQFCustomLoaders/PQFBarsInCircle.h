@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) UIColor *loaderColor;
 @property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic) CGFloat backgroundAlpha;
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) NSInteger numberOfBars;
 @property (nonatomic) CGFloat barWidthMax;

@@ -36,16 +36,17 @@
 - (void)showLoaders {
     //BOUNCING BALLS
     self.bouncingBalls = [[PQFBouncingBalls alloc] initLoaderOnView:self.view];
+    self.bouncingBalls.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     
     //BARS IN CIRCLE
     self.barsInCircle = [[PQFBarsInCircle alloc] initLoaderOnView:self.view];
     self.barsInCircle.center = CGPointMake(self.barsInCircle.center.x, self.barsInCircle.center.y - self.bouncingBalls.frame.size.height - 40);
+    self.barsInCircle.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     
     //CIRCLES IN TRIANGLE
     self.circlesInTriangle = [[PQFCirclesInTriangle alloc] initLoaderOnView:self.view];
     self.circlesInTriangle.center = CGPointMake(self.circlesInTriangle.center.x, self.circlesInTriangle.center.y + self.bouncingBalls.frame.size.height + 40);
-    
-#warning TESTESTESTESTESTESTESTEST
+    self.circlesInTriangle.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     
     //OPTIONS IN DEMO
     if (self.showLabels) {
@@ -84,7 +85,7 @@
     [self regenerateLoaders];
 }
 
-- (IBAction)removeLoaders {
+- (void)removeLoaders {
     [self.barsInCircle remove];
     [self.circlesInTriangle remove];
     [self.bouncingBalls remove];

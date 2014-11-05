@@ -46,7 +46,7 @@
 }
 
 - (void)defaultValues {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];

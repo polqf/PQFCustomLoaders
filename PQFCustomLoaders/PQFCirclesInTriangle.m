@@ -43,7 +43,7 @@
 
 - (void)defaultValues {
     self.numberOfCircles = 6;
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -97,6 +97,7 @@
         ball.bounds = CGRectMake(0, 0, 0 , 0);
         ball.borderWidth = self.borderWidth;
         ball.borderColor = self.loaderColor.CGColor;
+        ball.opacity = self.loaderAlpha;
         
         switch (i) {
             case 0:
@@ -161,7 +162,9 @@
 
 - (void)startAnimation {
     [self startFirstAnimation];
-    [self performSelector:@selector(startSecondAnimation) withObject:nil afterDelay:self.delay];
+    if (self.numberOfCircles >3) {
+        [self performSelector:@selector(startSecondAnimation) withObject:nil afterDelay:self.delay];
+    }
 }
 
 - (void)startFirstAnimation {

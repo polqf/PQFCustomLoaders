@@ -48,7 +48,7 @@
 
 - (void)defaultValues{
     self.numberOfBars = 35;
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.loaderAlpha = 1.0;
     self.cornerRadius = 0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -82,13 +82,6 @@
 - (void)remove {
     [self hide];
     [self removeFromSuperview];
-}
-
-#pragma mark Custom Setters
-
-- (void)setBackgroundAlpha:(CGFloat)backgroundAlpha {
-    _backgroundAlpha = backgroundAlpha;
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:backgroundAlpha];
 }
 
 #pragma mark - private methods
