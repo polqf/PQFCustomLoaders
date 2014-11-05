@@ -50,15 +50,13 @@
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
-    self.diameter = 20;
+    self.diameter = 16;
     self.jumpAmount = 50;
     self.separation = 20;
     self.zoomAmount = 20;
     self.duration = 1.0;
     self.fontSize = 14.0;
-    
-    self.rectSize = self.diameter + self.jumpAmount + self.diameter/2;
-    
+    self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 30, self.fontSize*2+10)];
 }
 
@@ -87,6 +85,15 @@
 
 - (void)generateLoader {
     
+    //Generate frames
+    self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.rectSize + 40);
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.rectSize + 10);
+    
+    
+    //Layers
+    self.layer.cornerRadius = self.cornerRadius;
+    
     self.ball1 = [CALayer layer];
     self.ball1.bounds = CGRectMake(0, 0, self.diameter, self.diameter);
     self.ball1.cornerRadius = self.diameter/2;
@@ -105,9 +112,9 @@
     self.ball2.backgroundColor = self.loaderColor.CGColor;
     self.ball2.opacity = self.loaderAlpha;
     
-    self.ball1.position = CGPointMake(CGRectGetWidth(self.frame)/2 - self.separation, CGRectGetHeight(self.frame)/2 + self.jumpAmount/2- 15);
-    self.ball2.position = CGPointMake(CGRectGetWidth(self.frame)/2 , CGRectGetHeight(self.frame)/2 + self.jumpAmount/2 - 15);
-    self.ball3.position = CGPointMake(CGRectGetWidth(self.frame)/2 + self.separation, CGRectGetHeight(self.frame)/2 + self.jumpAmount/2 - 15);
+    self.ball1.position = CGPointMake(CGRectGetWidth(self.frame)/2 - self.separation, CGRectGetHeight(self.frame)/2 + self.jumpAmount/2);
+    self.ball2.position = CGPointMake(CGRectGetWidth(self.frame)/2 , CGRectGetHeight(self.frame)/2 + self.jumpAmount/2);
+    self.ball3.position = CGPointMake(CGRectGetWidth(self.frame)/2 + self.separation, CGRectGetHeight(self.frame)/2 + self.jumpAmount/2);
     
     [self.layer addSublayer:self.ball1];
     [self.layer addSublayer:self.ball2];
@@ -127,19 +134,19 @@
     if ([self.label.text isEqualToString:@""]) {
         self.label.text = nil;
     }
-    
+        
     if (self.label.text) {
         CGFloat xCenter = self.center.x;
         CGFloat yCenter = self.center.y;
-        
-        self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2 + 10);
+    
+        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.label.frame.size.height );
+
+        self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
         self.center = CGPointMake(xCenter, yCenter);
-        
-        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);
         self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-        
+
         CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
-        CGFloat yPoint = CGRectGetHeight(self.loaderView.frame)/2 + self.diameter + self.fontSize/2*(self.label.numberOfLines);
+        CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
         
         self.label.center = CGPointMake(xPoint, yPoint);
         [self.loaderView addSubview:self.label];
@@ -149,8 +156,10 @@
 
 
 - (void)startAnimation {
-    [self animateToLeft];
-    [self animateToRight];
+    if (self.animate) {
+        [self animateToLeft];
+        [self animateToRight];
+    }
 }
 
 - (void)animateToLeft {
@@ -195,36 +204,36 @@
 
 - (void)animateToRight {
     CAKeyframeAnimation *animation2 = [CAKeyframeAnimation animationWithKeyPath:@"position.y"];
-    animation2.duration = 1.0;
+    animation2.duration = self.duration;
     animation2.values = @[@(self.ball2.position.y), @(self.ball2.position.y - self.jumpAmount), @(self.ball2.position.y)];
     animation2.timingFunctions = @[[CAMediaTimingFunction functionWithControlPoints:0.5 :-1 :1.0 :1.0],[CAMediaTimingFunction functionWithControlPoints:0.8 :0.0 :0.8 :0.0]];
-    animation2.beginTime = CACurrentMediaTime() + 1;
+    animation2.beginTime = CACurrentMediaTime() + self.duration;
     
     CAKeyframeAnimation *down2 = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
-    down2.duration = 1.0;
+    down2.duration = self.duration;
     down2.values = @[@(self.ball2.position.x), @(self.ball2.position.x + self.separation/2 ), @(self.ball2.position.x +self.separation)];
     down2.timingFunctions = @[[CAMediaTimingFunction functionWithControlPoints:0.5 :-1 :1.0 :1.0],[CAMediaTimingFunction functionWithControlPoints:0.8 :0.0 :0.8 :0.0]];
-    down2.beginTime = CACurrentMediaTime() + 1;
+    down2.beginTime = CACurrentMediaTime() + self.duration;
     
     CAKeyframeAnimation *move2 = [CAKeyframeAnimation animationWithKeyPath:@"position.x"];
-    move2.duration = 1.0;
+    move2.duration = self.duration;
     move2.delegate = self;
     move2.values = @[@(self.ball3.position.x), @(self.ball3.position.x - self.separation/2 ), @(self.ball3.position.x - self.separation)];
     move2.timingFunctions = @[[CAMediaTimingFunction functionWithControlPoints:0.5 :-1 :1.0 :1.0],[CAMediaTimingFunction functionWithControlPoints:0.8 :0.0 :0.8 :0.0]];
-    move2.beginTime = CACurrentMediaTime() +1 ;
+    move2.beginTime = CACurrentMediaTime() + self.duration ;
     
     CAKeyframeAnimation *miniBounds2 = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
-    miniBounds2.duration = 1.0;
+    miniBounds2.duration = self.duration;
     miniBounds2.values = @[[NSValue valueWithCGSize:CGSizeMake(self.ball2.frame.size.width, self.ball2.frame.size.height)],
                            [NSValue valueWithCGSize:CGSizeMake(self.ball2.frame.size.width + self.zoomAmount, self.ball2.frame.size.height + self.zoomAmount)],
                            [NSValue valueWithCGSize:CGSizeMake(self.ball2.frame.size.width , self.ball2.frame.size.height)]];
     miniBounds2.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn],[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    miniBounds2.beginTime = CACurrentMediaTime() +1 ;
+    miniBounds2.beginTime = CACurrentMediaTime() + self.duration ;
     
     CAKeyframeAnimation *radius2 = [CAKeyframeAnimation animationWithKeyPath:@"cornerRadius"];
-    radius2.duration = 1.0;
+    radius2.duration = self.duration;
     radius2.values = @[@(self.diameter/2), @((self.diameter + self.zoomAmount)/2), @(self.diameter/2)];
-    radius2.beginTime = CACurrentMediaTime() +1 ;
+    radius2.beginTime = CACurrentMediaTime() + self.duration;
     radius2.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn],[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     
     [self.ball2 addAnimation:animation2 forKey:@"anything5"];

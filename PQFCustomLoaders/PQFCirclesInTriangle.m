@@ -82,10 +82,15 @@
 #pragma mark - private methods
 
 - (void)generateLoader {
-    
-    NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:3];
-    
+    //GenerateFrames
     self.layer.cornerRadius = self.cornerRadius;
+    self.rectSize = self.separation*2 + self.maxDiam;
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.rectSize + 20);
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.rectSize + 10, self.rectSize + 10);
+    
+    
+    //Layers
+    NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:3];
     
     for (int i = 0; i< self.numberOfCircles; i++) {
         CALayer *ball = [CALayer layer];

@@ -98,8 +98,11 @@
     self.widthsArray = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
     self.heightArray = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
     
-    //Main View
+    //GenerateFrames
     self.layer.cornerRadius = self.cornerRadius;
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.barHeightMax*2 + 20);
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.barHeightMax*2 + 10);
+    
     
     NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
     self.loaderLayer = [CALayer layer];

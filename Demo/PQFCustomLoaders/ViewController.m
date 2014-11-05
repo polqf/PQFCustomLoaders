@@ -37,7 +37,6 @@
     //BOUNCING BALLS
     self.bouncingBalls = [[PQFBouncingBalls alloc] initLoaderOnView:self.view];
     
-    
     //BARS IN CIRCLE
     self.barsInCircle = [[PQFBarsInCircle alloc] initLoaderOnView:self.view];
     self.barsInCircle.center = CGPointMake(self.barsInCircle.center.x, self.barsInCircle.center.y - self.bouncingBalls.frame.size.height - 40);
@@ -45,6 +44,10 @@
     //CIRCLES IN TRIANGLE
     self.circlesInTriangle = [[PQFCirclesInTriangle alloc] initLoaderOnView:self.view];
     self.circlesInTriangle.center = CGPointMake(self.circlesInTriangle.center.x, self.circlesInTriangle.center.y + self.bouncingBalls.frame.size.height + 40);
+    
+#warning TESTESTESTESTESTESTESTEST
+    
+    //OPTIONS IN DEMO
     if (self.showLabels) {
         self.barsInCircle.label.text = self.textField.text;
         self.circlesInTriangle.label.text = self.textField.text;
@@ -56,6 +59,7 @@
         self.bouncingBalls.backgroundColor = [UIColor clearColor];
     }
     
+    //SHOW LOADERS
     [self.barsInCircle show];
     [self.circlesInTriangle show];
     [self.bouncingBalls show];
@@ -64,30 +68,31 @@
 
 - (IBAction)addLabelsButton:(id)sender {
     self.showLabels = YES;
-    [self removeLoaders];
-    [self showLoaders];
+    [self regenerateLoaders];
 }
 - (IBAction)removeLabelsButton:(id)sender {
     self.showLabels = NO;
-    [self removeLoaders];
-    [self showLoaders];
+    [self regenerateLoaders];
 }
 - (IBAction)addBackgroundButton:(id)sender {
     self.showBackground = YES;
-    [self removeLoaders];
-    [self showLoaders];
+    [self regenerateLoaders];
 }
 
 - (IBAction)removeBackgroundButton:(id)sender {
     self.showBackground = NO;
-    [self removeLoaders];
-    [self showLoaders];
+    [self regenerateLoaders];
 }
 
 - (IBAction)removeLoaders {
     [self.barsInCircle remove];
     [self.circlesInTriangle remove];
     [self.bouncingBalls remove];
+}
+
+- (void)regenerateLoaders {
+    [self removeLoaders];
+    [self showLoaders];
 }
 
 - (void)didReceiveMemoryWarning {
