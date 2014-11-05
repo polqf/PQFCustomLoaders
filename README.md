@@ -8,9 +8,7 @@ Demo App
 --------
 ___
 
-![demovideo](https://cloud.githubusercontent.com/assets/7887319/4922649/eb6aa62c-6513-11e4-96a6-b4768d670a29.gif =250x)
-
-The Demo
+<img src="https://cloud.githubusercontent.com/assets/7887319/4922649/eb6aa62c-6513-11e4-96a6-b4768d670a29.gif" height="400px" />
 
 Installation
 --------
@@ -114,7 +112,7 @@ ___
 
 ###PQFBarsInCircles
 
-![barsincircle](https://cloud.githubusercontent.com/assets/7887319/4924136/6fa9da50-6520-11e4-87ca-c637e0d8908d.gif =400x)
+<img src="https://cloud.githubusercontent.com/assets/7887319/4924136/6fa9da50-6520-11e4-87ca-c637e0d8908d.gif" height="120px" />
 
 ####__Properties:__
 ```
@@ -133,7 +131,7 @@ ___
 
 ###PQFBouncingBalls
 
-![bouncingballs](https://cloud.githubusercontent.com/assets/7887319/4924135/6fa82a0c-6520-11e4-91fa-0fc000d5ecca.gif =400x)
+<img src="https://cloud.githubusercontent.com/assets/7887319/4924135/6fa82a0c-6520-11e4-91fa-0fc000d5ecca.gif" height="120px" />
 
 ####__Properties:__
 ```
@@ -151,7 +149,7 @@ ___
 
 ###PQFCirclesInTriangle
 
-![circlesintriangle](https://cloud.githubusercontent.com/assets/7887319/4924134/6f6484fa-6520-11e4-9b7d-4b308ef5b53c.gif =400x)
+<img src="https://cloud.githubusercontent.com/assets/7887319/4924134/6f6484fa-6520-11e4-9b7d-4b308ef5b53c.gif" height="120px" />
 
 ####__Properties:__
 ```
