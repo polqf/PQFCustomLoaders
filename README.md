@@ -2,7 +2,7 @@ PQFCustomLoaders
 ========
 Current version: 0.0.1
 
-Collection of highly customizables loaders to your iOS projects. Feel free to use them. 
+Collection of highly customizable loaders for your iOS projects. Feel free to use them.
 
 Demo App
 --------
@@ -117,6 +117,7 @@ ___
 ####__Properties:__
 ```
 @property (nonatomic, strong) UIColor *loaderColor;
+@property (nonatomic, strong) UIColor *backgroundColor; //TRANSPARENT BY DEFAULT
 @property (nonatomic) CGFloat loaderAlpha;
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) NSInteger numberOfBars;  //OF THE HOLE LOADER FRAME
@@ -136,6 +137,7 @@ ___
 ####__Properties:__
 ```
 @property (nonatomic) CGFloat cornerRadius;		//OF THE HOLE LOADER FRAME
+@property (nonatomic, strong) UIColor *backgroundColor; //TRANSPARENT BY DEFAULT
 @property (nonatomic) CGFloat loaderAlpha;
 @property (nonatomic, strong) UIColor *loaderColor;
 @property (nonatomic) CGFloat diameter;			//OF THE BALLS
@@ -154,6 +156,7 @@ ___
 ####__Properties:__
 ```
 @property (nonatomic) NSUInteger numberOfCircles;	//YOU CAN ONLY CHOOSE 3 OR 6 AT THE MOMENT
+@property (nonatomic, strong) UIColor *backgroundColor; //TRANSPARENT BY DEFAULT
 @property (nonatomic) CGFloat cornerRadius;			//OF THE HOLE LOADER FRAME
 @property (nonatomic) CGFloat loaderAlpha;
 @property (nonatomic, strong) UIColor *loaderColor;
