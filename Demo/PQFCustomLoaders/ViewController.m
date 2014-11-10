@@ -95,6 +95,9 @@
     [self removeLoaders];
     [self showLoaders];
 }
+- (IBAction)dismissKeyboard:(id)sender {
+    [self.textField resignFirstResponder];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -63,6 +63,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="55O-lf-UcX" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="01w-1x-6I8"/>
                             <constraint firstItem="55O-lf-UcX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2Dc-o4-fEC"/>
@@ -87,12 +88,20 @@
                                 <exclude reference="gXb-3j-HhZ"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="tRM-o9-8He" appends="YES" id="EEz-lL-nqe"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="textField" destination="55O-lf-UcX" id="0LR-mD-S0G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="tRM-o9-8He">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="BYZ-38-t0r" id="3XU-8g-Z5h"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="525" y="339"/>
         </scene>

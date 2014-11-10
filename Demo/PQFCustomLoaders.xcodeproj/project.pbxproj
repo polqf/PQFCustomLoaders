@@ -219,9 +219,11 @@
 				TargetAttributes = {
 					C186CB8919FFD76100BF1A3A = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = TT6EHSB5EG;
 					};
 					C186CBA219FFD76100BF1A3A = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = TT6EHSB5EG;
 						TestTargetID = C186CB8919FFD76100BF1A3A;
 					};
 				};
@@ -454,6 +456,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -465,6 +469,7 @@
 				INFOPLIST_FILE = PQFCustomLoadersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PQFCustomLoaders.app/PQFCustomLoaders";
 			};
 			name = Debug;
@@ -473,6 +478,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -480,6 +487,7 @@
 				INFOPLIST_FILE = PQFCustomLoadersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PQFCustomLoaders.app/PQFCustomLoaders";
 			};
 			name = Release;
