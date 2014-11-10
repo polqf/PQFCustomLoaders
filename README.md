@@ -8,7 +8,7 @@ Demo App
 --------
 ___
 
-<img src="https://cloud.githubusercontent.com/assets/7887319/4922649/eb6aa62c-6513-11e4-96a6-b4768d670a29.gif" height="400px" />
+<img src="https://cloud.githubusercontent.com/assets/7887319/4985198/daa24cf8-692a-11e4-9d30-b8bfd143d694.gif" height="400px" />
 
 Installation
 --------
