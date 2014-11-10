@@ -29,7 +29,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor flatTurquoiseColor];
     self.showLabels = YES;
-    self.showBackground = YES;
+    self.showBackground = NO;
     [self showLoaders];
 }
 
