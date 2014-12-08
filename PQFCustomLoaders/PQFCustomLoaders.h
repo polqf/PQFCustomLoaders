@@ -9,4 +9,5 @@
 #import "PQFCirclesInTriangle.h"
 #import "PQFBouncingBalls.h"
 #import "PQFBarsInCircle.h"
+#import "PQFBallDrop.h"
 #import <UIColor+FlatColors.h>

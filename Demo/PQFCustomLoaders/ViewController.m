@@ -13,7 +13,7 @@
 @interface ViewController ()
 
 @property (nonatomic, strong) PQFBarsInCircle *barsInCircle;
-@property (nonatomic, strong) PQFBouncingBalls *bouncingBalls;
+@property (nonatomic, strong) PQFBallDrop *bouncingBalls;
 @property (nonatomic, strong) PQFCirclesInTriangle *circlesInTriangle;
 @property (nonatomic) BOOL showLabels;
 @property (nonatomic) BOOL showBackground;
@@ -35,7 +35,7 @@
 
 - (void)showLoaders {
     //BOUNCING BALLS
-    self.bouncingBalls = [[PQFBouncingBalls alloc] initLoaderOnView:self.view];
+    self.bouncingBalls = [[PQFBallDrop alloc] initLoaderOnView:self.view];
     self.bouncingBalls.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     
     //BARS IN CIRCLE
