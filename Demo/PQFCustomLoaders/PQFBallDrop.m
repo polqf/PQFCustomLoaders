@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIView *fallingBall;
 @property (nonatomic, strong) UIView *mainBall;
 @property (nonatomic) BOOL animate;
+@property (nonatomic) BOOL restart;
 @property (nonatomic, strong) UIView *loaderView;
 @property (nonatomic) CGFloat fontSize;
 @property (nonatomic) CGFloat rectSize;
@@ -54,10 +55,11 @@
 }
 
 - (void)defaultValues {
+    self.restart = YES;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
-    self.maxDiam = 100;
+    self.maxDiam = 50;
     self.amountZoom = 5;
     self.delay = 1.7;
     self.duration = 2.0;
@@ -98,8 +100,8 @@
     self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.rectSize + 10, self.rectSize + 10);
     
     //Layer
-    self.mainBall.frame = CGRectMake(0, 0, 5, 5);
-    self.mainBall.layer.cornerRadius = 5/2;
+    self.mainBall.frame = CGRectMake(0, 0, 0, 0);
+    self.mainBall.layer.cornerRadius = 0;
     self.mainBall.layer.opacity = self.loaderAlpha;
     self.mainBall.layer.backgroundColor = [UIColor flatCloudsColor].CGColor;
     self.mainBall.center = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 , CGRectGetHeight(self.loaderView.frame)/2);
@@ -144,12 +146,17 @@
     self.fallingBall.center = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, 0);
     self.fallingBall.hidden = NO;
     
+    if (CGRectGetWidth(self.mainBall.frame) >= self.maxDiam) {
+        self.mainBall.bounds = CGRectMake(0, 0, 0, 0);
+        self.restart = YES;
+    }
+    
     self.animate = YES;
     
     self.mainAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.loaderView];
     
     UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[self.fallingBall]];
-    gravity.magnitude = 1.0;
+    gravity.magnitude = 0.85;
     
     [self.mainAnimator addBehavior:gravity];
     
@@ -160,14 +167,14 @@
                                fromPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 -10, CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2) toPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 +10 , CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2)];
    
     [self.mainAnimator addBehavior:collision];
+}
+
+- (void)crashAnimation {
     
-    UIDynamicItemBehavior *itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.mainBall, self.fallingBall]];
-    itemBehavior.elasticity = 0.9;
-    itemBehavior.density = 5;
-    [self.mainAnimator addBehavior:itemBehavior];
 }
 
 - (void)animateMainBall {
+
     POPSpringAnimation *bounds = [POPSpringAnimation animationWithPropertyNamed:kPOPViewBounds];
     bounds.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, CGRectGetWidth(self.mainBall.frame) + self.amountZoom, CGRectGetWidth(self.mainBall.frame) + self.amountZoom)];
     bounds.springBounciness = 20;
@@ -176,7 +183,12 @@
     [self.mainBall pop_addAnimation:bounds forKey:@"animateBounds"];
     
     POPSpringAnimation *radius = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerCornerRadius];
+    if (self.restart) {
+        self.restart = NO;
+        self.mainBall.layer.cornerRadius = 0;
+    }
     radius.toValue = @(CGRectGetWidth(self.mainBall.frame)/2 + self.amountZoom/2);
+    NSLog(@"%f", self.mainBall.layer.cornerRadius);
     radius.springBounciness = 20;
     radius.springSpeed = 0;
     [self.mainBall.layer pop_addAnimation:radius forKey:@"animateRadius"];
@@ -194,6 +206,7 @@
         if ([@"boundary" isEqualToString:(NSString *)identifier]) {
             self.animate = NO;
             self.fallingBall.hidden = YES;
+            [self crashAnimation];
             [self animateMainBall];
         }
     }
