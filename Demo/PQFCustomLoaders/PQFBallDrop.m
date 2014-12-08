@@ -59,7 +59,7 @@
     self.loaderColor = [UIColor flatCloudsColor];
     self.maxDiam = 100;
     self.amountZoom = 5;
-    self.delay = 2;
+    self.delay = 1.7;
     self.duration = 2.0;
     self.fontSize = 14.0;
     self.rectSize = self.maxDiam;
@@ -157,7 +157,7 @@
     collision.translatesReferenceBoundsIntoBoundary = YES;
     collision.collisionDelegate = self;
     [collision addBoundaryWithIdentifier:@"boundary"
-                               fromPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 -10, CGRectGetHeight(self.loaderView.frame)/2) toPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 +10 , CGRectGetHeight(self.loaderView.frame)/2)];
+                               fromPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 -10, CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2) toPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 +10 , CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2)];
    
     [self.mainAnimator addBehavior:collision];
     
