@@ -1,9 +1,9 @@
 //
 //  main.m
-//  PQFCustomLoaders
+//  PQFCustomLoadersDemo
 //
-//  Created by Pol Quintana on 28/10/14.
-//  Copyright (c) 2014 Pol Quintana. All rights reserved.
+//  Created by Pol Quintana on 5/1/15.
+//  Copyright (c) 2015 Pol Quintana. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PQFLoader.h"
 
-@interface PQFBallDrop : UIView
+@interface PQFBallDrop : PQFLoader
 
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) CGFloat loaderAlpha;

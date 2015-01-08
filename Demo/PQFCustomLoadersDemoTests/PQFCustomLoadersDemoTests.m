@@ -1,19 +1,19 @@
 //
-//  PQFCustomLoadersTests.m
-//  PQFCustomLoadersTests
+//  PQFCustomLoadersDemoTests.m
+//  PQFCustomLoadersDemoTests
 //
-//  Created by Pol Quintana on 28/10/14.
-//  Copyright (c) 2014 Pol Quintana. All rights reserved.
+//  Created by Pol Quintana on 5/1/15.
+//  Copyright (c) 2015 Pol Quintana. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface PQFCustomLoadersTests : XCTestCase
+@interface PQFCustomLoadersDemoTests : XCTestCase
 
 @end
 
-@implementation PQFCustomLoadersTests
+@implementation PQFCustomLoadersDemoTests
 
 - (void)setUp {
     [super setUp];

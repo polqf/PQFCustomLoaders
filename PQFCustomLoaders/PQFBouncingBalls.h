@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PQFLoader.h"
 
-@interface PQFBouncingBalls : UIView
+@interface PQFBouncingBalls : PQFLoader
 
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) CGFloat loaderAlpha;
