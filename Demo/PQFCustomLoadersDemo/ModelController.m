@@ -41,7 +41,20 @@
 
 - (NSUInteger)indexOfViewController:(DataViewController *)viewController {
     
-    NSString *loaderClass = NSStringFromClass([viewController.loader class]);
+    NSString *loaderClass;
+    
+    if (viewController.ballDrop) {
+        loaderClass = NSStringFromClass([viewController.ballDrop class]);
+    }
+    else if (viewController.barsInCircle) {
+        loaderClass = NSStringFromClass([viewController.barsInCircle class]);
+    }
+    else if (viewController.bouncingBalls) {
+        loaderClass = NSStringFromClass([viewController.bouncingBalls class]);
+    }
+    else if (viewController.circlesInTriangle) {
+        loaderClass = NSStringFromClass([viewController.circlesInTriangle class]);
+    }
 
     return [self.pageData indexOfObject:loaderClass];
 }
@@ -78,19 +91,21 @@
 - (void)presentLoaderAtIndex:(NSUInteger)index onViewController:(DataViewController *)viewController {
     
     if (index == 0) {
-        viewController.loader = [[PQFBouncingBalls alloc] initLoaderOnView:viewController.view];
+        viewController.bouncingBalls = [[PQFBouncingBalls alloc] initLoaderOnView:viewController.view];
+        [viewController.bouncingBalls show];
     }
     if (index == 1) {
-        viewController.loader = [[PQFBarsInCircle alloc] initLoaderOnView:viewController.view];
+        viewController.barsInCircle = [[PQFBarsInCircle alloc] initLoaderOnView:viewController.view];
+        [viewController.barsInCircle show];
     }
     if (index == 2) {
-        viewController.loader = [[PQFCirclesInTriangle alloc] initLoaderOnView:viewController.view];
+        viewController.circlesInTriangle = [[PQFCirclesInTriangle alloc] initLoaderOnView:viewController.view];
+        [viewController.circlesInTriangle show];
     }
     if (index == 3) {
-        viewController.loader = [[PQFBallDrop alloc] initLoaderOnView:viewController.view];
+        viewController.ballDrop = [[PQFBallDrop alloc] initLoader];
+        [viewController.ballDrop show];
     }
-    
-    [viewController.loader show];
     
 }
 

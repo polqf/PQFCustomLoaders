@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PQFLoader.h"
 
-@interface PQFBarsInCircle : PQFLoader
+@interface PQFBarsInCircle : UIView
 
 @property (nonatomic, strong) UIColor *loaderColor;
 @property (nonatomic) CGFloat loaderAlpha;

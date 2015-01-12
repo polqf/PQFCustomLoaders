@@ -24,7 +24,18 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.dataLabel.text = NSStringFromClass([self.loader class]);
+    if (self.ballDrop) {
+        self.dataLabel.text = NSStringFromClass([self.ballDrop class]);
+    }
+    else if (self.barsInCircle) {
+        self.dataLabel.text = NSStringFromClass([self.barsInCircle class]);
+    }
+    else if (self.bouncingBalls) {
+        self.dataLabel.text = NSStringFromClass([self.bouncingBalls class]);
+    }
+    else if (self.circlesInTriangle) {
+        self.dataLabel.text = NSStringFromClass([self.circlesInTriangle class]);
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

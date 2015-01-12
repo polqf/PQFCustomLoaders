@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PQFLoader.h"
 
-@interface PQFBallDrop : PQFLoader
+@interface PQFBallDrop : UIView
 
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) CGFloat loaderAlpha;
@@ -19,6 +18,7 @@
 @property (nonatomic) CGFloat duration;
 @property (nonatomic, strong) UILabel *label;
 
+- (instancetype)initLoader;
 - (instancetype)initLoaderOnView:(UIView *)view;
 
 - (void)remove;

@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PQFLoader.h"
 
-@interface PQFCirclesInTriangle : PQFLoader
+@interface PQFCirclesInTriangle : UIView
 
 @property (nonatomic) NSUInteger numberOfCircles;
 @property (nonatomic) CGFloat cornerRadius;

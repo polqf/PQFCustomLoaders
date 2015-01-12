@@ -12,6 +12,8 @@
 
 @interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate>
 
+@property (nonatomic, strong) UIView *bgView;
+
 @property (nonatomic, strong) UIDynamicAnimator *mainAnimator;
 @property (nonatomic, strong) UIView *fallingBall;
 @property (nonatomic, strong) UIView *mainBall;
@@ -26,9 +28,25 @@
 
 @implementation PQFBallDrop
 
+- (instancetype)initLoader
+{
+    self = [self initLoaderOnView:nil];
+    return self;
+}
+
 - (instancetype)initLoaderOnView:(UIView *)view {
     self = [super init];
     
+    if (!view) {
+        UIWindow *window = [[UIApplication sharedApplication].delegate window];
+        view = [[UIView alloc] initWithFrame:window.frame];
+        self.bgView = view;
+        
+        view.userInteractionEnabled = YES;
+        
+        [window addSubview:view];
+    }
+
     [self defaultValues];
     
     self.frame = CGRectMake(0, 0, view.frame.size.width, self.rectSize + 20);
@@ -55,6 +73,9 @@
 }
 
 - (void)defaultValues {
+    
+    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    
     self.restart = YES;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.loaderAlpha = 1.0;
