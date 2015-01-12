@@ -26,20 +26,37 @@
     [super viewWillAppear:animated];
     if (self.ballDrop) {
         self.dataLabel.text = NSStringFromClass([self.ballDrop class]);
+        [self.ballDrop show];
     }
     else if (self.barsInCircle) {
         self.dataLabel.text = NSStringFromClass([self.barsInCircle class]);
+        [self.barsInCircle show];
     }
     else if (self.bouncingBalls) {
         self.dataLabel.text = NSStringFromClass([self.bouncingBalls class]);
+        [self.bouncingBalls show];
     }
     else if (self.circlesInTriangle) {
         self.dataLabel.text = NSStringFromClass([self.circlesInTriangle class]);
+        [self.circlesInTriangle show];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if (self.ballDrop) {
+        [self.ballDrop hide];
+    }
+    else if (self.barsInCircle) {
+        [self.barsInCircle hide];
+    }
+    else if (self.bouncingBalls) {
+        [self.bouncingBalls hide];
+    }
+    else if (self.circlesInTriangle) {
+        [self.circlesInTriangle hide];
+    }
 }
 
 @end

@@ -22,7 +22,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _pageData = @[@"PQFBouncingBalls", @"PQFBarsInCircle", @"PQFCirclesInTriangle", @"PQFBallDrop"];
+        _pageData = @[@"PQFCirclesInTriangle", @"PQFBarsInCircle", @"PQFBouncingBalls", @"PQFBallDrop"];
     }
     return self;
 }
@@ -34,7 +34,7 @@
 
     DataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
     
-    [self presentLoaderAtIndex:index onViewController:dataViewController];
+    [self prepareLoaderAtIndex:index onViewController:dataViewController];
     
     return dataViewController;
 }
@@ -69,6 +69,7 @@
     }
     
     index--;
+    
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
 
@@ -88,27 +89,22 @@
 
 #pragma mark - Add loaders
 
-- (void)presentLoaderAtIndex:(NSUInteger)index onViewController:(DataViewController *)viewController {
+- (void)prepareLoaderAtIndex:(NSUInteger)index onViewController:(DataViewController *)viewController {
     
     if (index == 0) {
-        viewController.bouncingBalls = [[PQFBouncingBalls alloc] initLoaderOnView:viewController.view];
-        [viewController.bouncingBalls show];
+        viewController.circlesInTriangle = [[PQFCirclesInTriangle alloc] initLoaderOnView:viewController.view];
     }
     if (index == 1) {
         viewController.barsInCircle = [[PQFBarsInCircle alloc] initLoaderOnView:viewController.view];
-        [viewController.barsInCircle show];
     }
     if (index == 2) {
-        viewController.circlesInTriangle = [[PQFCirclesInTriangle alloc] initLoaderOnView:viewController.view];
-        [viewController.circlesInTriangle show];
+        viewController.bouncingBalls = [[PQFBouncingBalls alloc] initLoaderOnView:viewController.view];
     }
     if (index == 3) {
-        viewController.ballDrop = [[PQFBallDrop alloc] initLoader];
-        [viewController.ballDrop show];
+        viewController.ballDrop = [[PQFBallDrop alloc] initLoaderOnView:viewController.view];
     }
     
 }
-
 
 
 @end
