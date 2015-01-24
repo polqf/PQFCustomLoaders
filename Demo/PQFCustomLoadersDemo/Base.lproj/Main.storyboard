@@ -34,7 +34,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="..." textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
                                 <rect key="frame" x="0.0" y="540" width="600" height="60"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -50,21 +50,45 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0n-rf-dn4">
+                                <rect key="frame" x="215" y="478" width="170" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="8SU-jC-6Tp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="PRESENT MODALLY">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="presentLoaderModally:" destination="S4R-Ja-viH" eventType="touchUpInside" id="BlF-nk-6Gq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96989458799999995" green="0.44270280000000001" blue="0.48269057269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="4" id="1qU-VX-ivZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="-16" id="2bY-Y8-3V5"/>
+                            <constraint firstAttribute="centerX" secondItem="g0n-rf-dn4" secondAttribute="centerX" id="6Yn-hg-l1J"/>
+                            <constraint firstItem="g0n-rf-dn4" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="50" id="ATy-LM-HRG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="g0n-rf-dn4" secondAttribute="trailing" constant="50" id="EH7-on-iVi"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="4" id="J4M-h9-iSK"/>
                             <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="cF2-Le-7mQ" secondAttribute="bottom" id="PLp-sA-HU0"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="fXf-Jd-eTc" secondAttribute="bottom" constant="50" id="Tm6-Jr-ztn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="g0n-rf-dn4" secondAttribute="trailing" constant="20" id="YkM-46-BFB"/>
+                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="g0n-rf-dn4" secondAttribute="bottom" constant="30" id="arV-kW-bbA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="4" id="dP1-Av-jrL"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="-16" id="i0x-3k-x2f"/>
+                            <constraint firstItem="g0n-rf-dn4" firstAttribute="trailing" secondItem="ZwX-cT-FIQ" secondAttribute="trailingMargin" constant="20" id="mZK-4Z-wgm"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="4" id="wd9-0N-ffS"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="ATy-LM-HRG"/>
+                                <exclude reference="EH7-on-iVi"/>
+                                <exclude reference="YkM-46-BFB"/>
+                                <exclude reference="mZK-4Z-wgm"/>
                                 <exclude reference="1qU-VX-ivZ"/>
                                 <exclude reference="J4M-h9-iSK"/>
                                 <exclude reference="Tm6-Jr-ztn"/>
@@ -75,6 +99,7 @@
                     </view>
                     <connections>
                         <outlet property="dataLabel" destination="cF2-Le-7mQ" id="3EH-BK-JV6"/>
+                        <outlet property="presentModallyOutlet" destination="g0n-rf-dn4" id="MNP-Vm-wA6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>

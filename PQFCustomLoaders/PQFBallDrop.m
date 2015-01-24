@@ -110,6 +110,7 @@
 - (void)remove {
     [self hide];
     [self removeFromSuperview];
+    if (self.bgView) [self.bgView removeFromSuperview];
 }
 
 #pragma mark Custom Setters
