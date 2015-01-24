@@ -13,6 +13,8 @@
     BOOL generated;
 }
 
+@property (nonatomic, strong) UIView *bgView;
+
 @property (nonatomic, strong) NSArray *balls;
 @property (nonatomic) BOOL animate;
 @property (nonatomic, strong) UIView *loaderView;
@@ -23,8 +25,24 @@
 
 @implementation PQFCirclesInTriangle
 
+- (instancetype)initLoader
+{
+    self = [self initLoaderOnView:nil];
+    return self;
+}
+
 - (instancetype)initLoaderOnView:(UIView *)view {
     self = [super init];
+    
+    if (!view) {
+        UIWindow *window = [[UIApplication sharedApplication].delegate window];
+        view = [[UIView alloc] initWithFrame:window.frame];
+        self.bgView = view;
+        
+        view.userInteractionEnabled = YES;
+        
+        [window addSubview:view];
+    }
     
     [self defaultValues];
     
@@ -46,6 +64,8 @@
 - (void)defaultValues {
     generated = NO;
     
+    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+
     self.numberOfCircles = 6;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
@@ -78,6 +98,8 @@
 - (void)remove {
     [self hide];
     [self removeFromSuperview];
+    if (self.bgView) [self.bgView removeFromSuperview];
+
 }
 
 #pragma mark Custom Setters

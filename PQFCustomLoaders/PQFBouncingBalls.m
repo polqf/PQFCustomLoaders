@@ -13,6 +13,8 @@
     BOOL generated;
 }
 
+@property (nonatomic, strong) UIView *bgView;
+
 @property CALayer *ball1;
 @property CALayer *ball2;
 @property CALayer *ball3;
@@ -27,8 +29,24 @@
 
 @implementation PQFBouncingBalls
 
+- (instancetype)initLoader
+{
+    self = [self initLoaderOnView:nil];
+    return self;
+}
+
 - (instancetype)initLoaderOnView:(UIView *)view {
     self = [super init];
+    
+    if (!view) {
+        UIWindow *window = [[UIApplication sharedApplication].delegate window];
+        view = [[UIView alloc] initWithFrame:window.frame];
+        self.bgView = view;
+        
+        view.userInteractionEnabled = YES;
+        
+        [window addSubview:view];
+    }
     
     [self defaultValues];
     
@@ -50,6 +68,8 @@
 - (void)defaultValues {
     generated = NO;
     
+    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
@@ -81,6 +101,7 @@
 - (void)remove {
     [self hide];
     [self removeFromSuperview];
+    if (self.bgView) [self.bgView removeFromSuperview];
 }
 
 #pragma mark Custom Setters

@@ -78,7 +78,7 @@
     
     generated = NO;
 
-    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
+    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     
     self.restart = YES;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
