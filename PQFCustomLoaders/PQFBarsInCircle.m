@@ -11,7 +11,9 @@
 
 #define degreesToRadians(x) (M_PI * x /180.0)
 
-@interface PQFBarsInCircle ()
+@interface PQFBarsInCircle () {
+    BOOL generated;
+}
 
 @property (nonatomic, strong) NSArray *bars;
 @property (nonatomic, strong) NSMutableArray *widthsArray;
@@ -47,6 +49,8 @@
 }
 
 - (void)defaultValues{
+    generated = NO;
+    
     self.numberOfBars = 35;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.loaderAlpha = 1.0;
@@ -69,7 +73,7 @@
 - (void)show {
     self.alpha = 1.0;
     self.animate = YES;
-    [self generateLoader];
+    if (!generated)[self generateLoader];
     [self animateRotation];
     [self startAnimation];
 }
@@ -92,6 +96,8 @@
     self.heightArray = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
     
     //GenerateFrames
+    generated = YES;
+    
     self.layer.cornerRadius = self.cornerRadius;
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.barHeightMax*2 + 20);
     self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.barHeightMax*2 + 10);

@@ -10,7 +10,9 @@
 #import <UIColor+FlatColors.h>
 #import <pop/POP.h>
 
-@interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate>
+@interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate> {
+    BOOL generated;
+}
 
 @property (nonatomic, strong) UIView *bgView;
 
@@ -74,6 +76,8 @@
 
 - (void)defaultValues {
     
+    generated = NO;
+
     self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     
     self.restart = YES;
@@ -94,7 +98,7 @@
 - (void)show {
     self.alpha = 1.0;
     self.animate = YES;
-    [self generateLoader];
+    if (!generated)[self generateLoader];
     [self animateDrop];
 }
 
@@ -115,6 +119,8 @@
 
 - (void)generateLoader {
     //GenerateFrames
+    generated = YES;
+    
     self.layer.cornerRadius = self.cornerRadius;
     self.rectSize = self.maxDiam;
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.rectSize + 20);
@@ -190,10 +196,6 @@
     [self.mainAnimator addBehavior:collision];
 }
 
-- (void)crashAnimation {
-    
-}
-
 - (void)animateMainBall {
 
     POPSpringAnimation *bounds = [POPSpringAnimation animationWithPropertyNamed:kPOPViewBounds];
@@ -227,7 +229,6 @@
         if ([@"boundary" isEqualToString:(NSString *)identifier]) {
             self.animate = NO;
             self.fallingBall.hidden = YES;
-            [self crashAnimation];
             [self animateMainBall];
         }
     }

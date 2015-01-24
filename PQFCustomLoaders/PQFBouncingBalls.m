@@ -9,7 +9,9 @@
 #import "PQFBouncingBalls.h"
 #import <UIColor+FlatColors.h>
 
-@interface PQFBouncingBalls ()
+@interface PQFBouncingBalls () {
+    BOOL generated;
+}
 
 @property CALayer *ball1;
 @property CALayer *ball2;
@@ -46,6 +48,8 @@
 }
 
 - (void)defaultValues {
+    generated = NO;
+    
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
@@ -65,7 +69,7 @@
 - (void)show {
     self.alpha = 1.0;
     self.animate = YES;
-    [self generateLoader];
+    if (!generated) [self generateLoader];
     [self startAnimation];
 }
 
@@ -86,6 +90,8 @@
 - (void)generateLoader {
     
     //Generate frames
+    generated = YES;
+    
     self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.rectSize + 40);
     self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.rectSize + 10);

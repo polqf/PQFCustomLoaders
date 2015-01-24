@@ -8,55 +8,49 @@
 
 #import "DataViewController.h"
 
-@interface DataViewController ()
+@interface DataViewController () {
+    BOOL _showing;
+}
 
 @end
 
 @implementation DataViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (self.ballDrop) {
-        self.dataLabel.text = NSStringFromClass([self.ballDrop class]);
-        [self.ballDrop show];
-    }
-    else if (self.barsInCircle) {
-        self.dataLabel.text = NSStringFromClass([self.barsInCircle class]);
-        [self.barsInCircle show];
-    }
-    else if (self.bouncingBalls) {
-        self.dataLabel.text = NSStringFromClass([self.bouncingBalls class]);
-        [self.bouncingBalls show];
-    }
-    else if (self.circlesInTriangle) {
-        self.dataLabel.text = NSStringFromClass([self.circlesInTriangle class]);
-        [self.circlesInTriangle show];
-    }
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.dataLabel.text = NSStringFromClass([self.loader class]);
+    
+    if (_showing) return;
+    
+    [self showLoader];
+    _showing = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
     
-    if (self.ballDrop) {
-        [self.ballDrop hide];
-    }
-    else if (self.barsInCircle) {
-        [self.barsInCircle hide];
-    }
-    else if (self.bouncingBalls) {
-        [self.bouncingBalls hide];
-    }
-    else if (self.circlesInTriangle) {
-        [self.circlesInTriangle hide];
-    }
+    [self.loader remove];
+    _showing = NO;
 }
+
+- (void)showLoader
+{
+    self.loader = [[[self.loader class] alloc] initLoaderOnView:self.view];
+    [self.loader show];
+}
+
 
 @end

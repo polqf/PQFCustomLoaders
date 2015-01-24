@@ -12,10 +12,7 @@
 @interface DataViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UILabel *dataLabel;
-@property (nonatomic, strong) PQFBallDrop *ballDrop;
-@property (nonatomic, strong) PQFBarsInCircle *barsInCircle;
-@property (nonatomic, strong) PQFBouncingBalls *bouncingBalls;
-@property (nonatomic, strong) PQFCirclesInTriangle *circlesInTriangle;
+@property (nonatomic) id loader;
 
 @end
 

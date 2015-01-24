@@ -41,20 +41,7 @@
 
 - (NSUInteger)indexOfViewController:(DataViewController *)viewController {
     
-    NSString *loaderClass;
-    
-    if (viewController.ballDrop) {
-        loaderClass = NSStringFromClass([viewController.ballDrop class]);
-    }
-    else if (viewController.barsInCircle) {
-        loaderClass = NSStringFromClass([viewController.barsInCircle class]);
-    }
-    else if (viewController.bouncingBalls) {
-        loaderClass = NSStringFromClass([viewController.bouncingBalls class]);
-    }
-    else if (viewController.circlesInTriangle) {
-        loaderClass = NSStringFromClass([viewController.circlesInTriangle class]);
-    }
+    NSString *loaderClass = NSStringFromClass([viewController.loader class]);
 
     return [self.pageData indexOfObject:loaderClass];
 }
@@ -64,8 +51,11 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSUInteger index = [self indexOfViewController:(DataViewController *)viewController];
-    if ((index == 0) || (index == NSNotFound)) {
+    if (index == NSNotFound) {
         return nil;
+    }
+    else if (index == 0) {
+        return [self viewControllerAtIndex:[self.pageData count] - 1 storyboard:viewController.storyboard];
     }
     
     index--;
@@ -82,7 +72,7 @@
     
     index++;
     if (index == [self.pageData count]) {
-        return nil;
+        return [self viewControllerAtIndex:0 storyboard:viewController.storyboard];
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
 }
@@ -92,16 +82,16 @@
 - (void)prepareLoaderAtIndex:(NSUInteger)index onViewController:(DataViewController *)viewController {
     
     if (index == 0) {
-        viewController.circlesInTriangle = [[PQFCirclesInTriangle alloc] initLoaderOnView:viewController.view];
+        viewController.loader = [PQFCirclesInTriangle new];
     }
     if (index == 1) {
-        viewController.barsInCircle = [[PQFBarsInCircle alloc] initLoaderOnView:viewController.view];
+        viewController.loader = [PQFBarsInCircle new];
     }
     if (index == 2) {
-        viewController.bouncingBalls = [[PQFBouncingBalls alloc] initLoaderOnView:viewController.view];
+        viewController.loader = [PQFBouncingBalls new];
     }
     if (index == 3) {
-        viewController.ballDrop = [[PQFBallDrop alloc] initLoaderOnView:viewController.view];
+        viewController.loader = [PQFBallDrop new];
     }
     
 }

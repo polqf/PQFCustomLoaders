@@ -41,7 +41,7 @@
     self.pageViewController.view.frame = pageViewRect;
 
     [self.pageViewController didMoveToParentViewController:self];
-
+    
     self.view.gestureRecognizers = self.pageViewController.gestureRecognizers;
 }
 
@@ -75,6 +75,7 @@
     NSUInteger indexOfCurrentViewController = [self.modelController indexOfViewController:currentViewController];
     if (indexOfCurrentViewController == 0 || indexOfCurrentViewController % 2 == 0) {
         UIViewController *nextViewController = [self.modelController pageViewController:self.pageViewController viewControllerAfterViewController:currentViewController];
+        
         viewControllers = @[currentViewController, nextViewController];
     } else {
         UIViewController *previousViewController = [self.modelController pageViewController:self.pageViewController viewControllerBeforeViewController:currentViewController];

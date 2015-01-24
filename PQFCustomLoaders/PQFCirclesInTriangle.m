@@ -9,7 +9,9 @@
 #import "PQFCirclesInTriangle.h"
 #import <UIColor+FlatColors.h>
 
-@interface PQFCirclesInTriangle ()
+@interface PQFCirclesInTriangle () {
+    BOOL generated;
+}
 
 @property (nonatomic, strong) NSArray *balls;
 @property (nonatomic) BOOL animate;
@@ -42,6 +44,8 @@
 }
 
 - (void)defaultValues {
+    generated = NO;
+    
     self.numberOfCircles = 6;
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
@@ -62,7 +66,7 @@
 - (void)show {
     self.alpha = 1.0;
     self.animate = YES;
-    [self generateLoader];
+    if (!generated)[self generateLoader];
     [self startAnimation];
 }
 
@@ -83,6 +87,8 @@
 
 - (void)generateLoader {
     //GenerateFrames
+    generated = YES;
+    
     self.layer.cornerRadius = self.cornerRadius;
     self.rectSize = self.separation*2 + self.maxDiam;
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.rectSize + 20);
