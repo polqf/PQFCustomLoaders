@@ -31,7 +31,7 @@
     [self defaultValues];
     
     self.frame = CGRectMake(0, 0, view.frame.size.width, self.rectSize + 40);
-    self.center = view.center;
+    self.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
     
     //[self setClipsToBounds:YES];
     
