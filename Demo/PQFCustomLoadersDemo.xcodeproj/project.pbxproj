@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C14452681A5AE690006D49BA /* PQFBallDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = C14452601A5AE690006D49BA /* PQFBallDrop.m */; };
-		C14452691A5AE690006D49BA /* PQFBarsInCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C14452621A5AE690006D49BA /* PQFBarsInCircle.m */; };
-		C144526A1A5AE690006D49BA /* PQFBouncingBalls.m in Sources */ = {isa = PBXBuildFile; fileRef = C14452641A5AE690006D49BA /* PQFBouncingBalls.m */; };
-		C144526B1A5AE690006D49BA /* PQFCirclesInTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = C14452661A5AE690006D49BA /* PQFCirclesInTriangle.m */; };
 		C1D2C16E1A5ADBF4006DF47E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C16D1A5ADBF4006DF47E /* main.m */; };
 		C1D2C1711A5ADBF4006DF47E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C1701A5ADBF4006DF47E /* AppDelegate.m */; };
 		C1D2C1741A5ADBF4006DF47E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C1731A5ADBF4006DF47E /* RootViewController.m */; };
@@ -20,6 +16,7 @@
 		C1D2C17F1A5ADBF4006DF47E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1D2C17E1A5ADBF4006DF47E /* Images.xcassets */; };
 		C1D2C1821A5ADBF4006DF47E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1D2C1801A5ADBF4006DF47E /* LaunchScreen.xib */; };
 		C1D2C18E1A5ADBF4006DF47E /* PQFCustomLoadersDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C18D1A5ADBF4006DF47E /* PQFCustomLoadersDemoTests.m */; };
+		C1FFCE4E1A85567800F45B2D /* PQFCustomLoaders.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FFCE4D1A85567800F45B2D /* PQFCustomLoaders.m */; };
 		D66346A3EA182671D9815DEB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F08A3B0A32D39E0205137E /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -36,15 +33,6 @@
 /* Begin PBXFileReference section */
 		63ABD20E4B8C50AE723C45F7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AB70CEC19EB88C5D490D74B5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		C144525F1A5AE690006D49BA /* PQFBallDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFBallDrop.h; path = ../../PQFCustomLoaders/PQFBallDrop.h; sourceTree = "<group>"; };
-		C14452601A5AE690006D49BA /* PQFBallDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFBallDrop.m; path = ../../PQFCustomLoaders/PQFBallDrop.m; sourceTree = "<group>"; };
-		C14452611A5AE690006D49BA /* PQFBarsInCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFBarsInCircle.h; path = ../../PQFCustomLoaders/PQFBarsInCircle.h; sourceTree = "<group>"; };
-		C14452621A5AE690006D49BA /* PQFBarsInCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFBarsInCircle.m; path = ../../PQFCustomLoaders/PQFBarsInCircle.m; sourceTree = "<group>"; };
-		C14452631A5AE690006D49BA /* PQFBouncingBalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFBouncingBalls.h; path = ../../PQFCustomLoaders/PQFBouncingBalls.h; sourceTree = "<group>"; };
-		C14452641A5AE690006D49BA /* PQFBouncingBalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFBouncingBalls.m; path = ../../PQFCustomLoaders/PQFBouncingBalls.m; sourceTree = "<group>"; };
-		C14452651A5AE690006D49BA /* PQFCirclesInTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFCirclesInTriangle.h; path = ../../PQFCustomLoaders/PQFCirclesInTriangle.h; sourceTree = "<group>"; };
-		C14452661A5AE690006D49BA /* PQFCirclesInTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFCirclesInTriangle.m; path = ../../PQFCustomLoaders/PQFCirclesInTriangle.m; sourceTree = "<group>"; };
-		C14452671A5AE690006D49BA /* PQFCustomLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFCustomLoaders.h; path = ../../PQFCustomLoaders/PQFCustomLoaders.h; sourceTree = "<group>"; };
 		C1D2C1681A5ADBF4006DF47E /* PQFCustomLoadersDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PQFCustomLoadersDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D2C16C1A5ADBF4006DF47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1D2C16D1A5ADBF4006DF47E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -62,6 +50,16 @@
 		C1D2C1871A5ADBF4006DF47E /* PQFCustomLoadersDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PQFCustomLoadersDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D2C18C1A5ADBF4006DF47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1D2C18D1A5ADBF4006DF47E /* PQFCustomLoadersDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQFCustomLoadersDemoTests.m; sourceTree = "<group>"; };
+		C1FFCE4C1A85567800F45B2D /* PQFCustomLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFCustomLoaders.h; path = ../../PQFCustomLoaders/PQFCustomLoaders.h; sourceTree = "<group>"; };
+		C1FFCE4D1A85567800F45B2D /* PQFCustomLoaders.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFCustomLoaders.m; path = ../../PQFCustomLoaders/PQFCustomLoaders.m; sourceTree = "<group>"; };
+		C1FFCE4F1A855B4F00F45B2D /* PQFBallDrop2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBallDrop2.h; sourceTree = "<group>"; };
+		C1FFCE501A855B4F00F45B2D /* PQFBallDrop2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBallDrop2.m; sourceTree = "<group>"; };
+		C1FFCE511A855B4F00F45B2D /* PQFBarsInCircle2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBarsInCircle2.h; sourceTree = "<group>"; };
+		C1FFCE521A855B4F00F45B2D /* PQFBarsInCircle2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBarsInCircle2.m; sourceTree = "<group>"; };
+		C1FFCE531A855B4F00F45B2D /* PQFBouncingBalls2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBouncingBalls2.h; sourceTree = "<group>"; };
+		C1FFCE541A855B4F00F45B2D /* PQFBouncingBalls2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBouncingBalls2.m; sourceTree = "<group>"; };
+		C1FFCE551A855B4F00F45B2D /* PQFCirclesInTriangle2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFCirclesInTriangle2.h; sourceTree = "<group>"; };
+		C1FFCE561A855B4F00F45B2D /* PQFCirclesInTriangle2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFCirclesInTriangle2.m; sourceTree = "<group>"; };
 		E0F08A3B0A32D39E0205137E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -186,17 +184,26 @@
 		C1D2C1A41A5AE5C3006DF47E /* PQFCustomLoaders */ = {
 			isa = PBXGroup;
 			children = (
-				C14452671A5AE690006D49BA /* PQFCustomLoaders.h */,
-				C144525F1A5AE690006D49BA /* PQFBallDrop.h */,
-				C14452601A5AE690006D49BA /* PQFBallDrop.m */,
-				C14452611A5AE690006D49BA /* PQFBarsInCircle.h */,
-				C14452621A5AE690006D49BA /* PQFBarsInCircle.m */,
-				C14452631A5AE690006D49BA /* PQFBouncingBalls.h */,
-				C14452641A5AE690006D49BA /* PQFBouncingBalls.m */,
-				C14452651A5AE690006D49BA /* PQFCirclesInTriangle.h */,
-				C14452661A5AE690006D49BA /* PQFCirclesInTriangle.m */,
+				C1FFCE4C1A85567800F45B2D /* PQFCustomLoaders.h */,
+				C1FFCE4D1A85567800F45B2D /* PQFCustomLoaders.m */,
+				C1FFCE5B1A855B9E00F45B2D /* Old */,
 			);
 			name = PQFCustomLoaders;
+			sourceTree = "<group>";
+		};
+		C1FFCE5B1A855B9E00F45B2D /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				C1FFCE531A855B4F00F45B2D /* PQFBouncingBalls2.h */,
+				C1FFCE541A855B4F00F45B2D /* PQFBouncingBalls2.m */,
+				C1FFCE511A855B4F00F45B2D /* PQFBarsInCircle2.h */,
+				C1FFCE521A855B4F00F45B2D /* PQFBarsInCircle2.m */,
+				C1FFCE551A855B4F00F45B2D /* PQFCirclesInTriangle2.h */,
+				C1FFCE561A855B4F00F45B2D /* PQFCirclesInTriangle2.m */,
+				C1FFCE4F1A855B4F00F45B2D /* PQFBallDrop2.h */,
+				C1FFCE501A855B4F00F45B2D /* PQFBallDrop2.m */,
+			);
+			name = Old;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,14 +342,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1D2C1771A5ADBF4006DF47E /* DataViewController.m in Sources */,
-				C144526B1A5AE690006D49BA /* PQFCirclesInTriangle.m in Sources */,
-				C14452691A5AE690006D49BA /* PQFBarsInCircle.m in Sources */,
+				C1FFCE4E1A85567800F45B2D /* PQFCustomLoaders.m in Sources */,
 				C1D2C1711A5ADBF4006DF47E /* AppDelegate.m in Sources */,
 				C1D2C17A1A5ADBF4006DF47E /* ModelController.m in Sources */,
-				C14452681A5AE690006D49BA /* PQFBallDrop.m in Sources */,
 				C1D2C16E1A5ADBF4006DF47E /* main.m in Sources */,
 				C1D2C1741A5ADBF4006DF47E /* RootViewController.m in Sources */,
-				C144526A1A5AE690006D49BA /* PQFBouncingBalls.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -81,18 +81,18 @@
 
 - (void)prepareLoaderAtIndex:(NSUInteger)index onViewController:(DataViewController *)viewController {
     
-    if (index == 0) {
-        viewController.loader = [PQFCirclesInTriangle new];
-    }
-    if (index == 1) {
-        viewController.loader = [PQFBarsInCircle new];
-    }
-    if (index == 2) {
-        viewController.loader = [PQFBouncingBalls new];
-    }
-    if (index == 3) {
-        viewController.loader = [PQFBallDrop new];
-    }
+//    if (index == 0) {
+//        viewController.loader = [PQFCirclesInTriangle new];
+//    }
+//    if (index == 1) {
+//        viewController.loader = [PQFBarsInCircle new];
+//    }
+//    if (index == 2) {
+//        viewController.loader = [PQFBouncingBalls new];
+//    }
+//    if (index == 3) {
+//        viewController.loader = [PQFBallDrop new];
+//    }
     
 }
 

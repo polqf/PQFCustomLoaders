@@ -12,6 +12,7 @@
 
 @interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate> {
     BOOL generated;
+    BOOL animationFinished;
 }
 
 @property (nonatomic, strong) UIView *bgView;
@@ -77,6 +78,7 @@
 - (void)defaultValues {
     
     generated = NO;
+    animationFinished = YES;
 
     self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     
@@ -99,7 +101,7 @@
     self.alpha = 1.0;
     self.animate = YES;
     if (!generated)[self generateLoader];
-    [self animateDrop];
+    if (animationFinished)[self animateDrop];
 }
 
 - (void)hide {
@@ -171,6 +173,7 @@
 }
 
 - (void)animateDrop {
+    animationFinished = NO;
     self.fallingBall.center = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, 0);
     self.fallingBall.hidden = NO;
     
@@ -225,11 +228,13 @@
 }
 
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p {
-    
+    animationFinished = YES;
+    NSLog(@"Touch");
     if (self.animate) {
         if ([@"boundary" isEqualToString:(NSString *)identifier]) {
             self.animate = NO;
             self.fallingBall.hidden = YES;
+            animationFinished = NO;
             [self animateMainBall];
         }
     }

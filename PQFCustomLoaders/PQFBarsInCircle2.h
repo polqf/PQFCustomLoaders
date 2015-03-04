@@ -22,6 +22,8 @@
 @property (nonatomic) CGFloat rotationSpeed;
 @property (nonatomic, strong) UILabel *label;
 
++ (instancetype)showLoaderOnView:(UIView *)view;
+
 - (instancetype)initLoader;
 - (instancetype)initLoaderOnView:(UIView *)view;
 

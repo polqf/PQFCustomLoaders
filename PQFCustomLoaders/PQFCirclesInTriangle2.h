@@ -21,6 +21,8 @@
 @property (nonatomic) CGFloat duration;
 @property (nonatomic, strong) UILabel *label;
 
++ (instancetype)showLoaderOnView:(UIView *)view;
+
 - (instancetype)initLoader;
 - (instancetype)initLoaderOnView:(UIView *)view;
 

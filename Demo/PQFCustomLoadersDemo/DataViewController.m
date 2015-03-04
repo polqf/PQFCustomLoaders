@@ -65,15 +65,24 @@
 
 - (IBAction)presentLoaderModally:(id)sender
 {
-    if ([self.loader respondsToSelector:@selector(initLoader)]) {
-        [self.loader remove];
-        self.modalLoader = [[[self.loader class] alloc] initLoader];
-        [self.modalLoader show];
-        
-        UIWindow *window = [[UIApplication sharedApplication].delegate window];
-        
-        [window addSubview:self.modalButton];
-    }
+//    if ([self.loader respondsToSelector:@selector(initLoader)]) {
+//        [self.loader remove];
+//        self.modalLoader = [[[self.loader class] alloc] initLoader];
+//        [self.modalLoader show];
+//        
+//        UIWindow *window = [[UIApplication sharedApplication].delegate window];
+//        
+//        [window addSubview:self.modalButton];
+//    }
+    
+    [self.loader remove];
+    //[self performSelector:@selector(test) withObject:self afterDelay:3];
+    [self.loader show];
+}
+
+- (void)test
+{
+    [self.loader show];
 }
 
 - (void)hideModal

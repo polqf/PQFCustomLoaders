@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Pol Quintana. All rights reserved.
 //
 
-#import "PQFCirclesInTriangle.h"
+#import "PQFCirclesInTriangle2.h"
 #import <UIColor+FlatColors.h>
 
 @interface PQFCirclesInTriangle () {
@@ -162,6 +162,7 @@
     
     if ([self.label.text isEqualToString:@""]) {
         self.label.text = nil;
+        return;
     }
     
     if (self.label.text) {
