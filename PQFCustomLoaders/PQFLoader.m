@@ -1,18 +1,18 @@
 //
-//  PQFCustomLoaders.m
+//  PQFLoader.m
 //  PQFCustomLoadersDemo
 //
-//  Created by Pol Quintana on 6/2/15.
+//  Created by Pol Quintana on 6/3/15.
 //  Copyright (c) 2015 Pol Quintana. All rights reserved.
 //
 
-#import "PQFCustomLoaders.h"
+#import "PQFLoader.h"
 
-@implementation PQFCustomLoaders
+@implementation PQFLoader
 
 + (id)showModalLoader:(PQFLoaderType)loaderType
 {
-    return [PQFCustomLoaders showLoader:loaderType onView:nil];
+    return [PQFLoader showLoader:loaderType onView:nil];
 }
 
 + (id)showLoader:(PQFLoaderType)loaderType onView:(UIView *)view
@@ -32,13 +32,13 @@
             break;
     }
     
-    return [PQFCustomLoaders new];
+    return [PQFLoader new];
 }
 
 + (void)removeAllLoadersOnView:(UIView *)view
 {
     for (UIView *subview in view.subviews) {
-        if ([subview isKindOfClass:[PQFCustomLoaders class]]) {
+        if ([subview isKindOfClass:[PQFLoader class]]) {
             [subview removeFromSuperview];
         }
     }

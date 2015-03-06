@@ -50,14 +50,14 @@
 {
     [super viewDidDisappear:animated];
     
-    [self.loader remove];
+    [self.loader removeLoader];
     _showing = NO;
 }
 
 - (void)showLoader
 {
-    self.loader = [[[self.loader class] alloc] initLoaderOnView:self.view];
-    [self.loader show];
+    self.loader = [PQFCustomLoaders showLoader:(int)self.pageIndex onView:self.view];
+    [self.loader showLoader];
 }
 
 
@@ -75,20 +75,20 @@
 //        [window addSubview:self.modalButton];
 //    }
     
-    [self.loader remove];
+    [self.loader removeLoader];
     //[self performSelector:@selector(test) withObject:self afterDelay:3];
-    [self.loader show];
+    [self.loader showLoader];
 }
 
 - (void)test
 {
-    [self.loader show];
+    [self.loader showLoader];
 }
 
 - (void)hideModal
 {
     [self showLoader];
-    [self.modalLoader remove];
+    [self.modalLoader removeLoader];
     [self.modalButton removeFromSuperview];
 }
 
