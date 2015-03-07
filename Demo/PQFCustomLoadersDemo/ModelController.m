@@ -22,7 +22,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _pageData = @[@"PQFCirclesInTriangle", @"PQFBarsInCircle", @"PQFBouncingBalls", @"PQFBallDrop"];
+        _pageData = @[@"PQFBouncingBalls", @"PQFBarsInCircle", @"PQFCirclesInTriangle", @"PQFBallDrop"];
     }
     return self;
 }
@@ -33,8 +33,7 @@
     }
 
     DataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
-    
-    [self prepareLoaderAtIndex:index onViewController:dataViewController];
+    dataViewController.pageIndex = index;
     
     return dataViewController;
 }
@@ -75,25 +74,6 @@
         return [self viewControllerAtIndex:0 storyboard:viewController.storyboard];
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
-}
-
-#pragma mark - Add loaders
-
-- (void)prepareLoaderAtIndex:(NSUInteger)index onViewController:(DataViewController *)viewController {
-    
-//    if (index == 0) {
-//        viewController.loader = [PQFCirclesInTriangle new];
-//    }
-//    if (index == 1) {
-//        viewController.loader = [PQFBarsInCircle new];
-//    }
-//    if (index == 2) {
-//        viewController.loader = [PQFBouncingBalls new];
-//    }
-//    if (index == 3) {
-//        viewController.loader = [PQFBallDrop new];
-//    }
-    
 }
 
 

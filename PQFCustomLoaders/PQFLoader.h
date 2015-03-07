@@ -15,7 +15,7 @@ typedef enum {
     PQFLoaderTypeBallDrop = 3
 } PQFLoaderType;
 
-@interface PQFLoader : NSObject
+@interface PQFLoader : UIView
 
 //Common Properties
 @property (nonatomic, strong) UILabel *textLabel;
@@ -63,5 +63,13 @@ typedef enum {
  *  This method is going to remove the sender(loader) from its superview.
  */
 - (void)removeLoader;
+
+
+#pragma mark Deprecated methods
+
+- (instancetype)initLoaderOnView:(UIView *)view __deprecated_msg("Use '+createLoader:onView:'");
+- (void)remove __deprecated_msg("Use 'removeLoader'");
+- (void)show __deprecated_msg("User 'showLoader'");
+- (void)hide __deprecated_msg("Use 'hideLoader'");
 
 @end

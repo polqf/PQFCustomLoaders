@@ -8,6 +8,43 @@
 
 #import "PQFBallDrop.h"
 
+@interface PQFBallDrop ()
+
+@end
+
 @implementation PQFBallDrop
+
+
+#pragma mark - PQFLoader methods
+
++ (instancetype)showLoader:(PQFLoaderType)loaderType onView:(UIView *)view
+{
+    PQFBallDrop *loader = [self createLoader:loaderType onView:nil];
+    [loader showLoader];
+    return nil;
+}
+
++ (id)createLoader:(PQFLoaderType)loaderType onView:(UIView *)view
+{
+    if (!view) {
+        
+    }
+    return nil;
+}
+
+- (void)showLoader
+{
+    
+}
+
+- (void)hideLoader
+{
+    
+}
+
+- (void)removeLoader
+{
+    
+}
 
 @end

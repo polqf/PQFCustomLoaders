@@ -10,4 +10,33 @@
 
 @implementation PQFBarsInCircle
 
+
+#pragma mark - PQFLoader methods
+
++ (instancetype)showLoader:(PQFLoaderType)loaderType onView:(UIView *)view
+{
+    PQFBarsInCircle *loader = [self createLoader:loaderType onView:nil];
+    return nil;
+}
+
++ (id)createLoader:(PQFLoaderType)loaderType onView:(UIView *)view
+{
+    return nil;
+}
+
+- (void)showLoader
+{
+    
+}
+
+- (void)hideLoader
+{
+    
+}
+
+- (void)removeLoader
+{
+    
+}
+
 @end

@@ -10,9 +10,9 @@
 
 @interface DataViewController () {
     BOOL _showing;
+    BOOL _showingModal;
 }
 @property (weak, nonatomic) IBOutlet UIButton *presentModallyOutlet;
-@property (nonatomic, strong) id modalLoader;
 @property (nonatomic, strong) UIButton *modalButton;
 
 @end
@@ -22,42 +22,33 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.presentModallyOutlet.layer.cornerRadius = 4;
-    self.presentModallyOutlet.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.presentModallyOutlet.layer.borderWidth = .5;
-    self.presentModallyOutlet.layer.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.1].CGColor;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
+    self.presentModallyOutlet.layer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.9].CGColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     self.dataLabel.text = NSStringFromClass([self.loader class]);
-    
     if (_showing) return;
-    
-    [self showLoader];
+    [self.loader performSelector:@selector(showLoader) withObject:nil afterDelay:0];
     _showing = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    
     [self.loader removeLoader];
+    self.loader = nil;
     _showing = NO;
+    _showingModal = NO;
 }
 
-- (void)showLoader
+- (void)viewWillDisappear:(BOOL)animated
 {
-    self.loader = [PQFCustomLoaders showLoader:(int)self.pageIndex onView:self.view];
-    [self.loader showLoader];
+    [super viewWillDisappear:animated];
+    if (!_showingModal) return;
+    [self presentLoaderModally:self];
 }
 
 
@@ -65,45 +56,41 @@
 
 - (IBAction)presentLoaderModally:(id)sender
 {
-//    if ([self.loader respondsToSelector:@selector(initLoader)]) {
-//        [self.loader remove];
-//        self.modalLoader = [[[self.loader class] alloc] initLoader];
-//        [self.modalLoader show];
-//        
-//        UIWindow *window = [[UIApplication sharedApplication].delegate window];
-//        
-//        [window addSubview:self.modalButton];
-//    }
-    
-    [self.loader removeLoader];
-    //[self performSelector:@selector(test) withObject:self afterDelay:3];
-    [self.loader showLoader];
-}
-
-- (void)test
-{
-    [self.loader showLoader];
-}
-
-- (void)hideModal
-{
-    [self showLoader];
-    [self.modalLoader removeLoader];
-    [self.modalButton removeFromSuperview];
+    if (!_showingModal) {
+        [self.loader removeLoader];
+        self.loader = [PQFLoader createModalLoader:(int)self.pageIndex];
+        [self.loader performSelector:@selector(showLoader) withObject:nil afterDelay:0];
+        [[[UIApplication sharedApplication].delegate window] addSubview:self.modalButton];
+        _showingModal = YES;
+    }
+    else {
+        [self.loader removeLoader];
+        self.loader = nil;
+        [self.modalButton removeFromSuperview];
+        [self.loader showLoader];
+        _showingModal = NO;
+    }
 }
 
 
 #pragma mark - Lazy
 
+- (PQFLoader *)loader
+{
+    if (!_loader) {
+        _loader = [PQFLoader createLoader:(int)self.pageIndex onView:self.view];
+    }
+    return _loader;
+}
 - (UIButton *)modalButton
 {
     if (!_modalButton) {
         _modalButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 180, 40)];
-        _modalButton.layer.backgroundColor = [UIColor redColor].CGColor;
+        _modalButton.layer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1.0].CGColor;
         _modalButton.layer.cornerRadius = 4;
         [_modalButton setTitle:@"Hide Modal" forState:UIControlStateNormal];
         _modalButton.center = self.presentModallyOutlet.center;
-        [_modalButton addTarget:self action:@selector(hideModal) forControlEvents:UIControlEventTouchUpInside];
+        [_modalButton addTarget:self action:@selector(presentLoaderModally:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _modalButton;
