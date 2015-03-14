@@ -58,7 +58,6 @@ typedef enum {
 + (void)removeAllLoadersOnView:(UIView *)view;
 
 - (void)showLoader;
-- (void)hideLoader;
 /**
  *  This method is going to remove the sender(loader) from its superview.
  */
@@ -70,6 +69,6 @@ typedef enum {
 - (instancetype)initLoaderOnView:(UIView *)view __deprecated_msg("Use '+createLoader:onView:'");
 - (void)remove __deprecated_msg("Use 'removeLoader'");
 - (void)show __deprecated_msg("User 'showLoader'");
-- (void)hide __deprecated_msg("Use 'hideLoader'");
+- (void)hide __deprecated_msg("Use 'removeLoader'");
 
 @end

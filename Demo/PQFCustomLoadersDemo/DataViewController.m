@@ -31,7 +31,7 @@
     [super viewDidAppear:animated];
     self.dataLabel.text = NSStringFromClass([self.loader class]);
     if (_showing) return;
-    [self.loader performSelector:@selector(showLoader) withObject:nil afterDelay:0];
+    [self.loader showLoader];
     _showing = YES;
 }
 
@@ -59,7 +59,7 @@
     if (!_showingModal) {
         [self.loader removeLoader];
         self.loader = [PQFLoader createModalLoader:(int)self.pageIndex];
-        [self.loader performSelector:@selector(showLoader) withObject:nil afterDelay:0];
+        [self.loader showLoader];
         [[[UIApplication sharedApplication].delegate window] addSubview:self.modalButton];
         _showingModal = YES;
     }

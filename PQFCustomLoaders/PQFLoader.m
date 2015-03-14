@@ -56,7 +56,6 @@
 
 - (void)removeLoader {}
 
-- (void)hideLoader {}
 
 #pragma mark - Helpers
 
@@ -91,7 +90,7 @@
 
 - (void)hide
 {
-    [self hideLoader];
+    [self removeLoader];
 }
 
 - (void)remove

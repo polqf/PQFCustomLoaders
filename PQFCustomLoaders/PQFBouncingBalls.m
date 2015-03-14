@@ -51,21 +51,21 @@
 
 - (void)showLoader
 {
+    [self performSelector:@selector(startShowingLoader) withObject:nil afterDelay:0];
+}
+
+- (void)startShowingLoader
+{
     self.hidden = NO;
     self.animate = YES;
     [self generateLoader];
     [self startAnimating];
 }
 
-- (void)hideLoader
+- (void)removeLoader
 {
     self.hidden = YES;
     self.animate = NO;
-}
-
-- (void)removeLoader
-{
-    [self hideLoader];
     [self removeFromSuperview];
 }
 
@@ -84,7 +84,6 @@
         bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
         [self addSubview:bgView];
     }
-    self.loaderView.backgroundColor = self.backgroundColor;
     
     //Add loader to its superview
     [view addSubview:self];
@@ -267,6 +266,20 @@
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     [self startAnimating];
+}
+
+
+#pragma mark - Custom setters
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    self.loaderView.backgroundColor = backgroundColor;
+}
+
+- (void)setLoaderAlpha:(CGFloat)loaderAlpha
+{
+    _loaderAlpha = loaderAlpha;
+    self.loaderView.alpha = loaderAlpha;
 }
 
 
