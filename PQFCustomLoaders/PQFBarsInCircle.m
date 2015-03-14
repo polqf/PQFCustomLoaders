@@ -187,6 +187,11 @@
 {
     if (!self.animate) return;
     [self animateRotation];
+    [self animateBars];
+}
+
+- (void)animateBars
+{
     for (int i = 0; i < self.numberOfBars; i++) {
         CALayer *bar = [self.bars objectAtIndex:i];
         [self animateBar:bar atIndex:i];
@@ -243,7 +248,7 @@
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     if ([@"anim1" isEqualToString:[anim valueForKey:@"animation"]]) {
-        [self startAnimating];
+        [self animateBars];
     }
     if ([@"anim2" isEqualToString:[anim valueForKey:@"animation"]]) {
         [self animateRotation];
