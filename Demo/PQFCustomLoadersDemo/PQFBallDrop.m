@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UIView *fallingBall;
 @property (nonatomic, strong) UIView *mainBall;
 @property (nonatomic, strong) UIDynamicAnimator *mainAnimator;
+@property (nonatomic, strong) UIGravityBehavior *gravityBehaviour;
+@property (nonatomic, strong) UICollisionBehavior *collisionBehaviour;
 @property (nonatomic) BOOL restart;
 @property (nonatomic) BOOL animate;
 
@@ -95,7 +97,7 @@
 
 - (void)defaultValues
 {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
+    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.restart = YES;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -132,8 +134,6 @@
     self.mainBall.frame = CGRectMake(0, 0, 0, 0);
     self.mainBall.layer.cornerRadius = 0;
     self.mainBall.center = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 , CGRectGetHeight(self.loaderView.frame)/2);
-    
-    self.mainAnimator;
 }
 
 - (void)layoutLabel
@@ -148,7 +148,7 @@
     
     self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.label.frame.size.height );
     
-    self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
+    self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10);
     self.center = CGPointMake(xCenter, yCenter);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
     
@@ -168,46 +168,57 @@
 }
 
 - (void)animateDrop {
-    if (CGRectGetWidth(self.mainBall.frame) >= self.maxDiam) {
-        self.mainBall.bounds = CGRectMake(0, 0, 0, 0);
-        self.restart = YES;
-    }
+    self.mainBall.alpha = 1.0;
     self.fallingBall.hidden = NO;
     self.fallingBall.center = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, 0);
+
+    [self.mainAnimator addBehavior:self.gravityBehaviour];
+    [self.mainAnimator addBehavior:self.collisionBehaviour];
 }
 
 - (void)animateMainBall {
     
     POPSpringAnimation *bounds = [POPSpringAnimation animationWithPropertyNamed:kPOPViewBounds];
-    bounds.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, CGRectGetWidth(self.mainBall.frame) + self.amountZoom, CGRectGetWidth(self.mainBall.frame) + self.amountZoom)];
-    bounds.springBounciness = 20;
-    bounds.springSpeed = 0;
+    if (CGRectGetWidth(self.mainBall.frame) + self.amountZoom >= self.maxDiam) {
+        bounds.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, 0, 0)];
+        bounds.springBounciness = 0;
+        bounds.springSpeed = 20;
+    }
+    else {
+        bounds.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0, CGRectGetWidth(self.mainBall.frame) + self.amountZoom, CGRectGetWidth(self.mainBall.frame) + self.amountZoom)];
+        bounds.springBounciness = 20;
+        bounds.springSpeed = 0;
+    }
     bounds.delegate = self;
+    [bounds setValue:@"bounds" forKey:@"identifier"];
     [self.mainBall pop_addAnimation:bounds forKey:@"animateBounds"];
     
     POPSpringAnimation *radius = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerCornerRadius];
-    if (self.restart) {
-        self.restart = NO;
-        self.mainBall.layer.cornerRadius = 0;
+    if (CGRectGetWidth(self.mainBall.frame) + self.amountZoom >= self.maxDiam) {
+        radius.toValue = @0;
+        radius.springSpeed = 20;
+        radius.springBounciness = 0;
     }
-    radius.toValue = @(CGRectGetWidth(self.mainBall.frame)/2 + self.amountZoom/2);
-    NSLog(@"%f", self.mainBall.layer.cornerRadius);
-    radius.springBounciness = 20;
-    radius.springSpeed = 0;
+    else {
+        radius.toValue = @(CGRectGetWidth(self.mainBall.frame)/2 + self.amountZoom/2);
+        radius.springSpeed = 0;
+        radius.springBounciness = 20;
+    }
     [self.mainBall.layer pop_addAnimation:radius forKey:@"animateRadius"];
     
     [self performSelector:@selector(animateDrop) withObject:nil afterDelay: self.delay];
 }
 
 - (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
-    
+
 }
 
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p {
-    if (self.animate) {
-        if ([@"boundary" isEqualToString:(NSString *)identifier]) {
-            self.fallingBall.hidden = YES;
-            [self animateMainBall];
+    if (self.animate && [@"boundary" isEqualToString:(NSString *)identifier]) {
+        self.fallingBall.hidden = YES;
+        [self animateMainBall];
+        for (UIDynamicBehavior *behaviour in self.mainAnimator.behaviors) {
+            [self.mainAnimator removeBehavior:behaviour];
         }
     }
 }
@@ -277,21 +288,26 @@
 
 - (UIDynamicAnimator *)mainAnimator
 {
-    if (!_mainAnimator) {
-        _mainAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.loaderView];
-        UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[self.fallingBall]];
-        gravity.magnitude = 0.85;
-        [_mainAnimator addBehavior:gravity];
-        UICollisionBehavior *collision = [[UICollisionBehavior alloc] initWithItems:@[self.fallingBall]];
-        collision.translatesReferenceBoundsIntoBoundary = YES;
-        collision.collisionDelegate = self;
-        [collision addBoundaryWithIdentifier:@"boundary"
-                                   fromPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 -10, CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2) toPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 +10 , CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2)];
-        [_mainAnimator addBehavior:collision];
-    }
+    if (!_mainAnimator) _mainAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.loaderView];
     return _mainAnimator;
 }
 
+- (UIGravityBehavior *)gravityBehaviour
+{
+    _gravityBehaviour = [[UIGravityBehavior alloc] initWithItems:@[self.fallingBall]];
+    _gravityBehaviour.magnitude = 0.85;
+    return _gravityBehaviour;
+}
+
+- (UICollisionBehavior *)collisionBehaviour
+{
+    _collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[self.fallingBall]];
+    _collisionBehaviour.translatesReferenceBoundsIntoBoundary = YES;
+    _collisionBehaviour.collisionDelegate = self;
+    [_collisionBehaviour addBoundaryWithIdentifier:@"boundary"
+                               fromPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 -10, CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2) toPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 +10 , CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2)];
+    return _collisionBehaviour;
+}
 
 #pragma mark - Deprecated methods
 
