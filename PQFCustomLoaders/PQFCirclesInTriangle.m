@@ -11,11 +11,11 @@
 
 @interface PQFCirclesInTriangle ()
 @property (nonatomic, strong) UIView *loaderView;
+@property (nonatomic, strong) CALayer *loaderLayer;
 @property (nonatomic, strong) NSArray *circles;
 @property (nonatomic, assign) BOOL animate;
 
 @property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic, strong) UILabel *label;
 @property (nonatomic) CGFloat numberOfCircles;
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) CGFloat loaderAlpha;
@@ -61,10 +61,15 @@
     [self startAnimating];
 }
 
-- (void)removeLoader
+- (void)hideLoader
 {
     self.hidden = YES;
     self.animate = NO;
+}
+
+- (void)removeLoader
+{
+    [self hideLoader];
     [self removeFromSuperview];
 }
 
@@ -87,6 +92,8 @@
     //Add loader to its superview
     [view addSubview:self];
     
+    [self.loaderView addSubview:self.label];
+    
     //Initial Values
     [self defaultValues];
     
@@ -98,7 +105,6 @@
 {
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.numberOfCircles = 6;
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -119,9 +125,9 @@
 {
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.rectSize + 10);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-    self.label.frame = CGRectMake(0, 0, self.rectSize + 30, self.fontSize*2+10);
     
-    self.layer.cornerRadius = self.cornerRadius;
+    self.loaderLayer.frame = self.loaderView.bounds;
+    self.loaderLayer.cornerRadius = self.cornerRadius;
     
     [self layoutCircles];
     
@@ -137,31 +143,17 @@
         circle.bounds = CGRectMake(0, 0, 0 , 0);
         circle.borderWidth = self.borderWidth;
         circle.borderColor = self.loaderColor.CGColor;
-        circle.opacity = self.loaderAlpha;
-        
-        switch (i) {
-            case 0:
-                circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
-                break;
-            case 1:
-                circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
-            case 2:
-                circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
-            case 3:
-                circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
-                break;
-            case 4:
-                circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
-            case 5:
-                circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
+        if (i == 0 || i == 3) {
+            circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
         }
-        
-        [self.loaderView.layer addSublayer:circle];
+        if (i == 1 || i == 4) {
+            circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
+        }
+        if (i == 2 || i == 5) {
+            circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
+        }
         [temp addObject:circle];
+        [self.loaderLayer addSublayer:circle];
     }
     self.circles = temp;
 }
@@ -176,7 +168,7 @@
     CGFloat xCenter = self.center.x;
     CGFloat yCenter = self.center.y;
     
-    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.label.frame.size.height );
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
     
     self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
     self.center = CGPointMake(xCenter, yCenter);
@@ -185,6 +177,7 @@
     CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
     CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
     
+    self.label.frame = CGRectMake(0, 0, CGRectGetHeight(self.loaderView.frame), self.fontSize*2+10);
     self.label.center = CGPointMake(xPoint, yPoint);
 }
 
@@ -203,44 +196,28 @@
     if (!self.animate) return;
     int limit = (self.numberOfCircles < 4) ? self.numberOfCircles : 3;
     for (int i = 0; i < limit; i++) {
-        CALayer *circle = [self.circles objectAtIndex:i];
-        [self animateCircle:circle atIndex:i];
+        [self animateCircle:[self.circles objectAtIndex:i] atIndex:i];
     }
 }
 
 - (void)secondAnimation {
     if (!self.animate) return;
     for (int i = 3; i<self.numberOfCircles; i++) {
-        CALayer *circle = [self.circles objectAtIndex:i];
-        [self animateCircle:circle atIndex:i];
+        [self animateCircle:[self.circles objectAtIndex:i] atIndex:i];
     }
 }
 
 - (void)animateCircle:(CALayer *)circle atIndex:(int)index {
     CGPoint point;
-    switch (index) {
-        case 0:
-            point = CGPointMake(circle.position.x, circle.position.y + self.separation);
-            break;
-        case 1:
-            point = CGPointMake(circle.position.x + self.separation, circle.position.y - self.separation);
-            break;
-        case 2:
-            point = CGPointMake(circle.position.x - self.separation, circle.position.y - self.separation);
-            break;
-        case 3:
-            point = CGPointMake(circle.position.x, circle.position.y + self.separation);
-        case 4:
-            if (index == 4) {
-                point = CGPointMake(circle.position.x + self.separation, circle.position.y - self.separation);
-            }
-            break;
-        case 5:
-            point = CGPointMake(circle.position.x - self.separation, circle.position.y - self.separation);
-            break;
-            
-        default:
-            break;
+    
+    if (index == 0 || index == 3) {
+        point = CGPointMake(circle.position.x, circle.position.y + self.separation);
+    }
+    if (index == 1 || index == 4) {
+        point = CGPointMake(circle.position.x + self.separation, circle.position.y - self.separation);
+    }
+    if (index == 2 || index == 5) {
+        point = CGPointMake(circle.position.x - self.separation, circle.position.y - self.separation);
     }
     
     CAKeyframeAnimation *bounds1 = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
@@ -299,7 +276,7 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self startAnimating];
+    if (self.animate) [self startAnimating];
 }
 
 
@@ -328,13 +305,13 @@
     return _loaderView;
 }
 
-- (UILabel *)label
+- (CALayer *)loaderLayer
 {
-    if (!_label) {
-        _label = [UILabel new];
-        [self.loaderView addSubview:_label];
+    if (!_loaderLayer) {
+        _loaderLayer = [CALayer layer];
+        [self.loaderView.layer addSublayer:_loaderLayer];
     }
-    return _label;
+    return _loaderLayer;
 }
 
 - (NSArray *)circles

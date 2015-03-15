@@ -21,7 +21,6 @@
 @property (nonatomic, assign) BOOL animate;
 
 @property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic, strong) UILabel *label;
 @property (nonatomic) CGFloat numberOfBars;
 @property (nonatomic) CGFloat loaderAlpha;
 @property (nonatomic) CGFloat cornerRadius;
@@ -68,10 +67,15 @@
     [self startAnimating];
 }
 
-- (void)removeLoader
+- (void)hideLoader
 {
     self.hidden = YES;
     self.animate = NO;
+}
+
+- (void)removeLoader
+{
+    [self hideLoader];
     [self removeFromSuperview];
 }
 
@@ -93,6 +97,8 @@
     
     //Add loader to its superview
     [view addSubview:self];
+    
+    [self.loaderView addSubview:self.label];
     
     //Initial Values
     [self defaultValues];
@@ -127,8 +133,6 @@
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.barHeightMax*2 + 10);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
     self.loaderLayer.frame = self.loaderView.bounds;
-    self.label.frame = CGRectMake(0, 0, self.barHeightMax*2 + 10, self.fontSize*2+10);
-    
     self.loaderLayer.cornerRadius = self.cornerRadius;
     
     [self layoutBars];
@@ -142,10 +146,8 @@
     for (int i = 0 ; i < self.numberOfBars ; i++) {
         CALayer *bar = [CALayer layer];
         bar.backgroundColor = self.loaderColor.CGColor;
-        CGFloat randomWidth = 0;
-        CGFloat randomHeight = 0;
-        [self.heightArray addObject:[NSNumber numberWithFloat:randomHeight]];
-        [self.widthsArray addObject:[NSNumber numberWithFloat:randomWidth]];
+        [self.heightArray addObject:[NSNumber numberWithFloat:0]];
+        [self.widthsArray addObject:[NSNumber numberWithFloat:0]];
         bar.bounds = CGRectMake(0, 0, 0, 0);
         bar.anchorPoint = CGPointMake(0.5, 1.0);
         bar.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2);
@@ -168,7 +170,7 @@
     CGFloat xCenter = self.center.x;
     CGFloat yCenter = self.center.y;
     
-    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.label.frame.size.height );
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
     
     self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
     self.center = CGPointMake(xCenter, yCenter);
@@ -177,6 +179,7 @@
     CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
     CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
     
+    self.label.frame = CGRectMake(0, 0, CGRectGetHeight(self.loaderView.frame), self.fontSize*2+10);
     self.label.center = CGPointMake(xPoint, yPoint);
 }
 
@@ -288,15 +291,6 @@
         [self.loaderView.layer addSublayer:_loaderLayer];
     }
     return _loaderLayer;
-}
-
-- (UILabel *)label
-{
-    if (!_label) {
-        _label = [UILabel new];
-        [self.loaderView addSubview:_label];
-    }
-    return _label;
 }
 
 - (NSMutableArray *)widthsArray

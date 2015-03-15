@@ -20,7 +20,6 @@
 @property (nonatomic) BOOL restart;
 @property (nonatomic) BOOL animate;
 
-@property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIColor *loaderColor;
 @property (nonatomic) CGFloat loaderAlpha;
 @property (nonatomic) CGFloat maxDiam;
@@ -62,10 +61,15 @@
     [self startAnimating];
 }
 
-- (void)removeLoader
+- (void)hideLoader
 {
     self.hidden = YES;
     self.animate = NO;
+}
+
+- (void)removeLoader
+{
+    [self hideLoader];
     [self removeFromSuperview];
 }
 
@@ -87,6 +91,8 @@
     
     //Add loader to its superview
     [view addSubview:self];
+    
+    [self.loaderView addSubview:self.label];
     
     //Initial Values
     [self defaultValues];
@@ -117,7 +123,6 @@
 {
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.rectSize + 30);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-    self.label.frame = CGRectMake(0, 0, self.rectSize + 30, self.fontSize*2+10);
 
     self.layer.cornerRadius = self.cornerRadius;
     
@@ -146,7 +151,7 @@
     CGFloat xCenter = self.center.x;
     CGFloat yCenter = self.center.y;
     
-    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.label.frame.size.height );
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
     
     self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10);
     self.center = CGPointMake(xCenter, yCenter);
@@ -155,6 +160,7 @@
     CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
     CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
     
+    self.label.frame = CGRectMake(0, 0, CGRectGetHeight(self.loaderView.frame), self.fontSize*2+10);
     self.label.center = CGPointMake(xPoint, yPoint);
 }
 
@@ -257,15 +263,6 @@
         [self addSubview:_loaderView];
     }
     return _loaderView;
-}
-
-- (UILabel *)label
-{
-    if (!_label) {
-        _label = [UILabel new];
-        [self.loaderView addSubview:_label];
-    }
-    return _label;
 }
 
 - (UIView *)fallingBall

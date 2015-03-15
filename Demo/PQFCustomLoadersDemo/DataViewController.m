@@ -8,13 +8,17 @@
 
 #import "DataViewController.h"
 
+static const CGFloat kButtonCornerRadius = 4;
+#define kButtonColor [UIColor colorWithWhite:0.2 alpha:0.5]
+
 @interface DataViewController () {
     BOOL _showing;
     BOOL _showingModal;
+    BOOL _showingText;
 }
 @property (weak, nonatomic) IBOutlet UIButton *presentModallyOutlet;
+@property (weak, nonatomic) IBOutlet UIButton *showTextOutlet;
 @property (nonatomic, strong) UIButton *modalButton;
-
 @end
 
 @implementation DataViewController
@@ -22,8 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.presentModallyOutlet.layer.cornerRadius = 4;
-    self.presentModallyOutlet.layer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.9].CGColor;
+    self.presentModallyOutlet.layer.cornerRadius = kButtonCornerRadius;
+    self.presentModallyOutlet.layer.backgroundColor = kButtonColor.CGColor;
+    self.showTextOutlet.layer.cornerRadius = kButtonCornerRadius;
+    self.showTextOutlet.layer.backgroundColor = kButtonColor.CGColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -33,6 +39,8 @@
     if (_showing) return;
     [self.loader showLoader];
     _showing = YES;
+    _showingText = NO;
+    [self.showTextOutlet setTitle:@"Show Text" forState:UIControlStateNormal];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -72,6 +80,23 @@
     }
 }
 
+- (IBAction)showText:(id)sender {
+    NSString *title;
+    [self.loader removeLoader];
+    self.loader = nil;
+    if (!_showingText) {
+        title = @"Hide Text";
+        self.loader.label.text = @"Your description here";
+        self.loader.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+    }
+    else {
+        title = @"Show Text";
+        self.loader.label.text = nil;
+    }
+    _showingText = !_showingText;
+    [self.showTextOutlet setTitle:title forState:UIControlStateNormal];
+    [self.loader showLoader];
+}
 
 #pragma mark - Lazy
 
