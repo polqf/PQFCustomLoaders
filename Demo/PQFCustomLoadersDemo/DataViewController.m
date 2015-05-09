@@ -64,6 +64,7 @@ static const CGFloat kButtonCornerRadius = 4;
 
 - (IBAction)presentLoaderModally:(id)sender
 {
+    self.showTextOutlet.enabled = _showingModal;
     if (!_showingModal) {
         [self.loader removeLoader];
         self.loader = [[self loaderClass] createModalLoader];
@@ -115,8 +116,7 @@ static const CGFloat kButtonCornerRadius = 4;
             break;
         case 3:
             return [PQFBallDrop class];
-            break;
-            
+            break;            
         default:
             return nil;
             break;

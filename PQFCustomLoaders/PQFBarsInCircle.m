@@ -218,26 +218,24 @@
 }
 
 - (void)animateRotation {
-    if (self.animate) {
-        CAKeyframeAnimation *rotate = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-        rotate.duration = self.rotationSpeed;
-        rotate.additive = YES;
-        rotate.values = @[[NSNumber numberWithFloat:self.angleInRad], [NSNumber numberWithFloat:(self.angleInRad + M_PI_4)]];
-        rotate.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-        rotate.delegate = self;
-        rotate.fillMode = kCAFillModeForwards;
-        rotate.removedOnCompletion = NO;
-        
-        [rotate setValue:@"anim2" forKey:@"animation"];
-        
-        self.angleInRad = self.angleInRad + M_PI_4;
-        
-        [self.loaderLayer addAnimation:rotate forKey:@"rotation"];
-    }
+    if (!self.animate) return;
+    CAKeyframeAnimation *rotate = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotate.duration = self.rotationSpeed;
+    rotate.additive = YES;
+    rotate.values = @[[NSNumber numberWithFloat:self.angleInRad], [NSNumber numberWithFloat:(self.angleInRad + M_PI_4)]];
+    rotate.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+    rotate.delegate = self;
+    rotate.fillMode = kCAFillModeForwards;
+    rotate.removedOnCompletion = NO;
     
+    [rotate setValue:@"anim2" forKey:@"animation"];
+    
+    self.angleInRad = self.angleInRad + M_PI_4;
+    [self.loaderLayer addAnimation:rotate forKey:@"rotation"];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    if (!self.animate) return;
     if ([@"anim1" isEqualToString:[anim valueForKey:@"animation"]]) {
         [self animateBars];
     }
@@ -318,6 +316,5 @@
 {
     return [PQFBarsInCircle createLoaderOnView:view];
 }
-
 
 @end

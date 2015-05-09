@@ -208,10 +208,6 @@
     [self performSelector:@selector(animateDrop) withObject:nil afterDelay: self.delay];
 }
 
-- (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
-
-}
-
 - (void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item withBoundaryIdentifier:(id<NSCopying>)identifier atPoint:(CGPoint)p {
     if (self.animate && [@"boundary" isEqualToString:(NSString *)identifier]) {
         self.fallingBall.hidden = YES;
