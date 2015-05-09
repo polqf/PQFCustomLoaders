@@ -1,8 +1,17 @@
-PQFCustomLoaders
-========
-Current version: 0.0.1
+#PQFCustomLoaders
 
-Collection of highly customizable loaders for your iOS projects. Feel free to use them.
+####Collection of highly customizable loaders for your iOS projects.
+
+###Changelog
+* **1.0.0** (May 2015)
+	- **New modal presentation**	
+	- **New Loader** (PQFBallDrop)
+	- New demo
+	- New methods to create the loaders
+	- All the properties are now with description (PHOTO!!!!)
+	- Fixed layout problems in some rare cases
+	- Improvements
+* **0.0.1** Initial version
 
 Demo App
 --------
@@ -18,7 +27,7 @@ ___
 
 The easiest way to get started is to use [CocoaPods](http://cocoapods.org/). Just add the following line to your Podfile:
 
-``` pod 'PQFCustomLoaders', '~> 0.0.1' ```
+``` pod 'PQFCustomLoaders', '~> 1.0.0' ```
 
 ###Import the project
 If you don't want to use (you should) ``CocoaPods``,  you can download this project, and add the files in the ``/PQFCustomLoaders`` folder to your existing project.
@@ -29,7 +38,7 @@ ___
 
 ####1. Import
 
-The first thing is to import the main file. This file contain all the requiered imports that you are going to need (``PQFBarsInCircles.h PQFBouncingBalls.h PQFCirclesInTriangles.h``). If you are planning to use only one loader, you can import only the required one, it is up to you.
+The first thing is to import the main file. This file contain all the requiered imports that you are going to need. If you are planning to use only one loader, you can import only the required one, it is up to you.
 
 ```
 #import <PQFCustomLoaders/PQFCustomLoaders.h>
@@ -51,7 +60,7 @@ I recommend you to make a property in order to have a pointer to the loader for 
 @implementation ViewController
 ...
 
-self.loader = [[PQFBouncingBalls alloc] initLoaderOnView:self.view];
+self.loader = [PQFBouncingBalls createLoaderOnView:self.view];
 
 ...
 @end
@@ -72,23 +81,15 @@ __It is very important to change all the properties before showing it (Except fo
 When the loader is initialized, it is going to be added to the subviews of the view that you choose. But it is going to be with alpha 0.0 and with no animations activated (so no memory problems ;) ). 
 
 ```
-[self.loader show];
+[self.loader showLoader];
 ```
 When you use the ``show`` method, you are making it visible and activating the animations
 
-####5. Hide it or Remove it
-If you are planning to reuse it, just ``hide``it like this:
-
-```
-[self.loader hide]
-```
-Now you can change the properties that you want before reshowing it.
-This method makes it invisible and stop all the animations.
-
+####5. Remove it
 If you are not going to use it anymore, just remove it
 
 ```
-[self.loader remove]
+[self.loader removeLoader]
 ```
 This method is going to remove it from it superview.
 
@@ -97,11 +98,22 @@ ____
 #####Methods you can use:
 
 ```
-- (instancetype)initLoaderOnView:(UIView *)view;
++ (instancetype)showModalLoader;
++ (instancetype)showLoaderOnView:(UIView *)view;
++ (instancetype)createModalLoader;
++ (instancetype)createLoaderOnView:(UIView *)view;
++ (void)removeAllLoadersOnView:(UIView *)view;
 
-- (void)remove;
-- (void)show;
-- (void)hide;
+- (void)showLoader;
+- (void)removeLoader;
+
+DEPRECATED METHODS:
+
+- (instancetype)initLoaderOnView:(UIView *)view  ("Use '+createLoader:onView:'");
+- (void)remove 	                                 ("Use 'removeLoader'");
+- (void)show                                     ("Use 'showLoader'");
+- (void)hide                                     ("Use 'removeLoader'");
+
 
 ```
 
@@ -172,12 +184,10 @@ ___
 
 Licenses
 --------
-___
 
-All source code is licensed under the MIT License.![id](http://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/License_icon-mit-2.svg/256px-License_icon-mit-2.svg.png =40x)
+All source code is licensed under the MIT License.
 
 If you use it, i'll be happy to know about it.
 
-___
 
-##__[Follow me on Twitter - poolqf](https://twitter.com/poolqf)__
+###Pol Quintana - [@poolqf](https://twitter.com/poolqf)
