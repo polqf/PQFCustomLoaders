@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *dataLabel;
 @property (nonatomic) NSUInteger pageIndex;
-@property (nonatomic) PQFLoader *loader;
+@property (nonatomic) id loader;
 
 @end
 

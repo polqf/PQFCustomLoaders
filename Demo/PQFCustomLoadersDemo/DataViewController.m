@@ -86,12 +86,12 @@ static const CGFloat kButtonCornerRadius = 4;
     self.loader = nil;
     if (!_showingText) {
         title = @"Hide Text";
-        self.loader.label.text = @"Your description here";
-        self.loader.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+        [self.loader label].text = @"Your description here";
+        [self.loader setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.6]];
     }
     else {
         title = @"Show Text";
-        self.loader.label.text = nil;
+        [self.loader label].text = nil;
     }
     _showingText = !_showingText;
     [self.showTextOutlet setTitle:title forState:UIControlStateNormal];
@@ -126,7 +126,7 @@ static const CGFloat kButtonCornerRadius = 4;
 
 #pragma mark - Lazy
 
-- (PQFLoader *)loader
+- (id)loader
 {
     if (!_loader) {
         _loader = [[self loaderClass] createLoaderOnView:self.view];

@@ -19,15 +19,6 @@
 @property (nonatomic, strong) UICollisionBehavior *collisionBehaviour;
 @property (nonatomic) BOOL restart;
 @property (nonatomic) BOOL animate;
-
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic) CGFloat maxDiam;
-@property (nonatomic) CGFloat amountZoom;
-@property (nonatomic) CGFloat delay;
-@property (nonatomic) CGFloat duration;
-@property (nonatomic) CGFloat fontSize;
-@property (nonatomic) CGFloat rectSize;
 @end
 
 @implementation PQFBallDrop
@@ -305,6 +296,15 @@
                                fromPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 -10, CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2) toPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 +10 , CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2)];
     return _collisionBehaviour;
 }
+
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [UILabel new];
+    }
+    return _label;
+}
+
 
 #pragma mark - Deprecated methods
 

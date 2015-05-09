@@ -14,18 +14,6 @@
 @property (nonatomic, strong) CALayer *loaderLayer;
 @property (nonatomic, strong) NSArray *circles;
 @property (nonatomic, assign) BOOL animate;
-
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic) CGFloat numberOfCircles;
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic) CGFloat maxDiam;
-@property (nonatomic) CGFloat separation;
-@property (nonatomic) CGFloat borderWidth;
-@property (nonatomic) CGFloat delay;
-@property (nonatomic) CGFloat duration;
-@property (nonatomic) CGFloat fontSize;
-@property (nonatomic) CGFloat rectSize;
 @end
 
 @implementation PQFCirclesInTriangle
@@ -318,6 +306,14 @@
 {
     if (!_circles) _circles = [NSArray new];
     return _circles;
+}
+
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [UILabel new];
+    }
+    return _label;
 }
 
 

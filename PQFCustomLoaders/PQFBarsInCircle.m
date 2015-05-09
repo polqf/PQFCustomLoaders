@@ -19,19 +19,6 @@
 @property (nonatomic, strong) NSMutableArray *widthsArray;
 @property (nonatomic, strong) NSMutableArray *heightArray;
 @property (nonatomic, assign) BOOL animate;
-
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic) CGFloat numberOfBars;
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat barHeightMin;
-@property (nonatomic) CGFloat barHeightMax;
-@property (nonatomic) CGFloat barWidthMin;
-@property (nonatomic) CGFloat barWidthMax;
-@property (nonatomic) CGFloat angleInRad;
-@property (nonatomic) CGFloat rotationSpeed;
-@property (nonatomic) CGFloat barsSpeed;
-@property (nonatomic) CGFloat fontSize;
 @end
 
 @implementation PQFBarsInCircle
@@ -303,6 +290,14 @@
 {
     if (!_heightArray) _heightArray = [NSMutableArray new];
     return _heightArray;
+}
+
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [UILabel new];
+    }
+    return _label;
 }
 
 

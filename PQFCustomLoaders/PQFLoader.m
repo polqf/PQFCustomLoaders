@@ -80,15 +80,4 @@
     [self removeLoader];
 }
 
-
-#pragma mark - Lazy inits
-
-- (UILabel *)label
-{
-    if (!_label) {
-        _label = [UILabel new];
-    }
-    return _label;
-}
-
 @end

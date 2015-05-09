@@ -15,17 +15,6 @@
 @property (nonatomic) CALayer *ball2;
 @property (nonatomic) CALayer *ball3;
 @property (nonatomic, assign) BOOL animate;
-
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic) CGFloat diameter;
-@property (nonatomic) CGFloat jumpAmount;
-@property (nonatomic) CGFloat separation;
-@property (nonatomic) CGFloat zoomAmount;
-@property (nonatomic) CGFloat duration;
-@property (nonatomic) CGFloat fontSize;
-@property (nonatomic) CGFloat rectSize;
 @end
 
 @implementation PQFBouncingBalls
@@ -325,6 +314,14 @@
         [self.layer addSublayer:_ball3];
     }
     return _ball3;
+}
+
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [UILabel new];
+    }
+    return _label;
 }
 
 

@@ -16,12 +16,6 @@
 @end
 
 @interface PQFLoader : UIView
-//Common Properties
-@property (nonatomic, strong) UILabel *label;
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat alpha;
-@property (nonatomic, strong) UIColor *color;
-
 
 /**
  *  Shows a loader modally with a background alpha.
