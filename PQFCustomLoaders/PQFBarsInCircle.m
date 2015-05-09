@@ -267,8 +267,14 @@
 - (void)setLoaderColor:(UIColor *)loaderColor
 {
     _loaderColor = loaderColor;
+    [self performSelector:@selector(changeBarsColor:) withObject:loaderColor afterDelay:0];
+}
+
+- (void)changeBarsColor:(UIColor *)loaderColor
+{
+    CGColorRef color = loaderColor.CGColor;
     for (CALayer *layer in self.bars) {
-        layer.backgroundColor = loaderColor.CGColor;
+        layer.backgroundColor = color;
     }
 }
 

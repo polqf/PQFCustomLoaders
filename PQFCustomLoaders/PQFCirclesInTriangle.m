@@ -291,8 +291,14 @@
 - (void)setLoaderColor:(UIColor *)loaderColor
 {
     _loaderColor = loaderColor;
+    [self performSelector:@selector(changeCirclesColor:) withObject:loaderColor afterDelay:0];
+}
+
+- (void)changeCirclesColor:(UIColor *)loaderColor
+{
+    CGColorRef color = loaderColor.CGColor;
     for (CALayer *layer in self.circles) {
-        layer.borderColor = loaderColor.CGColor;
+        layer.borderColor = color;
     }
 }
 

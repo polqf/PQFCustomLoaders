@@ -283,6 +283,11 @@
 - (void)setLoaderColor:(UIColor *)loaderColor
 {
     _loaderColor = loaderColor;
+    [self performSelector:@selector(changeBallsColor:) withObject:loaderColor afterDelay:0];
+}
+
+- (void)changeBallsColor:(UIColor *)loaderColor
+{
     self.ball1.backgroundColor = loaderColor.CGColor;
     self.ball2.backgroundColor = loaderColor.CGColor;
     self.ball3.backgroundColor = loaderColor.CGColor;
