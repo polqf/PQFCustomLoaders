@@ -1,4 +1,4 @@
-#PQFCustomLoaders
+#PQFCustomLoaders 1.0.0
 
 ####Collection of highly customizable loaders for your iOS projects.
 
