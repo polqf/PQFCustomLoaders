@@ -1,73 +1,99 @@
 //
 //  PQFCirclesInTriangle.m
-//  randomAnimations
+//  PQFCustomLoadersDemo
 //
-//  Created by Pol Quintana on 28/10/14.
-//  Copyright (c) 2014 Pol Quintana. All rights reserved.
+//  Created by Pol Quintana on 6/3/15.
+//  Copyright (c) 2015 Pol Quintana. All rights reserved.
 //
 
 #import "PQFCirclesInTriangle.h"
-#import <UIColor+FlatColors.h>
+#import <UIColor+FlatColors/UIColor+FlatColors.h>
 
-@interface PQFCirclesInTriangle () {
-    BOOL generated;
-}
-
-@property (nonatomic, strong) UIView *bgView;
-
-@property (nonatomic, strong) NSArray *balls;
-@property (nonatomic) BOOL animate;
+@interface PQFCirclesInTriangle () <PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;
-@property (nonatomic) CGFloat fontSize;
+@property (nonatomic, strong) CALayer *loaderLayer;
+@property (nonatomic, strong) NSArray *circles;
+@property (nonatomic, assign) BOOL animate;
 @property (nonatomic) CGFloat rectSize;
-
 @end
 
 @implementation PQFCirclesInTriangle
 
-- (instancetype)initLoader
+
+#pragma mark - PQFLoader methods
+
++ (instancetype)showLoaderOnView:(UIView *)view
 {
-    self = [self initLoaderOnView:nil];
-    return self;
+    PQFCirclesInTriangle *loader = [self createLoaderOnView:view];
+    [loader showLoader];
+    return loader;
 }
 
-- (instancetype)initLoaderOnView:(UIView *)view {
-    self = [super init];
-    
-    if (!view) {
-        UIWindow *window = [[UIApplication sharedApplication].delegate window];
-        view = [[UIView alloc] initWithFrame:window.frame];
-        self.bgView = view;
-        
-        view.userInteractionEnabled = YES;
-        
-        [window addSubview:view];
-    }
-    
-    [self defaultValues];
-    
-    self.frame = CGRectMake(0, 0, view.frame.size.width, self.rectSize + 20);
++ (instancetype)createLoaderOnView:(UIView *)view
+{
+    if (!view) view = [[UIApplication sharedApplication].delegate window];
+    PQFCirclesInTriangle *loader = [PQFCirclesInTriangle new];
+    [loader initialSetupWithView:view];
+    return loader;
+}
+
+- (void)showLoader
+{
+    [self performSelector:@selector(startShowingLoader) withObject:nil afterDelay:0];
+}
+
+- (void)startShowingLoader
+{
+    self.hidden = NO;
+    self.animate = YES;
+    [self generateLoader];
+    [self startAnimating];
+}
+
+- (void)hideLoader
+{
+    self.hidden = YES;
+    self.animate = NO;
+}
+
+- (void)removeLoader
+{
+    [self hideLoader];
+    [self removeFromSuperview];
+}
+
+
+#pragma mark - Prepare loader
+
+- (void)initialSetupWithView:(UIView *)view
+{
+    //Setting up frame
+    self.frame = view.frame;
     self.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
     
-    [self setClipsToBounds:YES];
+    //If it is modal, background for the loader
+    if ([view isKindOfClass:[UIWindow class]]) {
+        UIView *bgView = [[UIView alloc] initWithFrame:view.bounds];
+        bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+        [self addSubview:bgView];
+    }
     
+    //Add loader to its superview
     [view addSubview:self];
     
-    //Loader View Initialization
-    self.loaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 10, self.rectSize + 10)];
-    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-    [self addSubview:self.loaderView];
+    [self.loaderView addSubview:self.label];
     
-    return self;
+    //Initial Values
+    [self defaultValues];
+    
+    //Initially hidden
+    self.hidden = YES;
 }
 
-- (void)defaultValues {
-    generated = NO;
-    
-    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-
-    self.numberOfCircles = 6;
+- (void)defaultValues
+{
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    self.numberOfCircles = 6;
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -78,167 +104,110 @@
     self.duration = 2.0;
     self.fontSize = 14.0;
     self.rectSize = self.separation*2 + self.maxDiam;
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 30, self.fontSize*2+10)];
 }
 
-#pragma mark - public methods
 
-- (void)show {
-    self.alpha = 1.0;
-    self.animate = YES;
-    if (!generated)[self generateLoader];
-    [self startAnimation];
-}
-
-- (void)hide {
-    self.alpha = 0.0;
-    self.animate = NO;
-}
-
-- (void)remove {
-    [self hide];
-    [self removeFromSuperview];
-    if (self.bgView) [self.bgView removeFromSuperview];
-
-}
-
-#pragma mark Custom Setters
+#pragma mark - Before showing
 
 
-#pragma mark - private methods
-
-- (void)generateLoader {
-    //GenerateFrames
-    generated = YES;
+- (void)generateLoader
+{
+    self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.rectSize + 10);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
     
-    self.layer.cornerRadius = self.cornerRadius;
-    self.rectSize = self.separation*2 + self.maxDiam;
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.rectSize + 20);
-    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.rectSize + 10, self.rectSize + 10);
+    self.loaderLayer.frame = self.loaderView.bounds;
+    self.loaderLayer.cornerRadius = self.cornerRadius;
     
+    [self layoutCircles];
     
-    //Layers
-    NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:3];
+    if (self.label.text) [self layoutLabel];
+}
+
+- (void)layoutCircles
+{
+    NSMutableArray *temp = [NSMutableArray new];
     
     for (int i = 0; i< self.numberOfCircles; i++) {
-        CALayer *ball = [CALayer layer];
-        ball.bounds = CGRectMake(0, 0, 0 , 0);
-        ball.borderWidth = self.borderWidth;
-        ball.borderColor = self.loaderColor.CGColor;
-        ball.opacity = self.loaderAlpha;
-        
-        switch (i) {
-            case 0:
-                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
-                break;
-            case 1:
-                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
-            case 2:
-                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
-            case 3:
-                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
-                break;
-            case 4:
-                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
-            case 5:
-                ball.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
-                break;
+        CALayer *circle = [CALayer layer];
+        circle.bounds = CGRectMake(0, 0, 0 , 0);
+        circle.borderWidth = self.borderWidth;
+        circle.borderColor = self.loaderColor.CGColor;
+        if (i == 0 || i == 3) {
+            circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2 -self.separation);
         }
-        
-        [self.loaderView.layer addSublayer:ball];
-        [temp addObject:ball];
-    }
-    
-    [self autolayoutByCode];
-    
-    self.balls = [temp copy];
-    
-}
-
-- (void)autolayoutByCode {
-    
-    if ([self.label.text isEqualToString:@""]) {
-        self.label.text = nil;
-    }
-    
-    if (self.label.text) {
-        self.label.textAlignment = NSTextAlignmentCenter;
-        self.label.numberOfLines = 3;
-        self.label.textColor = [UIColor whiteColor];
-        self.label.font = [UIFont systemFontOfSize:self.fontSize];
-        
-        CGFloat xCenter = self.center.x;
-        CGFloat yCenter = self.center.y;
-        
-        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);
-    
-        self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10);
-        self.center = CGPointMake(xCenter, yCenter);
-        self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, self.loaderView.center.y);
-    
-        CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
-        CGFloat yPoint = CGRectGetWidth(self.loaderView.frame)/2;
-        self.label.center = CGPointMake(xPoint, yPoint + self.maxDiam/2 + self.fontSize/2*(self.label.numberOfLines));
-        [self.loaderView addSubview:self.label];
-
-    }
-    
-}
-
-- (void)startAnimation {
-    [self startFirstAnimation];
-    if (self.numberOfCircles >3) {
-        [self performSelector:@selector(startSecondAnimation) withObject:nil afterDelay:self.delay];
-    }
-}
-
-- (void)startFirstAnimation {
-    if (self.animate) {
-        for (int i = 0; i<3; i++) {
-            CALayer *ball = [self.balls objectAtIndex:i];
-            [self animateBall:ball atIndex:i];
+        if (i == 1 || i == 4) {
+            circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 - self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
         }
-    }
-    
-}
-
-- (void)startSecondAnimation {
-    if (self.animate) {
-        for (int i = 3; i<6; i++) {
-            CALayer *ball = [self.balls objectAtIndex:i];
-            [self animateBall:ball atIndex:i];
+        if (i == 2 || i == 5) {
+            circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
         }
+        if (self.label.text) { circle.position = CGPointMake(circle.position.x, circle.position.y + 10); }
+        [temp addObject:circle];
+        [self.loaderLayer addSublayer:circle];
+    }
+    self.circles = temp;
+}
+
+- (void)layoutLabel
+{
+    self.label.textAlignment = NSTextAlignmentCenter;
+    self.label.numberOfLines = 3;
+    self.label.textColor = [UIColor whiteColor];
+    self.label.font = [UIFont systemFontOfSize:self.fontSize];
+    
+    CGFloat xCenter = self.center.x;
+    CGFloat yCenter = self.center.y;
+    
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
+    
+    self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
+    self.center = CGPointMake(xCenter, yCenter);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    
+    CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
+    CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
+    
+    self.label.frame = CGRectMake(0, 0, CGRectGetHeight(self.loaderView.frame), self.fontSize*2+10);
+    self.label.center = CGPointMake(xPoint, yPoint);
+}
+
+
+#pragma mark - Animate
+
+- (void)startAnimating
+{
+    if (!self.animate) return;
+    [self firstAnimation];
+    if (self.numberOfCircles <= 3) return;
+    [self performSelector:@selector(secondAnimation) withObject:nil afterDelay:self.delay];
+}
+
+- (void)firstAnimation {
+    if (!self.animate) return;
+    int limit = (self.numberOfCircles < 4) ? self.numberOfCircles : 3;
+    for (int i = 0; i < limit; i++) {
+        [self animateCircle:[self.circles objectAtIndex:i] atIndex:i];
     }
 }
 
-- (void)animateBall:(CALayer *)ball atIndex:(int)index {
+- (void)secondAnimation {
+    if (!self.animate) return;
+    for (int i = 3; i<self.numberOfCircles; i++) {
+        [self animateCircle:[self.circles objectAtIndex:i] atIndex:i];
+    }
+}
+
+- (void)animateCircle:(CALayer *)circle atIndex:(int)index {
     CGPoint point;
-    switch (index) {
-        case 0:
-            point = CGPointMake(ball.position.x, ball.position.y + self.separation);
-            break;
-        case 1:
-            point = CGPointMake(ball.position.x + self.separation, ball.position.y - self.separation);
-            break;
-        case 2:
-            point = CGPointMake(ball.position.x - self.separation, ball.position.y - self.separation);
-            break;
-        case 3:
-            point = CGPointMake(ball.position.x, ball.position.y + self.separation);
-        case 4:
-            if (index == 4) {
-                point = CGPointMake(ball.position.x + self.separation, ball.position.y - self.separation);
-            }
-            break;
-        case 5:
-            point = CGPointMake(ball.position.x - self.separation, ball.position.y - self.separation);
-            break;
-            
-        default:
-            break;
+    
+    if (index == 0 || index == 3) {
+        point = CGPointMake(circle.position.x, circle.position.y + self.separation);
+    }
+    if (index == 1 || index == 4) {
+        point = CGPointMake(circle.position.x + self.separation, circle.position.y - self.separation);
+    }
+    if (index == 2 || index == 5) {
+        point = CGPointMake(circle.position.x - self.separation, circle.position.y - self.separation);
     }
     
     CAKeyframeAnimation *bounds1 = [CAKeyframeAnimation animationWithKeyPath:@"bounds.size"];
@@ -256,7 +225,7 @@
     
     CAKeyframeAnimation *position = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     position.duration = self.duration/2;
-    position.values = @[[NSValue valueWithCGPoint:ball.position],
+    position.values = @[[NSValue valueWithCGPoint:circle.position],
                         [NSValue valueWithCGPoint:point]];
     position.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
     position.beginTime = CACurrentMediaTime() + self.duration/2;
@@ -286,19 +255,95 @@
     position2.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
     position2.beginTime = CACurrentMediaTime() + self.duration;
     
-    [ball addAnimation:bounds1 forKey:@"bounds1"];
-    [ball addAnimation:radius forKey:@"radius"];
-    [ball addAnimation:position forKey:@"position"];
+    [circle addAnimation:bounds1 forKey:@"bounds1"];
+    [circle addAnimation:radius forKey:@"radius"];
+    [circle addAnimation:position forKey:@"position"];
     
-    [ball addAnimation:miniBounds forKey:@"boundsFinal"];
-    [ball addAnimation:radius2 forKey:@"radius2"];
-    [ball addAnimation:position2 forKey:@"position2"];
+    [circle addAnimation:miniBounds forKey:@"boundsFinal"];
+    [circle addAnimation:radius2 forKey:@"radius2"];
+    [circle addAnimation:position2 forKey:@"position2"];
     
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self startAnimation];
+    if (self.animate) [self startAnimating];
 }
 
+
+#pragma mark - Custom setters
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    self.loaderView.backgroundColor = backgroundColor;
+}
+
+- (void)setLoaderAlpha:(CGFloat)loaderAlpha
+{
+    _loaderAlpha = loaderAlpha;
+    self.loaderView.alpha = loaderAlpha;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    self.loaderView.layer.cornerRadius = cornerRadius;
+}
+
+- (void)setLoaderColor:(UIColor *)loaderColor
+{
+    _loaderColor = loaderColor;
+    [self performSelector:@selector(changeCirclesColor:) withObject:loaderColor afterDelay:0];
+}
+
+- (void)changeCirclesColor:(UIColor *)loaderColor
+{
+    CGColorRef color = loaderColor.CGColor;
+    for (CALayer *layer in self.circles) {
+        layer.borderColor = color;
+    }
+}
+
+
+#pragma mark - Lazy inits
+
+- (UIView *)loaderView
+{
+    if (!_loaderView) {
+        _loaderView = [UIView new];
+        [self addSubview:_loaderView];
+    }
+    return _loaderView;
+}
+
+- (CALayer *)loaderLayer
+{
+    if (!_loaderLayer) {
+        _loaderLayer = [CALayer layer];
+        [self.loaderView.layer addSublayer:_loaderLayer];
+    }
+    return _loaderLayer;
+}
+
+- (NSArray *)circles
+{
+    if (!_circles) _circles = [NSArray new];
+    return _circles;
+}
+
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [UILabel new];
+    }
+    return _label;
+}
+
+
+#pragma mark - Deprecated methods
+
+- (instancetype)initLoaderOnView:(UIView *)view
+{
+    return [PQFCirclesInTriangle createLoaderOnView:view];
+}
 
 @end

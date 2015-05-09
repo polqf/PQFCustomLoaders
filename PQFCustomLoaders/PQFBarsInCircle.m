@@ -1,78 +1,104 @@
 //
 //  PQFBarsInCircle.m
-//  randomAnimations
+//  PQFCustomLoadersDemo
 //
-//  Created by Pol Quintana on 27/10/14.
-//  Copyright (c) 2014 Pol Quintana. All rights reserved.
+//  Created by Pol Quintana on 6/3/15.
+//  Copyright (c) 2015 Pol Quintana. All rights reserved.
 //
 
 #import "PQFBarsInCircle.h"
-#import <UIColor+FlatColors.h>
+#import <UIColor+FlatColors/UIColor+FlatColors.h>
 
 #define degreesToRadians(x) (M_PI * x /180.0)
 
-@interface PQFBarsInCircle () {
-    BOOL generated;
-}
-
-@property (nonatomic, strong) UIView *bgView;
+@interface PQFBarsInCircle () <PQFLoaderProtocol>
+@property (nonatomic, strong) UIView *loaderView;
+@property (nonatomic, strong) CALayer *loaderLayer;
 
 @property (nonatomic, strong) NSArray *bars;
 @property (nonatomic, strong) NSMutableArray *widthsArray;
 @property (nonatomic, strong) NSMutableArray *heightArray;
+@property (nonatomic, assign) BOOL animate;
 @property (nonatomic) CGFloat angleInRad;
-@property (nonatomic) CGFloat fontSize;
-@property (nonatomic) CALayer *loaderLayer;
-@property (nonatomic) BOOL animate;
-@property (nonatomic, strong) UIView *loaderView;
-
 @end
 
 @implementation PQFBarsInCircle
 
-- (instancetype)initLoader
+
+#pragma mark - PQFLoader methods
+
++ (instancetype)showLoaderOnView:(UIView *)view
 {
-    self = [self initLoaderOnView:nil];
-    return self;
+    PQFBarsInCircle *loader = [self createLoaderOnView:view];
+    [loader showLoader];
+    return loader;
 }
 
-- (instancetype)initLoaderOnView:(UIView *)view {
-    self = [super init];
-    
-    if (!view) {
-        UIWindow *window = [[UIApplication sharedApplication].delegate window];
-        view = [[UIView alloc] initWithFrame:window.frame];
-        self.bgView = view;
-        
-        view.userInteractionEnabled = YES;
-        
-        [window addSubview:view];
-    }
++ (instancetype)createLoaderOnView:(UIView *)view
+{
+    if (!view) view = [[UIApplication sharedApplication].delegate window];
+    PQFBarsInCircle *loader = [PQFBarsInCircle new];
+    [loader initialSetupWithView:view];
+    return loader;
+}
 
-    [self defaultValues];
-    
-    self.frame = CGRectMake(0, 0, view.frame.size.width, self.barHeightMax*2 + 20);
+- (void)showLoader
+{
+    [self performSelector:@selector(startShowingLoader) withObject:nil afterDelay:0];
+}
+
+- (void)startShowingLoader
+{
+    self.hidden = NO;
+    self.animate = YES;
+    [self generateLoader];
+    [self startAnimating];
+}
+
+- (void)hideLoader
+{
+    self.hidden = YES;
+    self.animate = NO;
+}
+
+- (void)removeLoader
+{
+    [self hideLoader];
+    [self removeFromSuperview];
+}
+
+
+#pragma mark - Prepare loader
+
+- (void)initialSetupWithView:(UIView *)view
+{
+    //Setting up frame
+    self.frame = view.frame;
     self.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
     
-    [self setClipsToBounds:YES];
+    //If it is modal, background for the loader
+    if ([view isKindOfClass:[UIWindow class]]) {
+        UIView *bgView = [[UIView alloc] initWithFrame:view.bounds];
+        bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+        [self addSubview:bgView];
+    }
     
+    //Add loader to its superview
     [view addSubview:self];
     
-    //Loader View Initialization
-    self.loaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 10, self.barHeightMax*2 + 10)];
-    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-    [self addSubview:self.loaderView];
+    [self.loaderView addSubview:self.label];
     
-    return self;
+    //Initial Values
+    [self defaultValues];
+    
+    //Initially hidden
+    self.hidden = YES;
 }
 
-- (void)defaultValues{
-    generated = NO;
-    
-    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-    
-    self.numberOfBars = 35;
+- (void)defaultValues
+{
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    self.numberOfBars = 35;
     self.loaderAlpha = 1.0;
     self.cornerRadius = 0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -84,118 +110,85 @@
     self.rotationSpeed = 6.0;
     self.barsSpeed = 0.5;
     self.fontSize = 14.0;
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.barHeightMax*2 + 30, self.fontSize*2+10)];
 }
 
 
-#pragma mark - public methods
+#pragma mark - Before showing
 
-- (void)show {
-    self.alpha = 1.0;
-    self.animate = YES;
-    if (!generated)[self generateLoader];
-    [self animateRotation];
-    [self startAnimation];
+
+- (void)generateLoader
+{
+    self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.barHeightMax*2 + 10);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    self.loaderLayer.frame = self.loaderView.bounds;
+    self.loaderLayer.cornerRadius = self.cornerRadius;
+    
+    [self layoutBars];
+    
+    if (self.label.text) [self layoutLabel];
 }
 
-- (void)hide {
-    self.alpha = 0.0;
-    self.animate = NO;
-}
-
-- (void)remove {
-    [self hide];
-    [self removeFromSuperview];
-    if (self.bgView) [self.bgView removeFromSuperview];
-}
-
-#pragma mark - private methods
-
-- (void)generateLoader {
-    
-    self.widthsArray = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
-    self.heightArray = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
-    
-    //GenerateFrames
-    generated = YES;
-    
-    self.layer.cornerRadius = self.cornerRadius;
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.barHeightMax*2 + 20);
-    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.barHeightMax*2 + 10);
-    
-    
-    NSMutableArray *temp = [[NSMutableArray alloc] initWithCapacity:self.numberOfBars];
-    self.loaderLayer = [CALayer layer];
-    self.loaderLayer.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2);
-    self.loaderLayer.opacity = self.loaderAlpha;
-    
-    //Loader View
-    [self.loaderView.layer addSublayer:self.loaderLayer];
-    
+- (void)layoutBars
+{
+    NSMutableArray *temp = [NSMutableArray new];
     for (int i = 0 ; i < self.numberOfBars ; i++) {
         CALayer *bar = [CALayer layer];
         bar.backgroundColor = self.loaderColor.CGColor;
-        CGFloat randomWidth = 0;
-        CGFloat randomHeight = 0;
-        [self.heightArray addObject:[NSNumber numberWithFloat:randomHeight]];
-        [self.widthsArray addObject:[NSNumber numberWithFloat:randomWidth]];
+        [self.heightArray addObject:[NSNumber numberWithFloat:0]];
+        [self.widthsArray addObject:[NSNumber numberWithFloat:0]];
         bar.bounds = CGRectMake(0, 0, 0, 0);
         bar.anchorPoint = CGPointMake(0.5, 1.0);
-        bar.position = CGPointMake(CGRectGetWidth(self.loaderLayer.frame)/2, CGRectGetHeight(self.loaderLayer.frame)/2);
+        bar.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2);
+        if (self.label.text) {
+            bar.position = CGPointMake(bar.position.x, bar.position.y + 10);
+        }
         CGFloat angle = degreesToRadians(360/self.numberOfBars*(i+1));
         CATransform3D rotate = CATransform3DMakeRotation(angle, 0, 0, 1);
         bar.transform = rotate;
         [temp addObject:bar];
         [self.loaderLayer addSublayer:bar];
     }
-    [self autolayoutByCode];
-    
     self.bars = [temp copy];
 }
 
-- (void)autolayoutByCode {
-    
-    //Loader View
+- (void)layoutLabel
+{
     self.label.textAlignment = NSTextAlignmentCenter;
     self.label.numberOfLines = 3;
     self.label.textColor = [UIColor whiteColor];
     self.label.font = [UIFont systemFontOfSize:self.fontSize];
-    if ([self.label.text isEqualToString:@""]) {
-        self.label.text = nil;
-    }
     
-    if (self.label.text) {
-        CGFloat xCenter = self.center.x;
-        CGFloat yCenter = self.center.y;
-
-        self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2 + 10);
-        self.center = CGPointMake(xCenter, yCenter);
-
-        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + self.fontSize*2);
-        self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-        
-        CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
-        CGFloat yPoint = CGRectGetHeight(self.loaderView.frame)/2 + self.barHeightMax;
-        
-        self.label.center = CGPointMake(xPoint, yPoint);
-        [self.loaderView addSubview:self.label];
-    }
-
+    CGFloat xCenter = self.center.x;
+    CGFloat yCenter = self.center.y;
+    
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
+    
+    self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
+    self.center = CGPointMake(xCenter, yCenter);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    
+    CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
+    CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
+    
+    self.label.frame = CGRectMake(0, 0, CGRectGetHeight(self.loaderView.frame), self.fontSize*2+10);
+    self.label.center = CGPointMake(xPoint, yPoint);
 }
 
-- (CGFloat)randomFloatBetween:(CGFloat)a and:(CGFloat)b {
-    CGFloat random = ((CGFloat) rand()) / (CGFloat) RAND_MAX;
-    CGFloat diff = b - a;
-    CGFloat r = random * diff;
-    return a + r;
+
+#pragma mark - Animate
+
+- (void)startAnimating
+{
+    if (!self.animate) return;
+    [self animateRotation];
+    [self animateBars];
 }
 
-- (void)startAnimation {
-    if (self.animate) {
-        for (int i = 0; i < self.numberOfBars; i++) {
-            CALayer *bar = [self.bars objectAtIndex:i];
-            [self animateBar:bar atIndex:i];
-        }
+- (void)animateBars
+{
+    for (int i = 0; i < self.numberOfBars; i++) {
+        CALayer *bar = [self.bars objectAtIndex:i];
+        [self animateBar:bar atIndex:i];
     }
 }
 
@@ -228,33 +221,122 @@
 }
 
 - (void)animateRotation {
-    if (self.animate) {
-        CAKeyframeAnimation *rotate = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
-        rotate.duration = self.rotationSpeed;
-        rotate.additive = YES;
-        rotate.values = @[[NSNumber numberWithFloat:self.angleInRad], [NSNumber numberWithFloat:(self.angleInRad + M_PI_4)]];
-        rotate.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-        rotate.delegate = self;
-        rotate.fillMode = kCAFillModeForwards;
-        rotate.removedOnCompletion = NO;
-        
-        [rotate setValue:@"anim2" forKey:@"animation"];
-        
-        self.angleInRad = self.angleInRad + M_PI_4;
-        
-        [self.loaderLayer addAnimation:rotate forKey:@"rotation"];
-    }
+    if (!self.animate) return;
+    CAKeyframeAnimation *rotate = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotate.duration = self.rotationSpeed;
+    rotate.additive = YES;
+    rotate.values = @[[NSNumber numberWithFloat:self.angleInRad], [NSNumber numberWithFloat:(self.angleInRad + M_PI_4)]];
+    rotate.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+    rotate.delegate = self;
+    rotate.fillMode = kCAFillModeForwards;
+    rotate.removedOnCompletion = NO;
     
+    [rotate setValue:@"anim2" forKey:@"animation"];
+    
+    self.angleInRad = self.angleInRad + M_PI_4;
+    [self.loaderLayer addAnimation:rotate forKey:@"rotation"];
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    if (!self.animate) return;
     if ([@"anim1" isEqualToString:[anim valueForKey:@"animation"]]) {
-        [self startAnimation];
+        [self animateBars];
     }
     if ([@"anim2" isEqualToString:[anim valueForKey:@"animation"]]) {
         [self animateRotation];
     }
 }
 
+
+#pragma mark - Custom setters
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    self.loaderView.backgroundColor = backgroundColor;
+}
+
+- (void)setLoaderAlpha:(CGFloat)loaderAlpha
+{
+    _loaderAlpha = loaderAlpha;
+    self.loaderView.alpha = loaderAlpha;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    self.loaderView.layer.cornerRadius = cornerRadius;
+}
+
+- (void)setLoaderColor:(UIColor *)loaderColor
+{
+    _loaderColor = loaderColor;
+    [self performSelector:@selector(changeBarsColor:) withObject:loaderColor afterDelay:0];
+}
+
+- (void)changeBarsColor:(UIColor *)loaderColor
+{
+    CGColorRef color = loaderColor.CGColor;
+    for (CALayer *layer in self.bars) {
+        layer.backgroundColor = color;
+    }
+}
+
+#pragma mark - Lazy inits
+
+- (UIView *)loaderView
+{
+    if (!_loaderView) {
+        _loaderView = [UIView new];
+        [self addSubview:_loaderView];
+    }
+    return _loaderView;
+}
+
+- (CALayer *)loaderLayer
+{
+    if (!_loaderLayer) {
+        _loaderLayer = [CALayer layer];
+        [self.loaderView.layer addSublayer:_loaderLayer];
+    }
+    return _loaderLayer;
+}
+
+- (NSMutableArray *)widthsArray
+{
+    if (!_widthsArray) _widthsArray = [NSMutableArray new];
+    return _widthsArray;
+}
+
+- (NSMutableArray *)heightArray
+{
+    if (!_heightArray) _heightArray = [NSMutableArray new];
+    return _heightArray;
+}
+
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [UILabel new];
+    }
+    return _label;
+}
+
+
+#pragma mark - Helper
+
+- (CGFloat)randomFloatBetween:(CGFloat)a and:(CGFloat)b {
+    CGFloat random = ((CGFloat) rand()) / (CGFloat) RAND_MAX;
+    CGFloat diff = b - a;
+    CGFloat r = random * diff;
+    return a + r;
+}
+
+
+#pragma mark - Deprecated methods
+
+- (instancetype)initLoaderOnView:(UIView *)view
+{
+    return [PQFBarsInCircle createLoaderOnView:view];
+}
 
 @end

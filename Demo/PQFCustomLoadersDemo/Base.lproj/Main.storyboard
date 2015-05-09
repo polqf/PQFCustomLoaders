@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="703-4V-yAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="703-4V-yAM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -51,21 +51,47 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0n-rf-dn4">
-                                <rect key="frame" x="215" y="478" width="170" height="32"/>
+                                <rect key="frame" x="242" y="492" width="117" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="170" id="8SU-jC-6Tp"/>
+                                    <constraint firstAttribute="width" constant="180" id="8SU-jC-6Tp"/>
+                                    <constraint firstAttribute="width" constant="130" id="P4z-vG-yRR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="PRESENT MODALLY">
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Show as Modal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="8SU-jC-6Tp"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="presentLoaderModally:" destination="S4R-Ja-viH" eventType="touchUpInside" id="BlF-nk-6Gq"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2X-nd-D16">
+                                <rect key="frame" x="262" y="444" width="76" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="IGJ-K3-v6R"/>
+                                    <constraint firstAttribute="width" constant="130" id="s79-li-D18"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Show Text">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="IGJ-K3-v6R"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="showText:" destination="S4R-Ja-viH" eventType="touchUpInside" id="yBD-bo-Vnt"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.96989458799999995" green="0.44270280000000001" blue="0.48269057269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.64364105463027954" blue="0.17251506447792053" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="4" id="1qU-VX-ivZ"/>
@@ -77,29 +103,36 @@
                             <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="cF2-Le-7mQ" secondAttribute="bottom" id="PLp-sA-HU0"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="fXf-Jd-eTc" secondAttribute="bottom" constant="50" id="Tm6-Jr-ztn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="g0n-rf-dn4" secondAttribute="trailing" constant="20" id="YkM-46-BFB"/>
-                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="g0n-rf-dn4" secondAttribute="bottom" constant="30" id="arV-kW-bbA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="4" id="dP1-Av-jrL"/>
+                            <constraint firstItem="g0n-rf-dn4" firstAttribute="top" secondItem="L2X-nd-D16" secondAttribute="bottom" constant="8" id="ewy-To-fN2"/>
+                            <constraint firstAttribute="centerX" secondItem="L2X-nd-D16" secondAttribute="centerX" id="hfs-9K-1vo"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="-16" id="i0x-3k-x2f"/>
                             <constraint firstItem="g0n-rf-dn4" firstAttribute="trailing" secondItem="ZwX-cT-FIQ" secondAttribute="trailingMargin" constant="20" id="mZK-4Z-wgm"/>
+                            <constraint firstItem="L2X-nd-D16" firstAttribute="trailing" secondItem="ZwX-cT-FIQ" secondAttribute="trailingMargin" constant="20" id="p4Z-Kh-6Ri"/>
+                            <constraint firstAttribute="centerX" secondItem="g0n-rf-dn4" secondAttribute="centerX" id="uKU-k2-luW"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leadingMargin" constant="4" id="wd9-0N-ffS"/>
+                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="g0n-rf-dn4" secondAttribute="bottom" constant="8" id="xCl-r6-iwP"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="ATy-LM-HRG"/>
-                                <exclude reference="EH7-on-iVi"/>
-                                <exclude reference="YkM-46-BFB"/>
-                                <exclude reference="mZK-4Z-wgm"/>
+                                <exclude reference="p4Z-Kh-6Ri"/>
                                 <exclude reference="1qU-VX-ivZ"/>
                                 <exclude reference="J4M-h9-iSK"/>
                                 <exclude reference="Tm6-Jr-ztn"/>
                                 <exclude reference="dP1-Av-jrL"/>
                                 <exclude reference="wd9-0N-ffS"/>
+                                <exclude reference="6Yn-hg-l1J"/>
+                                <exclude reference="ATy-LM-HRG"/>
+                                <exclude reference="EH7-on-iVi"/>
+                                <exclude reference="YkM-46-BFB"/>
+                                <exclude reference="mZK-4Z-wgm"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="dataLabel" destination="cF2-Le-7mQ" id="3EH-BK-JV6"/>
                         <outlet property="presentModallyOutlet" destination="g0n-rf-dn4" id="MNP-Vm-wA6"/>
+                        <outlet property="showTextOutlet" destination="L2X-nd-D16" id="M6b-e4-wgL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>

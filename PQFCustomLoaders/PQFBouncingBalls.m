@@ -1,75 +1,98 @@
 //
 //  PQFBouncingBalls.m
-//  randomAnimations
+//  PQFCustomLoadersDemo
 //
-//  Created by Pol Quintana on 28/10/14.
-//  Copyright (c) 2014 Pol Quintana. All rights reserved.
+//  Created by Pol Quintana on 6/3/15.
+//  Copyright (c) 2015 Pol Quintana. All rights reserved.
 //
 
 #import "PQFBouncingBalls.h"
-#import <UIColor+FlatColors.h>
+#import <UIColor+FlatColors/UIColor+FlatColors.h>
 
-@interface PQFBouncingBalls () {
-    BOOL generated;
-}
-
-@property (nonatomic, strong) UIView *bgView;
-
-@property CALayer *ball1;
-@property CALayer *ball2;
-@property CALayer *ball3;
-
-@property (nonatomic, strong) NSArray *balls;
-@property (nonatomic) BOOL animate;
+@interface PQFBouncingBalls () <PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;
-@property (nonatomic) CGFloat fontSize;
+@property (nonatomic) CALayer *ball1;
+@property (nonatomic) CALayer *ball2;
+@property (nonatomic) CALayer *ball3;
+@property (nonatomic, assign) BOOL animate;
 @property (nonatomic) CGFloat rectSize;
-
 @end
 
 @implementation PQFBouncingBalls
 
-- (instancetype)initLoader
+
+#pragma mark - PQFLoader methods
+
++ (instancetype)showLoaderOnView:(UIView *)view
 {
-    self = [self initLoaderOnView:nil];
-    return self;
+    PQFBouncingBalls *loader = [self createLoaderOnView:view];
+    [loader showLoader];
+    return loader;
 }
 
-- (instancetype)initLoaderOnView:(UIView *)view {
-    self = [super init];
-    
-    if (!view) {
-        UIWindow *window = [[UIApplication sharedApplication].delegate window];
-        view = [[UIView alloc] initWithFrame:window.frame];
-        self.bgView = view;
-        
-        view.userInteractionEnabled = YES;
-        
-        [window addSubview:view];
-    }
-    
-    [self defaultValues];
-    
-    self.frame = CGRectMake(0, 0, view.frame.size.width, self.rectSize + 40);
++ (instancetype)createLoaderOnView:(UIView *)view
+{
+    if (!view) view = [[UIApplication sharedApplication].delegate window];
+    PQFBouncingBalls *loader = [PQFBouncingBalls new];
+    [loader initialSetupWithView:view];
+    return loader;
+}
+
+- (void)showLoader
+{
+    [self performSelector:@selector(startShowingLoader) withObject:nil afterDelay:0];
+}
+
+- (void)startShowingLoader
+{
+    self.hidden = NO;
+    self.animate = YES;
+    [self generateLoader];
+    [self startAnimating];
+}
+
+- (void)hideLoader
+{
+    self.hidden = YES;
+    self.animate = NO;
+}
+
+- (void)removeLoader
+{
+    [self hideLoader];
+    [self removeFromSuperview];
+}
+
+
+#pragma mark - Prepare loader
+
+- (void)initialSetupWithView:(UIView *)view
+{
+    //Setting up frame
+    self.frame = view.frame;
     self.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
     
-    //[self setClipsToBounds:YES];
+    //If it is modal, background for the loader
+    if ([view isKindOfClass:[UIWindow class]]) {
+        UIView *bgView = [[UIView alloc] initWithFrame:view.bounds];
+        bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+        [self addSubview:bgView];
+    }
     
+    //Add loader to its superview
     [view addSubview:self];
     
-    //Loader View Initialization
-    self.loaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 10, self.rectSize + 10)];
-    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-    [self addSubview:self.loaderView];
+    [self.loaderView addSubview:self.label];
     
-    return self;
+    //Initial Values
+    [self defaultValues];
+    
+    //Initially hidden
+    self.hidden = YES;
 }
 
-- (void)defaultValues {
-    generated = NO;
-    
-    self.bgView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-
+- (void)defaultValues
+{
     self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
@@ -81,116 +104,78 @@
     self.duration = 1.0;
     self.fontSize = 14.0;
     self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.rectSize + 30, self.fontSize*2+10)];
 }
 
-#pragma mark - public methods
 
-- (void)show {
-    self.alpha = 1.0;
-    self.animate = YES;
-    if (!generated) [self generateLoader];
-    [self startAnimation];
+#pragma mark - Before showing
+
+- (void)generateLoader
+{
+    self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.rectSize + 30);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);    
+    self.loaderView.layer.cornerRadius  = self.cornerRadius;
+    
+    [self layoutBalls];
+    
+    if (self.label.text) [self layoutLabel];
 }
 
-- (void)hide {
-    self.alpha = 0.0;
-    self.animate = NO;
-}
-
-- (void)remove {
-    [self hide];
-    [self removeFromSuperview];
-    if (self.bgView) [self.bgView removeFromSuperview];
-}
-
-#pragma mark Custom Setters
-
-#pragma mark - private methods
-
-- (void)generateLoader {
-    
-    //Generate frames
-    generated = YES;
-    
-    self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.rectSize + 40);
-    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.rectSize + 10);
-    
-    
-    //Layers
-    self.layer.cornerRadius = self.cornerRadius;
-    
-    self.ball1 = [CALayer layer];
+- (void)layoutBalls
+{
     self.ball1.bounds = CGRectMake(0, 0, self.diameter, self.diameter);
     self.ball1.cornerRadius = self.diameter/2;
     self.ball1.backgroundColor = self.loaderColor.CGColor;
     self.ball1.opacity = self.loaderAlpha;
     
-    self.ball3 = [CALayer layer];
-    self.ball3.bounds = CGRectMake(0, 0, self.diameter, self.diameter);
-    self.ball3.cornerRadius = self.diameter/2;
-    self.ball3.backgroundColor = self.loaderColor.CGColor;
-    self.ball3.opacity = self.loaderAlpha;
-    
-    self.ball2 = [CALayer layer];
     self.ball2.bounds = CGRectMake(0, 0, self.diameter, self.diameter);
     self.ball2.cornerRadius = self.diameter/2;
     self.ball2.backgroundColor = self.loaderColor.CGColor;
     self.ball2.opacity = self.loaderAlpha;
     
+    self.ball3.bounds = CGRectMake(0, 0, self.diameter, self.diameter);
+    self.ball3.cornerRadius = self.diameter/2;
+    self.ball3.backgroundColor = self.loaderColor.CGColor;
+    self.ball3.opacity = self.loaderAlpha;
+    
     self.ball1.position = CGPointMake(CGRectGetWidth(self.frame)/2 - self.separation, CGRectGetHeight(self.frame)/2 + self.jumpAmount/2);
     self.ball2.position = CGPointMake(CGRectGetWidth(self.frame)/2 , CGRectGetHeight(self.frame)/2 + self.jumpAmount/2);
     self.ball3.position = CGPointMake(CGRectGetWidth(self.frame)/2 + self.separation, CGRectGetHeight(self.frame)/2 + self.jumpAmount/2);
-    
-    [self.layer addSublayer:self.ball1];
-    [self.layer addSublayer:self.ball2];
-    [self.layer addSublayer:self.ball3];
-    
-    [self autolayoutByCode];
 }
 
-
-- (void)autolayoutByCode {
-    
-    //Loader View
+- (void)layoutLabel
+{
     self.label.textAlignment = NSTextAlignmentCenter;
     self.label.numberOfLines = 3;
     self.label.textColor = [UIColor whiteColor];
     self.label.font = [UIFont systemFontOfSize:self.fontSize];
-    if ([self.label.text isEqualToString:@""]) {
-        self.label.text = nil;
-    }
-        
-    if (self.label.text) {
-        CGFloat xCenter = self.center.x;
-        CGFloat yCenter = self.center.y;
     
-        self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.label.frame.size.height );
-
-        self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
-        self.center = CGPointMake(xCenter, yCenter);
-        self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-
-        CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
-        CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
-        
-        self.label.center = CGPointMake(xPoint, yPoint);
-        [self.loaderView addSubview:self.label];
-    }
+    self.ball1.position = CGPointMake(self.ball1.position.x, self.ball1.position.y - 10);
+    self.ball2.position = CGPointMake(self.ball2.position.x, self.ball2.position.y - 10);
+    self.ball3.position = CGPointMake(self.ball3.position.x, self.ball3.position.y - 10);
     
+    self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    
+    CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;
+    CGFloat yPoint = CGRectGetHeight(self.loaderView.frame) - self.fontSize/2 *[self.label numberOfLines];
+    
+    self.label.frame = CGRectMake(0, 0, CGRectGetHeight(self.loaderView.frame), self.fontSize*2+10);
+    self.label.center = CGPointMake(xPoint, yPoint);
 }
 
 
-- (void)startAnimation {
-    if (self.animate) {
-        [self animateToLeft];
-        [self animateToRight];
-    }
+#pragma mark - Animate
+
+- (void)startAnimating
+{
+    if (!self.animate) return;
+    [self animateToLeft];
+    [self animateToRight];
 }
 
-- (void)animateToLeft {
-    //Time 1
+- (void)animateToLeft
+{
+    if (!self.animate) return;
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position.y"];
     animation.duration = self.duration;
     animation.values = @[@(self.ball1.position.y), @(self.ball1.position.y - self.jumpAmount), @(self.ball1.position.y)];
@@ -226,10 +211,11 @@
     [self.ball2 addAnimation:animation forKey:@"anything"];
     [self.ball1 addAnimation:move forKey:@"anything3"];
     [self.ball2 addAnimation:radius forKey:@"radius"];
-    
 }
 
-- (void)animateToRight {
+- (void)animateToRight
+{
+    if (!self.animate) return;
     CAKeyframeAnimation *animation2 = [CAKeyframeAnimation animationWithKeyPath:@"position.y"];
     animation2.duration = self.duration;
     animation2.values = @[@(self.ball2.position.y), @(self.ball2.position.y - self.jumpAmount), @(self.ball2.position.y)];
@@ -271,7 +257,95 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    [self startAnimation];
+    [self startAnimating];
+}
+
+
+#pragma mark - Custom setters
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    self.loaderView.backgroundColor = backgroundColor;
+}
+
+- (void)setLoaderAlpha:(CGFloat)loaderAlpha
+{
+    _loaderAlpha = loaderAlpha;
+    self.loaderView.alpha = loaderAlpha;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    self.loaderView.layer.cornerRadius = cornerRadius;
+}
+
+- (void)setLoaderColor:(UIColor *)loaderColor
+{
+    _loaderColor = loaderColor;
+    [self performSelector:@selector(changeBallsColor:) withObject:loaderColor afterDelay:0];
+}
+
+- (void)changeBallsColor:(UIColor *)loaderColor
+{
+    self.ball1.backgroundColor = loaderColor.CGColor;
+    self.ball2.backgroundColor = loaderColor.CGColor;
+    self.ball3.backgroundColor = loaderColor.CGColor;
+}
+
+
+#pragma mark - Lazy inits
+
+- (UIView *)loaderView
+{
+    if (!_loaderView) {
+        _loaderView = [UIView new];
+        [self addSubview:_loaderView];
+    }
+    return _loaderView;
+}
+
+- (CALayer *)ball1
+{
+    if (!_ball1) {
+        _ball1 = [CALayer layer];
+        [self.layer addSublayer:_ball1];
+    }
+    return _ball1;
+}
+
+- (CALayer *)ball2
+{
+    if (!_ball2) {
+        _ball2 = [CALayer layer];
+        [self.layer addSublayer:_ball2];
+    }
+    return _ball2;
+}
+
+- (CALayer *)ball3
+{
+    if (!_ball3) {
+        _ball3 = [CALayer layer];
+        [self.layer addSublayer:_ball3];
+    }
+    return _ball3;
+}
+
+- (UILabel *)label
+{
+    if (!_label) {
+        _label = [UILabel new];
+    }
+    return _label;
+}
+
+
+#pragma mark - Deprecated methods
+
+- (instancetype)initLoaderOnView:(UIView *)view
+{
+    return [PQFBouncingBalls createLoaderOnView:view];
 }
 
 @end

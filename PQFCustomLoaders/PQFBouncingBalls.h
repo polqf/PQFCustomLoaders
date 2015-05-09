@@ -1,30 +1,35 @@
 //
 //  PQFBouncingBalls.h
-//  randomAnimations
+//  PQFCustomLoadersDemo
 //
-//  Created by Pol Quintana on 28/10/14.
-//  Copyright (c) 2014 Pol Quintana. All rights reserved.
+//  Created by Pol Quintana on 6/3/15.
+//  Copyright (c) 2015 Pol Quintana. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "PQFLoader.h"
 
-@interface PQFBouncingBalls : UIView
-
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic) CGFloat diameter;
-@property (nonatomic) CGFloat jumpAmount;
-@property (nonatomic) CGFloat separation;
-@property (nonatomic) CGFloat zoomAmount;
-@property (nonatomic) CGFloat duration;
+@interface PQFBouncingBalls : PQFLoader
+/** Text label of the Loader. Hidden if text is nil */
 @property (nonatomic, strong) UILabel *label;
-
-- (instancetype)initLoader;
-- (instancetype)initLoaderOnView:(UIView *)view;
-
-- (void)remove;
-- (void)show;
-- (void)hide;
-
+/** Corner radius of the Loader background */
+@property (nonatomic) CGFloat cornerRadius;
+/** Color of the Loader */
+@property (nonatomic, strong) UIColor *loaderColor;
+/** Alpha of the loader */
+@property (nonatomic) CGFloat loaderAlpha;
+/** Diameter of the bouncing balls */
+@property (nonatomic) CGFloat diameter;
+/** Movement amount on the X axis */
+@property (nonatomic) CGFloat jumpAmount;
+/** Separation between the bouncing balls */
+@property (nonatomic) CGFloat separation;
+/** Ball added size when jumping */
+@property (nonatomic) CGFloat zoomAmount;
+/** Duration of each animation */
+@property (nonatomic) CGFloat duration;
+/** Size of the label text */
+@property (nonatomic) CGFloat fontSize;
+/** Alpha of the hole view */
+@property (nonatomic) CGFloat alpha;
 @end
