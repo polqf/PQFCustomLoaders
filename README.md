@@ -1,9 +1,9 @@
-#PQFCustomLoaders 1.0.0
+#PQFCustomLoaders 1.0.1
 
 ####Collection of highly customizable loaders for your iOS projects.
 
 ###Changelog
-* **1.0.0** (May 2015)
+* **1.0.1** (May 2015)
 	- **New Modal presentation**	
 	- **New Loader** (PQFBallDrop)
 	- New demo
