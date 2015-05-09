@@ -109,15 +109,11 @@
 
 #pragma mark - Before showing
 
-
 - (void)generateLoader
 {
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.rectSize + 30);
-    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-    
-    NSLog(@"%@", self.loaderView);
-    
-    self.layer.cornerRadius = self.cornerRadius;
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);    
+    self.loaderView.layer.cornerRadius  = self.cornerRadius;
     
     [self layoutBalls];
     
@@ -276,6 +272,20 @@
 {
     _loaderAlpha = loaderAlpha;
     self.loaderView.alpha = loaderAlpha;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    self.loaderView.layer.cornerRadius = cornerRadius;
+}
+
+- (void)setLoaderColor:(UIColor *)loaderColor
+{
+    _loaderColor = loaderColor;
+    self.ball1.backgroundColor = loaderColor.CGColor;
+    self.ball2.backgroundColor = loaderColor.CGColor;
+    self.ball3.backgroundColor = loaderColor.CGColor;
 }
 
 

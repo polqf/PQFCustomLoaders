@@ -115,11 +115,8 @@
 {
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.rectSize + 30);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-
-    self.layer.cornerRadius = self.cornerRadius;
-    
+    self.loaderView.layer.cornerRadius  = self.cornerRadius;
     [self layoutBalls];
-    
     if (self.label.text) [self layoutLabel];
 }
 
@@ -231,6 +228,12 @@
     _loaderColor = loaderColor;
     self.mainBall.backgroundColor = loaderColor;
     self.fallingBall.backgroundColor = loaderColor;
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    self.loaderView.layer.cornerRadius = cornerRadius;
 }
 
 - (void)setLoaderAlpha:(CGFloat)loaderAlpha

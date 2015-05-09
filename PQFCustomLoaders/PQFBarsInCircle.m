@@ -258,6 +258,19 @@
     self.loaderView.alpha = loaderAlpha;
 }
 
+- (void)setCornerRadius:(CGFloat)cornerRadius
+{
+    _cornerRadius = cornerRadius;
+    self.loaderView.layer.cornerRadius = cornerRadius;
+}
+
+- (void)setLoaderColor:(UIColor *)loaderColor
+{
+    _loaderColor = loaderColor;
+    for (CALayer *layer in self.bars) {
+        layer.backgroundColor = loaderColor.CGColor;
+    }
+}
 
 #pragma mark - Lazy inits
 
