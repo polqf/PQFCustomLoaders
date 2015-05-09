@@ -12,4 +12,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.social_media_url = 'https://twitter.com/poolqf'
   s.dependency 'UIColor+FlatColors'
+  s.dependency 'pop', '~> 1.0'
 end
