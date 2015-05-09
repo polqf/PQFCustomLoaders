@@ -66,7 +66,7 @@ static const CGFloat kButtonCornerRadius = 4;
 {
     if (!_showingModal) {
         [self.loader removeLoader];
-        self.loader = [PQFLoader createModalLoader:(int)self.pageIndex];
+        self.loader = [[self loaderClass] createModalLoader];
         [self.loader showLoader];
         [[[UIApplication sharedApplication].delegate window] addSubview:self.modalButton];
         _showingModal = YES;
@@ -98,12 +98,38 @@ static const CGFloat kButtonCornerRadius = 4;
     [self.loader showLoader];
 }
 
+
+#pragma mark - Helper
+
+- (Class)loaderClass
+{
+    switch (self.pageIndex) {
+        case 0:
+            return [PQFBouncingBalls class];
+            break;
+        case 1:
+            return [PQFBarsInCircle class];
+            break;
+        case 2:
+            return [PQFCirclesInTriangle class];
+            break;
+        case 3:
+            return [PQFBallDrop class];
+            break;
+            
+        default:
+            return nil;
+            break;
+    }
+}
+
+
 #pragma mark - Lazy
 
 - (PQFLoader *)loader
 {
     if (!_loader) {
-        _loader = [PQFLoader createLoader:(int)self.pageIndex onView:self.view];
+        _loader = [[self loaderClass] createLoaderOnView:self.view];
     }
     return _loader;
 }

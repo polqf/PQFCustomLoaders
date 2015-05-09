@@ -33,14 +33,14 @@
 
 #pragma mark - PQFLoader methods
 
-+ (instancetype)showLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)showLoaderOnView:(UIView *)view
 {
-    PQFBouncingBalls *loader = [self createLoader:loaderType onView:view];
+    PQFBouncingBalls *loader = [self createLoaderOnView:view];
     [loader showLoader];
     return loader;
 }
 
-+ (instancetype)createLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)createLoaderOnView:(UIView *)view
 {
     if (!view) view = [[UIApplication sharedApplication].delegate window];
     PQFBouncingBalls *loader = [PQFBouncingBalls new];
@@ -332,7 +332,7 @@
 
 - (instancetype)initLoaderOnView:(UIView *)view
 {
-    return [PQFBouncingBalls createLoader:PQFLoaderTypeBouncingBalls onView:view];
+    return [PQFBouncingBalls createLoaderOnView:view];
 }
 
 @end

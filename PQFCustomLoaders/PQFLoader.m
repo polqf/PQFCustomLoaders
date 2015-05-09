@@ -17,14 +17,14 @@
 
 #pragma mark - SHOW methods
 
-+ (id)showModalLoader:(PQFLoaderType)loaderType
++ (instancetype)showModalLoader
 {
-    return [self showModalLoader:loaderType];
+    return [self showModalLoader];
 }
 
-+ (id)showLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)showLoaderOnView:(UIView *)view
 {
-    return [[PQFLoader loaderClassForType:loaderType] showLoader:loaderType onView:view];
+    return nil;
 }
 
 - (void)showLoader {}
@@ -32,14 +32,14 @@
 
 #pragma mark - CREATE methods
 
-+ (id)createModalLoader:(PQFLoaderType)loaderType
++ (instancetype)createModalLoader
 {
-    return [self createLoader:loaderType onView:nil];
+    return [self createLoaderOnView:nil];
 }
 
-+ (id)createLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)createLoaderOnView:(UIView *)view
 {
-    return [[PQFLoader loaderClassForType:loaderType] createLoader:loaderType onView:view];
+    return nil;
 }
 
 
@@ -55,28 +55,6 @@
 }
 
 - (void)removeLoader {}
-
-
-#pragma mark - Helpers
-
-+ (Class)loaderClassForType:(PQFLoaderType)loaderType
-{
-    switch (loaderType) {
-        case 0:
-            return [PQFBouncingBalls class];
-            break;
-        case 1:
-            return [PQFBarsInCircle class];
-            break;
-        case 2:
-            return [PQFCirclesInTriangle class];
-            break;
-        case 3:
-            return [PQFBallDrop class];
-            break;
-    }
-    return nil;
-}
 
 
 #pragma mark - Deprecated methods

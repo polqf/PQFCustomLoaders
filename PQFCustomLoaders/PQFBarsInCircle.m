@@ -39,14 +39,14 @@
 
 #pragma mark - PQFLoader methods
 
-+ (instancetype)showLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)showLoaderOnView:(UIView *)view
 {
-    PQFBarsInCircle *loader = [self createLoader:loaderType onView:view];
+    PQFBarsInCircle *loader = [self createLoaderOnView:view];
     [loader showLoader];
     return loader;
 }
 
-+ (instancetype)createLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)createLoaderOnView:(UIView *)view
 {
     if (!view) view = [[UIApplication sharedApplication].delegate window];
     PQFBarsInCircle *loader = [PQFBarsInCircle new];
@@ -320,7 +320,7 @@
 
 - (instancetype)initLoaderOnView:(UIView *)view
 {
-    return [PQFBarsInCircle createLoader:PQFLoaderTypeBarsInCircle onView:view];
+    return [PQFBarsInCircle createLoaderOnView:view];
 }
 
 

@@ -33,14 +33,14 @@
 @implementation PQFBallDrop
 
 
-+ (instancetype)showLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)showLoaderOnView:(UIView *)view
 {
-    PQFBallDrop *loader = [self createLoader:loaderType onView:view];
+    PQFBallDrop *loader = [self createLoaderOnView:view];
     [loader showLoader];
     return loader;
 }
 
-+ (instancetype)createLoader:(PQFLoaderType)loaderType onView:(UIView *)view
++ (instancetype)createLoaderOnView:(UIView *)view
 {
     if (!view) view = [[UIApplication sharedApplication].delegate window];
     PQFBallDrop *loader = [PQFBallDrop new];
@@ -310,7 +310,7 @@
 
 - (instancetype)initLoaderOnView:(UIView *)view
 {
-    return [PQFBallDrop createLoader:PQFLoaderTypeBallDrop onView:view];
+    return [PQFBallDrop createLoaderOnView:view];
 }
 
 @end
