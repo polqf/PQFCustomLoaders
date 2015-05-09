@@ -10,18 +10,24 @@
 #import "PQFLoader.h"
 
 @interface PQFBouncingBalls : PQFLoader
+/** Text label of the Loader. Hidden if text is nil */
 @property (nonatomic, strong) UILabel *label;
+/** Corner radius of the Loader background */
 @property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat alpha;
-@property (nonatomic, strong) UIColor *color;
+/** Color of the Loader */
 @property (nonatomic, strong) UIColor *loaderColor;
+/** Alpha of the loader */
 @property (nonatomic) CGFloat loaderAlpha;
+/** Diameter of the bouncing balls */
 @property (nonatomic) CGFloat diameter;
+/** Movement amount on the X axis */
 @property (nonatomic) CGFloat jumpAmount;
+/** Separation between the bouncing balls */
 @property (nonatomic) CGFloat separation;
+/** Ball added size when jumping */
 @property (nonatomic) CGFloat zoomAmount;
+/** Duration of each animation */
 @property (nonatomic) CGFloat duration;
+/** Size of the label text */
 @property (nonatomic) CGFloat fontSize;
-@property (nonatomic) CGFloat rectSize;
-
 @end

@@ -10,16 +10,22 @@
 #import "PQFLoader.h"
 
 @interface PQFBallDrop : PQFLoader
+/** Text label of the Loader. Hidden if text is nil */
 @property (nonatomic, strong) UILabel *label;
+/** Corner radius of the Loader background */
 @property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) CGFloat alpha;
-@property (nonatomic, strong) UIColor *color;
+/** Color of the Loader */
 @property (nonatomic, strong) UIColor *loaderColor;
+/** Alpha of the loader */
 @property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic) CGFloat maxDiam;
-@property (nonatomic) CGFloat amountZoom;
-@property (nonatomic) CGFloat delay;
+/** Duration of each animation */
 @property (nonatomic) CGFloat duration;
+/** Size of the label text */
 @property (nonatomic) CGFloat fontSize;
-@property (nonatomic) CGFloat rectSize;
+/** Maximum diameter of the circles */
+@property (nonatomic) CGFloat maxDiam;
+/** Delay between the animations */
+@property (nonatomic) CGFloat delay;
+/** Ball added size when droping */
+@property (nonatomic) CGFloat amountZoom;
 @end

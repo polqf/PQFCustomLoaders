@@ -7,7 +7,7 @@
 //
 
 #import "PQFBallDrop.h"
-#import <UIColor+FlatColors.h>
+#import <UIColor+FlatColors/UIColor+FlatColors.h>
 #import <pop/POP.h>
 
 @interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate, PQFLoaderProtocol>
@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UICollisionBehavior *collisionBehaviour;
 @property (nonatomic) BOOL restart;
 @property (nonatomic) BOOL animate;
+@property (nonatomic) CGFloat rectSize;
 @end
 
 @implementation PQFBallDrop

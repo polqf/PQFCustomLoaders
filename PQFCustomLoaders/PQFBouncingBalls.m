@@ -7,7 +7,7 @@
 //
 
 #import "PQFBouncingBalls.h"
-#import <UIColor+FlatColors.h>
+#import <UIColor+FlatColors/UIColor+FlatColors.h>
 
 @interface PQFBouncingBalls () <PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;
@@ -15,6 +15,7 @@
 @property (nonatomic) CALayer *ball2;
 @property (nonatomic) CALayer *ball3;
 @property (nonatomic, assign) BOOL animate;
+@property (nonatomic) CGFloat rectSize;
 @end
 
 @implementation PQFBouncingBalls

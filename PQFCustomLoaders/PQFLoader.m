@@ -7,10 +7,6 @@
 //
 
 #import "PQFLoader.h"
-#import "PQFBouncingBalls.h"
-#import "PQFBarsInCircle.h"
-#import "PQFCirclesInTriangle.h"
-#import "PQFBallDrop.h"
 
 @implementation PQFLoader
 

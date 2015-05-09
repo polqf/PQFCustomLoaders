@@ -7,7 +7,7 @@
 //
 
 #import "PQFBarsInCircle.h"
-#import <UIColor+FlatColors.h>
+#import <UIColor+FlatColors/UIColor+FlatColors.h>
 
 #define degreesToRadians(x) (M_PI * x /180.0)
 
@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *widthsArray;
 @property (nonatomic, strong) NSMutableArray *heightArray;
 @property (nonatomic, assign) BOOL animate;
+@property (nonatomic) CGFloat angleInRad;
 @end
 
 @implementation PQFBarsInCircle

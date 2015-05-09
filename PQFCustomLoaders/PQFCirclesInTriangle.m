@@ -7,13 +7,14 @@
 //
 
 #import "PQFCirclesInTriangle.h"
-#import <UIColor+FlatColors.h>
+#import <UIColor+FlatColors/UIColor+FlatColors.h>
 
 @interface PQFCirclesInTriangle () <PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;
 @property (nonatomic, strong) CALayer *loaderLayer;
 @property (nonatomic, strong) NSArray *circles;
 @property (nonatomic, assign) BOOL animate;
+@property (nonatomic) CGFloat rectSize;
 @end
 
 @implementation PQFCirclesInTriangle
