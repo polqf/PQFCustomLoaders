@@ -24,7 +24,9 @@
 
 + (instancetype)showLoaderOnView:(UIView *)view
 {
-    return nil;
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"PQFLoader is an abstract class, use a loader type class"]
+                                 userInfo:nil];
 }
 
 - (void)showLoader {}
@@ -39,7 +41,9 @@
 
 + (instancetype)createLoaderOnView:(UIView *)view
 {
-    return nil;
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"PQFLoader is an abstract class, use a loader type class"]
+                                 userInfo:nil];
 }
 
 

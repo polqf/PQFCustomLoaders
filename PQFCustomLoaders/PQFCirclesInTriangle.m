@@ -9,7 +9,7 @@
 #import "PQFCirclesInTriangle.h"
 #import <UIColor+FlatColors.h>
 
-@interface PQFCirclesInTriangle ()
+@interface PQFCirclesInTriangle () <PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;
 @property (nonatomic, strong) CALayer *loaderLayer;
 @property (nonatomic, strong) NSArray *circles;

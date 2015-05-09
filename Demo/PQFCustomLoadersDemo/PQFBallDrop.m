@@ -10,7 +10,7 @@
 #import <UIColor+FlatColors.h>
 #import <pop/POP.h>
 
-@interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate>
+@interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate, PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;
 @property (nonatomic, strong) UIView *fallingBall;
 @property (nonatomic, strong) UIView *mainBall;

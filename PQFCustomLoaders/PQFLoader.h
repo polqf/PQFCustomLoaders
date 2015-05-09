@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PQFLoader : UIView
+@protocol PQFLoaderProtocol <NSObject>
++ (instancetype)showLoaderOnView:(UIView *)view;
++ (instancetype)createLoaderOnView:(UIView *)view;
+- (void)showLoader;
+- (void)removeLoader;
+@end
 
+@interface PQFLoader : UIView
 //Common Properties
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic) CGFloat cornerRadius;

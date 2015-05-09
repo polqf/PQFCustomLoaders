@@ -11,7 +11,7 @@
 
 #define degreesToRadians(x) (M_PI * x /180.0)
 
-@interface PQFBarsInCircle ()
+@interface PQFBarsInCircle () <PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;
 @property (nonatomic, strong) CALayer *loaderLayer;
 
