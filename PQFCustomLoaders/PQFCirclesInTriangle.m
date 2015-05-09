@@ -141,6 +141,7 @@
         if (i == 2 || i == 5) {
             circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 + self.separation, CGRectGetHeight(self.loaderView.frame)/2 + self.separation);
         }
+        if (self.label.text) { circle.position = CGPointMake(circle.position.x, circle.position.y + 10); }
         [temp addObject:circle];
         [self.loaderLayer addSublayer:circle];
     }

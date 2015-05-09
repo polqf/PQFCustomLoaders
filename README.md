@@ -4,11 +4,12 @@
 
 ###Changelog
 * **1.0.0** (May 2015)
-	- **New modal presentation**	
+	- **New Modal presentation**	
 	- **New Loader** (PQFBallDrop)
 	- New demo
 	- New methods to create the loaders
-	- All the properties are now with description (PHOTO!!!!)
+	- All the properties are now with description
+			<img src="Images/properties.png" height="60px" />
 	- Fixed layout problems in some rare cases
 	- Improvements
 * **0.0.1** Initial version
@@ -17,7 +18,7 @@ Demo App
 --------
 ___
 
-<img src="https://cloud.githubusercontent.com/assets/7887319/4985198/daa24cf8-692a-11e4-9d30-b8bfd143d694.gif" height="400px" />
+<img src="Images/demo.png" height="400px" />
 
 Installation
 --------
@@ -44,20 +45,24 @@ The first thing is to import the main file. This file contain all the requiered 
 #import <PQFCustomLoaders/PQFCustomLoaders.h>
 ```
 
-####2. Init a loader in a view
+####2. Create a loader:
+
 For example, if you are going to add the ``PQFBouncingBalls`` Loader, you have to initialize it like this.
 I recommend you to make a property in order to have a pointer to the loader for when you want to remove it.
 
 ```
-@interface ViewController ()
+@interface MyClass ()
 ...
 
 @property (nonatomic, strong) PQFBouncingBalls *bouncingBalls;
 
 ...
 @end
+```
+#####2.	1 In a view
 
-@implementation ViewController
+```
+@implementation MyClass
 ...
 
 self.loader = [PQFBouncingBalls createLoaderOnView:self.view];
@@ -67,7 +72,19 @@ self.loader = [PQFBouncingBalls createLoaderOnView:self.view];
 ```
 In this example I am adding the loader to the main view, but you can add it to any UIView (or subclass)
 
-####3. Customize it a little bit
+#####2.	2 As a modal
+
+```
+@implementation MyClass
+...
+
+self.loader = [PQFBouncingBalls createModalLoader];
+
+...
+@end
+```
+
+####3. Customize it
 You can customize this loaders a lot, in the following section (``Loader Styles``) you can see all the custom properties that you can change.
 
 ```
@@ -75,7 +92,15 @@ self.loader.jumpAmount = 50;
 self.loader.zoomAmount = 20;
 self.loader.separation = 20;
 ```
-__It is very important to change all the properties before showing it (Except for the label ones).__
+__The only properties that can be changes once the loader is on screen are:__
+
+* cornerRadius
+* loaderColor
+* loaderAlpha
+* backgroundColor
+
+But it is __highly recommended__ to change them before showing
+
 
 ####4. Show it!
 When the loader is initialized, it is going to be added to the subviews of the view that you choose. But it is going to be with alpha 0.0 and with no animations activated (so no memory problems ;) ). 
@@ -93,9 +118,8 @@ If you are not going to use it anymore, just remove it
 ```
 This method is going to remove it from it superview.
 
-____
 
-#####Methods you can use:
+###Methods you can use:
 
 ```
 + (instancetype)showModalLoader;
@@ -120,66 +144,121 @@ DEPRECATED METHODS:
 
 Loader Styles
 --------
-___
-
-###PQFBarsInCircles
-
-<img src="https://cloud.githubusercontent.com/assets/7887319/4924136/6fa9da50-6520-11e4-87ca-c637e0d8908d.gif" height="120px" />
-
-####__Properties:__
-```
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic, strong) UIColor *backgroundColor; //TRANSPARENT BY DEFAULT
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic) NSInteger numberOfBars;  //OF THE HOLE LOADER FRAME
-@property (nonatomic) CGFloat barWidthMax;	
-@property (nonatomic) CGFloat barHeightMax;
-@property (nonatomic) CGFloat barWidthMin;
-@property (nonatomic) CGFloat barHeightMin;
-@property (nonatomic) CGFloat barsSpeed;		//IN SECONDS (LESS AMOUNT, MORE SPEED)
-@property (nonatomic) CGFloat rotationSpeed;	//IN SECONDS (LESS AMOUNT, MORE SPEED)
-@property (nonatomic, strong) UILabel *label;	//IF YOU DON'T WANT IT, JUST DON'T CHANGE IT AND IT IS NOT GOING TO APPEAR
-```
 
 ###PQFBouncingBalls
 
-<img src="https://cloud.githubusercontent.com/assets/7887319/4924135/6fa82a0c-6520-11e4-91fa-0fc000d5ecca.gif" height="120px" />
+<img src="Images/bouncing.gif" height="120px" />
 
 ####__Properties:__
-```
-@property (nonatomic) CGFloat cornerRadius;		//OF THE HOLE LOADER FRAME
-@property (nonatomic, strong) UIColor *backgroundColor; //TRANSPARENT BY DEFAULT
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic) CGFloat diameter;			//OF THE BALLS
-@property (nonatomic) CGFloat jumpAmount;		//X MOVEMENT
-@property (nonatomic) CGFloat separation;		//BETWEEN THE BALLS
-@property (nonatomic) CGFloat zoomAmount;		//SIZE = SIZE + ZOOMAMOUNT
-@property (nonatomic) CGFloat duration;
-@property (nonatomic, strong) UILabel *label;	//IF YOU DON'T WANT IT, JUST DON'T CHANGE IT AND IT IS NOT GOING TO APPEAR
+** Text label of the Loader (Hidden if text is nil) :** label;
 
-```
+** Corner radius of the Loader background :** cornerRadius;
+
+** Color of the Loader :** loaderColor;
+
+** Alpha of the loader :** loaderAlpha;
+
+** Diameter of the bouncing balls :** diameter;
+
+** Movement amount on the X axis :** jumpAmount;
+
+** Separation between the bouncing balls :** separation;
+
+** Ball added size when jumping :** zoomAmount;
+
+** Duration of each animation :** duration;
+
+** Size of the label text :** fontSize;
+
+** Alpha of the hole view :** alpha;
+
+
+###PQFBarsInCircles
+
+<img src="Images/bars.gif" height="120px" />
+
+####__Properties:__
+** Text label of the Loader (Hidden if text is nil) :** label;
+
+** Corner radius of the Loader background :** cornerRadius;
+
+** Color of the Loader :** loaderColor;
+
+** Alpha of the loader :** loaderAlpha;
+
+** Duration of each animation :** duration;
+
+** Size of the label text :** fontSize;
+
+** Number of rotating bars :** numberOfBars;
+
+** Minimum height of the bars :** barHeightMin;
+
+** Maximum height of the bars :** barHeightMax;
+
+** Minimum width of the bars :** barWidthMin;
+
+** Maximum width of the bars :** barWidthMax;
+
+** Rotation speed in seconds (Less amount, more speed) :** rotationSpeed;
+
+** Bar size speed in seconds (Less amount, more speed) :** barsSpeed;
+
+** Alpha of the hole view :** alpha;
 
 ###PQFCirclesInTriangle
 
-<img src="https://cloud.githubusercontent.com/assets/7887319/4924134/6f6484fa-6520-11e4-9b7d-4b308ef5b53c.gif" height="120px" />
+<img src="Images/circles.gif" height="120px" />
 
 ####__Properties:__
-```
-@property (nonatomic) NSUInteger numberOfCircles;	//YOU CAN ONLY CHOOSE 3 OR 6 AT THE MOMENT
-@property (nonatomic, strong) UIColor *backgroundColor; //TRANSPARENT BY DEFAULT
-@property (nonatomic) CGFloat cornerRadius;			//OF THE HOLE LOADER FRAME
-@property (nonatomic) CGFloat loaderAlpha;
-@property (nonatomic, strong) UIColor *loaderColor;
-@property (nonatomic) CGFloat maxDiam;				//MAXIMUM DIAMETER OF ALL THE CIRCLES
-@property (nonatomic) CGFloat separation; //DEFAULT VALUE = 8.0
-@property (nonatomic) CGFloat borderWidth; //WIDTH OF THE CIRCLES
-@property (nonatomic) CGFloat delay;		//ONLY IF YOU USE 6 CIRCLES, DELAY BETWEEN THE FIRST 3 CIRCLES AND THE OTHERS
-@property (nonatomic) CGFloat duration;
-@property (nonatomic, strong) UILabel *label;	//IF YOU DON'T WANT IT, JUST DON'T CHANGE IT AND IT IS NOT GOING TO APPEAR
+** Text label of the Loader (Hidden if text is nil) :** label;
 
-```
+** Corner radius of the Loader background :** cornerRadius;
+
+** Color of the Loader :** loaderColor;
+
+** Alpha of the loader :** loaderAlpha;
+
+** Duration of each animation :** duration;
+
+** Size of the label text :** fontSize;
+
+** Number of circles to animate. 3 or 6 are the recommended values :** numberOfCircles;
+
+** Maximum diameter of the circles :** maxDiam;
+
+** Separation between the circles :** separation;
+
+** Border width of the circles:** borderWidth;
+
+** Delay between the animations :** delay;
+
+** Alpha of the hole view :** alpha;
+
+###PQFBallDrop
+
+<img src="Images/drop.gif" height="120px" />
+
+####__Properties:__
+** Text label of the Loader (Hidden if text is nil) :** label;
+
+** Corner radius of the Loader background :** cornerRadius;
+
+** Color of the Loader :** loaderColor;
+
+** Alpha of the loader :** loaderAlpha;
+
+** Duration of each animation :** duration;
+
+** Size of the label text :** fontSize;
+
+** Maximum diameter of the circles :** maxDiam;
+
+** Delay between the animations :** delay;
+
+** Ball added size when droping :** amountZoom;
+
+** Alpha of the hole view :** alpha;
 
 
 Licenses

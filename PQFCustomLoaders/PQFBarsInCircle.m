@@ -139,6 +139,9 @@
         bar.bounds = CGRectMake(0, 0, 0, 0);
         bar.anchorPoint = CGPointMake(0.5, 1.0);
         bar.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2);
+        if (self.label.text) {
+            bar.position = CGPointMake(bar.position.x, bar.position.y + 10);
+        }
         CGFloat angle = degreesToRadians(360/self.numberOfBars*(i+1));
         CATransform3D rotate = CATransform3DMakeRotation(angle, 0, 0, 1);
         bar.transform = rotate;
