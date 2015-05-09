@@ -28,7 +28,7 @@ ___
 
 The easiest way to get started is to use [CocoaPods](http://cocoapods.org/). Just add the following line to your Podfile:
 
-``` pod 'PQFCustomLoaders', '~> 1.0.0' ```
+``` pod 'PQFCustomLoaders', '~> 1.0.1' ```
 
 ###Import the project
 If you don't want to use (you should) ``CocoaPods``,  you can download this project, and add the files in the ``/PQFCustomLoaders`` folder to your existing project.
