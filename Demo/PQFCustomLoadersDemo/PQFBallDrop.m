@@ -142,6 +142,7 @@
     
     CGFloat xCenter = self.center.x;
     CGFloat yCenter = self.center.y;
+    self.mainBall.center = CGPointMake(self.mainBall.center.x, self.mainBall.center.y + 10);
     
     self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
     
@@ -294,7 +295,8 @@
     _collisionBehaviour.translatesReferenceBoundsIntoBoundary = YES;
     _collisionBehaviour.collisionDelegate = self;
     [_collisionBehaviour addBoundaryWithIdentifier:@"boundary"
-                               fromPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 -10, CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2) toPoint:CGPointMake(CGRectGetWidth(self.loaderView.frame)/2 +10 , CGRectGetHeight(self.loaderView.frame)/2  - CGRectGetHeight(self.mainBall.frame)/2)];
+                               fromPoint:CGPointMake(self.mainBall.center.x - 10, self.mainBall.center.y - self.mainBall.frame.size.height/2)
+                                           toPoint:CGPointMake(self.mainBall.center.x + 10, self.mainBall.center.y - self.mainBall.frame.size.height/2)];
     return _collisionBehaviour;
 }
 

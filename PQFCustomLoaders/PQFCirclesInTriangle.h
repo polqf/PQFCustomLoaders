@@ -32,4 +32,6 @@
 @property (nonatomic) CGFloat borderWidth;
 /** Delay between the animations */
 @property (nonatomic) CGFloat delay;
+/** Alpha of the hole view */
+@property (nonatomic) CGFloat alpha;
 @end

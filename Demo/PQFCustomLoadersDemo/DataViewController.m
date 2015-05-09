@@ -86,7 +86,7 @@ static const CGFloat kButtonCornerRadius = 4;
     self.loader = nil;
     if (!_showingText) {
         title = @"Hide Text";
-        [self.loader label].text = @"Your description here";
+        [self.loader label].text = @"Your description here plus mas mas mas";
         [self.loader setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:0.6]];
     }
     else {

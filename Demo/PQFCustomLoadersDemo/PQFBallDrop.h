@@ -28,4 +28,6 @@
 @property (nonatomic) CGFloat delay;
 /** Ball added size when droping */
 @property (nonatomic) CGFloat amountZoom;
+/** Alpha of the hole view */
+@property (nonatomic) CGFloat alpha;
 @end

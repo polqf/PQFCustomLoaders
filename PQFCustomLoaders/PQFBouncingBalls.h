@@ -30,4 +30,6 @@
 @property (nonatomic) CGFloat duration;
 /** Size of the label text */
 @property (nonatomic) CGFloat fontSize;
+/** Alpha of the hole view */
+@property (nonatomic) CGFloat alpha;
 @end

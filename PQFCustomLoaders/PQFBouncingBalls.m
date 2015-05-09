@@ -115,6 +115,8 @@
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.rectSize + 30);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
     
+    NSLog(@"%@", self.loaderView);
+    
     self.layer.cornerRadius = self.cornerRadius;
     
     [self layoutBalls];
@@ -151,13 +153,11 @@
     self.label.textColor = [UIColor whiteColor];
     self.label.font = [UIFont systemFontOfSize:self.fontSize];
     
-    CGFloat xCenter = self.center.x;
-    CGFloat yCenter = self.center.y;
+    self.ball1.position = CGPointMake(self.ball1.position.x, self.ball1.position.y - 10);
+    self.ball2.position = CGPointMake(self.ball2.position.x, self.ball2.position.y - 10);
+    self.ball3.position = CGPointMake(self.ball3.position.x, self.ball3.position.y - 10);
     
     self.loaderView.frame = CGRectMake(self.loaderView.frame.origin.x, self.loaderView.frame.origin.y, self.loaderView.frame.size.width, self.loaderView.frame.size.height + 10 + self.fontSize*2+10 );
-    
-    self.frame = CGRectMake(0, 0, self.frame.size.width, self.loaderView.frame.size.height + 10 );
-    self.center = CGPointMake(xCenter, yCenter);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
     
     CGFloat xPoint = CGRectGetWidth(self.loaderView.frame)/2;

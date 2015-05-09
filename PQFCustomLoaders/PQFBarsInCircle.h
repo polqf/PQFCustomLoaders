@@ -36,4 +36,6 @@
 @property (nonatomic) CGFloat rotationSpeed;
 /** Bar size speed in seconds (Less amount, more speed) */
 @property (nonatomic) CGFloat barsSpeed;
+/** Alpha of the hole view */
+@property (nonatomic) CGFloat alpha;
 @end
