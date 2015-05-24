@@ -1,9 +1,14 @@
-#PQFCustomLoaders 1.0.1
+#PQFCustomLoaders 1.1.0
 
 ####Collection of highly customizable loaders for your iOS projects.
 
 ###Changelog
-* **1.0.1** (May 2015)
+* **1.1.0** (24 May 2015)
+	- **IB Designable properties** - thanks to @dfreniche	
+			<img src="Images/IBDesignable.png" height="400px" />
+	- New **Inspectable Demo** with IBDesignable properties examples
+	- Improvements
+* **1.0.1** (9 May 2015)
 	- **New Modal presentation**	
 	- **New Loader** (PQFBallDrop)
 	- New demo
@@ -14,11 +19,11 @@
 	- Improvements
 * **0.0.1** Initial version
 
-Demo App
+Demo Apps
 --------
 ___
 
-<img src="Images/demo.png" height="400px" />
+<img src="Images/demo.png" height="400px"/><img src="Images/InspectableDemo.png" height="400px"/>
 
 Installation
 --------
@@ -28,7 +33,7 @@ ___
 
 The easiest way to get started is to use [CocoaPods](http://cocoapods.org/). Just add the following line to your Podfile:
 
-``` pod 'PQFCustomLoaders', '~> 1.0.1' ```
+``` pod 'PQFCustomLoaders', '~> 1.1.0' ```
 
 ###Import the project
 If you don't want to use (you should) ``CocoaPods``,  you can download this project, and add the files in the ``/PQFCustomLoaders`` folder to your existing project.
