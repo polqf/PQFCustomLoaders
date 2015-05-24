@@ -9,27 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "PQFLoader.h"
 
+IB_DESIGNABLE
 @interface PQFBouncingBalls : PQFLoader
 /** Text label of the Loader. Hidden if text is nil */
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) IBInspectable UILabel *label;
 /** Corner radius of the Loader background */
-@property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic, assign) IBInspectable CGFloat cornerRadius;
 /** Color of the Loader */
-@property (nonatomic, strong) UIColor *loaderColor;
+@property (nonatomic, strong) IBInspectable UIColor *loaderColor;
 /** Alpha of the loader */
-@property (nonatomic) CGFloat loaderAlpha;
+@property (nonatomic, assign) IBInspectable CGFloat loaderAlpha;
 /** Diameter of the bouncing balls */
-@property (nonatomic) CGFloat diameter;
+@property (nonatomic, assign) IBInspectable CGFloat diameter;
 /** Movement amount on the X axis */
-@property (nonatomic) CGFloat jumpAmount;
+@property (nonatomic, assign) IBInspectable CGFloat jumpAmount;
 /** Separation between the bouncing balls */
-@property (nonatomic) CGFloat separation;
+@property (nonatomic, assign) IBInspectable CGFloat separation;
 /** Ball added size when jumping */
-@property (nonatomic) CGFloat zoomAmount;
+@property (nonatomic, assign) IBInspectable CGFloat zoomAmount;
 /** Duration of each animation */
-@property (nonatomic) CGFloat duration;
+@property (nonatomic, assign) IBInspectable CGFloat duration;
 /** Size of the label text */
-@property (nonatomic) CGFloat fontSize;
+@property (nonatomic, assign) IBInspectable CGFloat fontSize;
 /** Alpha of the hole view */
-@property (nonatomic) CGFloat alpha;
+@property (nonatomic, assign) IBInspectable CGFloat alpha;
 @end

@@ -1,0 +1,4 @@
+platform :ios, "8.0"
+
+pod 'UIColor+FlatColors'
+pod 'pop', '~> 1.0'
