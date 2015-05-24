@@ -25,6 +25,18 @@
 @implementation PQFBallDrop
 
 
+#pragma mark - IB_DESIGNABLE
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialSetupWithView:nil];
+    }
+    return self;
+}
+
+
 + (instancetype)showLoaderOnView:(UIView *)view
 {
     PQFBallDrop *loader = [self createLoaderOnView:view];
@@ -95,7 +107,7 @@
 
 - (void)defaultValues
 {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    [super setBackgroundColor:[UIColor clearColor]];
     self.restart = YES;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -220,7 +232,9 @@
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
+    [super setBackgroundColor:[UIColor clearColor]];
     self.loaderView.backgroundColor = backgroundColor;
+    self.loaderView.layer.backgroundColor = backgroundColor.CGColor;
 }
 
 - (void)setLoaderColor:(UIColor *)loaderColor
@@ -313,6 +327,21 @@
 - (instancetype)initLoaderOnView:(UIView *)view
 {
     return [PQFBallDrop createLoaderOnView:view];
+}
+
+
+#pragma mark - Draw rect for IB_DESIGNABLE
+
+- (void)drawRect:(CGRect)rect {
+#if TARGET_INTERFACE_BUILDER
+    self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.maxDiam + 30);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    self.mainBall.bounds = CGRectMake(0, 0, self.maxDiam/2, self.maxDiam/2);
+    self.hidden = NO;
+    [self layoutBalls];
+    self.mainBall.bounds = CGRectMake(0, 0, self.maxDiam/2, self.maxDiam/2);
+    self.mainBall.layer.cornerRadius = self.maxDiam/4;
+#endif
 }
 
 @end

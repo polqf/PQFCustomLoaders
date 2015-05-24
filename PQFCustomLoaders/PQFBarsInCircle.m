@@ -25,6 +25,17 @@
 @implementation PQFBarsInCircle
 
 
+#pragma mark - IB_DESIGNABLE
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialSetupWithView:nil];
+    }
+    return self;
+}
+
 #pragma mark - PQFLoader methods
 
 + (instancetype)showLoaderOnView:(UIView *)view
@@ -97,7 +108,7 @@
 
 - (void)defaultValues
 {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    [super setBackgroundColor:[UIColor clearColor]];
     self.numberOfBars = 35;
     self.loaderAlpha = 1.0;
     self.cornerRadius = 0;
@@ -252,7 +263,9 @@
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
+    [super setBackgroundColor:[UIColor clearColor]];
     self.loaderView.backgroundColor = backgroundColor;
+    self.loaderView.layer.backgroundColor = backgroundColor.CGColor;
 }
 
 - (void)setLoaderAlpha:(CGFloat)loaderAlpha
@@ -337,6 +350,35 @@
 - (instancetype)initLoaderOnView:(UIView *)view
 {
     return [PQFBarsInCircle createLoaderOnView:view];
+}
+
+
+#pragma mark - Draw rect for IB_DESIGNABLE
+
+- (void)drawRect:(CGRect)rect {
+#if TARGET_INTERFACE_BUILDER
+    self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.barHeightMax*2 + 10);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    self.hidden = NO;
+
+    NSMutableArray *temp = [NSMutableArray new];
+    for (int i = 0 ; i < self.numberOfBars ; i++) {
+        CALayer *bar = [CALayer layer];
+        bar.backgroundColor = self.loaderColor.CGColor;
+        bar.bounds = CGRectMake(0, 0, [self randomFloatBetween:self.barWidthMin and:self.barWidthMax], [self randomFloatBetween:self.barHeightMin and:self.barHeightMax]);
+        bar.anchorPoint = CGPointMake(0.5, 1.0);
+        bar.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2);
+        if (self.label.text) {
+            bar.position = CGPointMake(bar.position.x, bar.position.y + 10);
+        }
+        CGFloat angle = degreesToRadians(360/self.numberOfBars*(i+1));
+        CATransform3D rotate = CATransform3DMakeRotation(angle, 0, 0, 1);
+        bar.transform = rotate;
+        [temp addObject:bar];
+        [self.loaderLayer addSublayer:bar];
+    }
+    self.bars = [temp copy];
+#endif
 }
 
 @end

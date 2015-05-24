@@ -20,6 +20,18 @@
 @implementation PQFCirclesInTriangle
 
 
+#pragma mark - IB_DESIGNABLE
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialSetupWithView:nil];
+    }
+    return self;
+}
+
+
 #pragma mark - PQFLoader methods
 
 + (instancetype)showLoaderOnView:(UIView *)view
@@ -92,7 +104,7 @@
 
 - (void)defaultValues
 {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
+    [super setBackgroundColor:[UIColor clearColor]];
     self.numberOfCircles = 6;
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
@@ -274,7 +286,9 @@
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
+    [super setBackgroundColor:[UIColor clearColor]];
     self.loaderView.backgroundColor = backgroundColor;
+    self.loaderView.layer.backgroundColor = backgroundColor.CGColor;
 }
 
 - (void)setLoaderAlpha:(CGFloat)loaderAlpha
@@ -344,6 +358,38 @@
 - (instancetype)initLoaderOnView:(UIView *)view
 {
     return [PQFCirclesInTriangle createLoaderOnView:view];
+}
+
+
+#pragma mark - Draw rect for IB_DESIGNABLE
+
+- (void)drawRect:(CGRect)rect {
+#if TARGET_INTERFACE_BUILDER
+    self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.separation*2 + self.maxDiam + 10);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    self.hidden = NO;
+    NSMutableArray *temp = [NSMutableArray new];
+    
+    for (int i = 0; i< self.numberOfCircles; i++) {
+        CALayer *circle = [CALayer layer];
+        if (i == 0 || i == 3) {
+            circle.bounds = CGRectMake(0, 0, self.maxDiam, self.maxDiam);
+        }
+        if (i == 1 || i == 4) {
+            circle.bounds = CGRectMake(0, 0, self.maxDiam - self.maxDiam/4, self.maxDiam - self.maxDiam/4);
+        }
+        if (i == 2 || i == 5) {
+            circle.bounds = CGRectMake(0, 0, self.maxDiam - self.maxDiam/2, self.maxDiam - self.maxDiam/2);
+        }
+        circle.cornerRadius = circle.frame.size.height/2;
+        circle.borderWidth = self.borderWidth;
+        circle.borderColor = self.loaderColor.CGColor;
+        circle.position = CGPointMake(CGRectGetWidth(self.loaderView.frame)/2, CGRectGetHeight(self.loaderView.frame)/2);
+        [temp addObject:circle];
+        [self.loaderLayer addSublayer:circle];
+    }
+    self.circles = temp;
+#endif
 }
 
 @end

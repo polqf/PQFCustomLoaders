@@ -48,17 +48,17 @@
 		C15DF4E51B1237F300C12B16 /* PQFInspectableDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PQFInspectableDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15DF4EA1B1237F300C12B16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C15DF4EB1B1237F300C12B16 /* PQFInspectableDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PQFInspectableDemoTests.m; sourceTree = "<group>"; };
-		C15DF4F61B12397D00C12B16 /* PQFBallDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBallDrop.h; sourceTree = "<group>"; };
-		C15DF4F71B12397D00C12B16 /* PQFBallDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBallDrop.m; sourceTree = "<group>"; };
-		C15DF4F81B12397D00C12B16 /* PQFBarsInCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBarsInCircle.h; sourceTree = "<group>"; };
-		C15DF4F91B12397D00C12B16 /* PQFBarsInCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBarsInCircle.m; sourceTree = "<group>"; };
-		C15DF4FA1B12397D00C12B16 /* PQFBouncingBalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFBouncingBalls.h; sourceTree = "<group>"; };
-		C15DF4FB1B12397D00C12B16 /* PQFBouncingBalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFBouncingBalls.m; sourceTree = "<group>"; };
-		C15DF4FC1B12397D00C12B16 /* PQFCirclesInTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFCirclesInTriangle.h; sourceTree = "<group>"; };
-		C15DF4FD1B12397D00C12B16 /* PQFCirclesInTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFCirclesInTriangle.m; sourceTree = "<group>"; };
-		C15DF4FE1B12397D00C12B16 /* PQFCustomLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFCustomLoaders.h; sourceTree = "<group>"; };
-		C15DF4FF1B12397D00C12B16 /* PQFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFLoader.h; sourceTree = "<group>"; };
-		C15DF5001B12397D00C12B16 /* PQFLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFLoader.m; sourceTree = "<group>"; };
+		C15DF4F61B12397D00C12B16 /* PQFBallDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFBallDrop.h; path = ../../PQFCustomLoaders/PQFBallDrop.h; sourceTree = "<group>"; };
+		C15DF4F71B12397D00C12B16 /* PQFBallDrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFBallDrop.m; path = ../../PQFCustomLoaders/PQFBallDrop.m; sourceTree = "<group>"; };
+		C15DF4F81B12397D00C12B16 /* PQFBarsInCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFBarsInCircle.h; path = ../../PQFCustomLoaders/PQFBarsInCircle.h; sourceTree = "<group>"; };
+		C15DF4F91B12397D00C12B16 /* PQFBarsInCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFBarsInCircle.m; path = ../../PQFCustomLoaders/PQFBarsInCircle.m; sourceTree = "<group>"; };
+		C15DF4FA1B12397D00C12B16 /* PQFBouncingBalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFBouncingBalls.h; path = ../../PQFCustomLoaders/PQFBouncingBalls.h; sourceTree = "<group>"; };
+		C15DF4FB1B12397D00C12B16 /* PQFBouncingBalls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFBouncingBalls.m; path = ../../PQFCustomLoaders/PQFBouncingBalls.m; sourceTree = "<group>"; };
+		C15DF4FC1B12397D00C12B16 /* PQFCirclesInTriangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFCirclesInTriangle.h; path = ../../PQFCustomLoaders/PQFCirclesInTriangle.h; sourceTree = "<group>"; };
+		C15DF4FD1B12397D00C12B16 /* PQFCirclesInTriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFCirclesInTriangle.m; path = ../../PQFCustomLoaders/PQFCirclesInTriangle.m; sourceTree = "<group>"; };
+		C15DF4FE1B12397D00C12B16 /* PQFCustomLoaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFCustomLoaders.h; path = ../../PQFCustomLoaders/PQFCustomLoaders.h; sourceTree = "<group>"; };
+		C15DF4FF1B12397D00C12B16 /* PQFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PQFLoader.h; path = ../../PQFCustomLoaders/PQFLoader.h; sourceTree = "<group>"; };
+		C15DF5001B12397D00C12B16 /* PQFLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PQFLoader.m; path = ../../PQFCustomLoaders/PQFLoader.m; sourceTree = "<group>"; };
 		F0DFE28D8C2ED7ECDE436A80 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 

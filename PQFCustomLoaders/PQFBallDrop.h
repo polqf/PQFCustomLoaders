@@ -9,25 +9,26 @@
 #import <UIKit/UIKit.h>
 #import "PQFLoader.h"
 
+IB_DESIGNABLE
 @interface PQFBallDrop : PQFLoader
 /** Text label of the Loader. Hidden if text is nil */
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) IBInspectable UILabel *label;
 /** Corner radius of the Loader background */
-@property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic, assign) IBInspectable CGFloat cornerRadius;
 /** Color of the Loader */
-@property (nonatomic, strong) UIColor *loaderColor;
+@property (nonatomic, strong) IBInspectable UIColor *loaderColor;
 /** Alpha of the loader */
-@property (nonatomic) CGFloat loaderAlpha;
+@property (nonatomic, assign) IBInspectable CGFloat loaderAlpha;
 /** Duration of each animation */
-@property (nonatomic) CGFloat duration;
+@property (nonatomic, assign) IBInspectable CGFloat duration;
 /** Size of the label text */
-@property (nonatomic) CGFloat fontSize;
+@property (nonatomic, assign) IBInspectable CGFloat fontSize;
 /** Maximum diameter of the circles */
-@property (nonatomic) CGFloat maxDiam;
+@property (nonatomic, assign) IBInspectable CGFloat maxDiam;
 /** Delay between the animations */
-@property (nonatomic) CGFloat delay;
+@property (nonatomic, assign) IBInspectable CGFloat delay;
 /** Ball added size when droping */
-@property (nonatomic) CGFloat amountZoom;
+@property (nonatomic, assign) IBInspectable CGFloat amountZoom;
 /** Alpha of the hole view */
-@property (nonatomic) CGFloat alpha;
+@property (nonatomic, assign) IBInspectable CGFloat alpha;
 @end
