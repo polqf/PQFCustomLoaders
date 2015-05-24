@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		994DC7B61B039EE6000F9F51 /* PQFLoaderIBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 994DC7B51B039EE6000F9F51 /* PQFLoaderIBViewController.m */; };
+		99FC407E1B11E9180060AF60 /* changing_loaders_in_storyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 99FC407D1B11E9180060AF60 /* changing_loaders_in_storyboard.png */; };
 		C1CCD2EF1AB4B1C0005F0B7E /* PQFBarsInCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DA45641AAA3A9100F738C8 /* PQFBarsInCircle.m */; };
 		C1D2C16E1A5ADBF4006DF47E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C16D1A5ADBF4006DF47E /* main.m */; };
 		C1D2C1711A5ADBF4006DF47E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C1701A5ADBF4006DF47E /* AppDelegate.m */; };
@@ -36,6 +38,9 @@
 
 /* Begin PBXFileReference section */
 		63ABD20E4B8C50AE723C45F7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		994DC7B41B039EE6000F9F51 /* PQFLoaderIBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQFLoaderIBViewController.h; sourceTree = "<group>"; };
+		994DC7B51B039EE6000F9F51 /* PQFLoaderIBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQFLoaderIBViewController.m; sourceTree = "<group>"; };
+		99FC407D1B11E9180060AF60 /* changing_loaders_in_storyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changing_loaders_in_storyboard.png; sourceTree = "<group>"; };
 		AB70CEC19EB88C5D490D74B5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C1D2C1681A5ADBF4006DF47E /* PQFCustomLoadersDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PQFCustomLoadersDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D2C16C1A5ADBF4006DF47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,6 +112,7 @@
 		C1D2C15F1A5ADBF4006DF47E = {
 			isa = PBXGroup;
 			children = (
+				99FC407D1B11E9180060AF60 /* changing_loaders_in_storyboard.png */,
 				C1D2C16A1A5ADBF4006DF47E /* PQFCustomLoadersDemo */,
 				C1D2C18A1A5ADBF4006DF47E /* PQFCustomLoadersDemoTests */,
 				C1D2C1691A5ADBF4006DF47E /* Products */,
@@ -200,6 +206,8 @@
 				C1DA45671AAA3AB200F738C8 /* PQFCirclesInTriangle.m */,
 				C1DA45691AAA3ABE00F738C8 /* PQFBallDrop.h */,
 				C1DA456A1AAA3ABE00F738C8 /* PQFBallDrop.m */,
+				994DC7B41B039EE6000F9F51 /* PQFLoaderIBViewController.h */,
+				994DC7B51B039EE6000F9F51 /* PQFLoaderIBViewController.m */,
 			);
 			name = PQFCustomLoaders;
 			sourceTree = "<group>";
@@ -289,6 +297,7 @@
 				C1D2C17D1A5ADBF4006DF47E /* Main.storyboard in Resources */,
 				C1D2C1821A5ADBF4006DF47E /* LaunchScreen.xib in Resources */,
 				C1D2C17F1A5ADBF4006DF47E /* Images.xcassets in Resources */,
+				99FC407E1B11E9180060AF60 /* changing_loaders_in_storyboard.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +351,7 @@
 				C1D2C1771A5ADBF4006DF47E /* DataViewController.m in Sources */,
 				C1DA45681AAA3AB200F738C8 /* PQFCirclesInTriangle.m in Sources */,
 				C1D2C1711A5ADBF4006DF47E /* AppDelegate.m in Sources */,
+				994DC7B61B039EE6000F9F51 /* PQFLoaderIBViewController.m in Sources */,
 				C1D2C17A1A5ADBF4006DF47E /* ModelController.m in Sources */,
 				C1DA45621AAA3A7A00F738C8 /* PQFBouncingBalls.m in Sources */,
 				C1D2C16E1A5ADBF4006DF47E /* main.m in Sources */,

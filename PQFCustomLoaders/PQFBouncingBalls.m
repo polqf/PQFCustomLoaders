@@ -266,6 +266,7 @@
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
     self.loaderView.backgroundColor = backgroundColor;
+    self.layer.backgroundColor = backgroundColor.CGColor;
 }
 
 - (void)setLoaderAlpha:(CGFloat)loaderAlpha
@@ -278,6 +279,7 @@
 {
     _cornerRadius = cornerRadius;
     self.loaderView.layer.cornerRadius = cornerRadius;
+    self.layer.cornerRadius = cornerRadius;
 }
 
 - (void)setLoaderColor:(UIColor *)loaderColor
@@ -346,6 +348,20 @@
 - (instancetype)initLoaderOnView:(UIView *)view
 {
     return [PQFBouncingBalls createLoaderOnView:view];
+}
+
+- (void)drawRect:(CGRect)rect {
+    
+#if TARGET_INTERFACE_BUILDER    // paint this placeholder only inside IB
+    self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
+
+    self.loaderView.frame = CGRectMake(0, 0, self.superview.frame.size.width, self.rectSize + 30);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    [self startShowingLoader];
+    [self startAnimating];
+    NSLog(@"changing");
+
+#endif
 }
 
 @end
