@@ -23,7 +23,13 @@ Demo Apps
 --------
 ___
 
-<img src="Images/demo.png" height="400px"/><img src="Images/InspectableDemo.png" height="400px"/>
+PQFCustomLoaders Demo:
+
+<img src="Images/demo.png" height="400px"/>
+
+Inspectable Demo:
+
+<img src="Images/InspectableDemo.png" height="400px"/>
 
 Installation
 --------
