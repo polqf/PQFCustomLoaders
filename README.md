@@ -4,7 +4,7 @@
 
 ###Changelog
 * **1.1.0** (24 May 2015)
-	- **IB Designable properties** - thanks to @dfreniche	
+	- **IB Designable properties** - Thanks **[@dfreniche](https://github.com/dfreniche)**!	
 			<img src="Images/IBDesignable.png" height="400px" />
 	- New **Inspectable Demo** with IBDesignable properties examples
 	- Improvements
