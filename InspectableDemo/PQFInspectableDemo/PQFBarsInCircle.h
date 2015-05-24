@@ -19,8 +19,6 @@ IB_DESIGNABLE
 @property (nonatomic, strong) IBInspectable UIColor *loaderColor;
 /** Alpha of the loader */
 @property (nonatomic, assign) IBInspectable CGFloat loaderAlpha;
-/** Duration of each animation */
-@property (nonatomic, assign) IBInspectable CGFloat duration;
 /** Size of the label text */
 @property (nonatomic, assign) IBInspectable CGFloat fontSize;
 /** Number of rotating bars */

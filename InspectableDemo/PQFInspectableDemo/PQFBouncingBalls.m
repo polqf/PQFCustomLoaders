@@ -21,6 +21,17 @@
 @implementation PQFBouncingBalls
 
 
+#pragma mark - IB_DESIGNABLE
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialSetupWithView:nil];
+    }
+    return self;
+}
+
 #pragma mark - PQFLoader methods
 
 + (instancetype)showLoaderOnView:(UIView *)view
@@ -93,7 +104,6 @@
 
 - (void)defaultValues
 {
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.0];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
     self.loaderColor = [UIColor flatCloudsColor];
@@ -265,7 +275,9 @@
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
+    [super setBackgroundColor:[UIColor clearColor]];
     self.loaderView.backgroundColor = backgroundColor;
+    self.loaderView.layer.backgroundColor = backgroundColor.CGColor;
 }
 
 - (void)setLoaderAlpha:(CGFloat)loaderAlpha
@@ -346,6 +358,19 @@
 - (instancetype)initLoaderOnView:(UIView *)view
 {
     return [PQFBouncingBalls createLoaderOnView:view];
+}
+
+
+#pragma mark - Draw rect for IB_DESIGNABLE
+
+- (void)drawRect:(CGRect)rect {
+#if TARGET_INTERFACE_BUILDER
+    self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
+    self.loaderView.frame = CGRectMake(0, 0, self.superview.frame.size.width, self.rectSize + 30);
+    self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+    self.hidden = NO;
+    [self generateLoader];
+#endif
 }
 
 @end
