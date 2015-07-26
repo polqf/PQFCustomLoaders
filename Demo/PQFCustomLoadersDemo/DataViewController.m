@@ -116,7 +116,10 @@ static const CGFloat kButtonCornerRadius = 4;
             break;
         case 3:
             return [PQFBallDrop class];
-            break;            
+            break;
+        case 4:
+            return [VBFRotatingSquare class];
+            break;
         default:
             return nil;
             break;
