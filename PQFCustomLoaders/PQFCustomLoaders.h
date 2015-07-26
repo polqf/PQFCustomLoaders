@@ -11,3 +11,4 @@
 #import "PQFCirclesInTriangle.h"
 #import "PQFBallDrop.h"
 #import "PQFLoader.h"
+#import "VBFRotatingSquare.h"

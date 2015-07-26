@@ -22,7 +22,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _pageData = @[@"PQFBouncingBalls", @"PQFBarsInCircle", @"PQFCirclesInTriangle", @"PQFBallDrop"];
+        _pageData = @[@"PQFBouncingBalls", @"PQFBarsInCircle", @"PQFCirclesInTriangle", @"PQFBallDrop", @"VBFRotatingSquare"];
     }
     return self;
 }
