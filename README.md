@@ -2,34 +2,73 @@
 
 ####Collection of highly customizable loaders for your iOS projects.
 
+<p align="center">
+<img src="Images/bouncing.gif" height="120px"/>
+</p>
+
+<p align="center">
+PQFBouncingBalls
+</p>
+
+<p align="center">
+<img src="Images/bars.gif" height="120px"/>
+</p>
+
+<p align="center">
+PQFBarsInCircles
+</p>
+
+<p align="center">
+<img src="Images/circles.gif" height="120px"/>
+</p>
+
+<p align="center">
+PQFCirclesInTriangle
+</p>
+
+<p align="center">
+<img src="Images/drop.gif" height="120px"/>
+</p>
+
+<p align="center">
+PQFBallDrop
+</p>
+
 ###Changelog
-* **1.1.0** (24 May 2015)
-	- **IB Designable properties** - Thanks **[@dfreniche](https://github.com/dfreniche)**!	
-			<img src="Images/IBDesignable.png" height="400px" />
-	- New **Inspectable Demo** with IBDesignable properties examples
+* __1.1.0__ (24 May 2015)
+	- __IB Designable properties__- Thanks __[@dfreniche](https://github.com/dfreniche)__!
+	- New __Inspectable Demo__ with IBDesignable properties examples (See Interface Builder section)
 	- Improvements
-* **1.0.1** (9 May 2015)
-	- **New Modal presentation**	
-	- **New Loader** (PQFBallDrop)
+* __1.0.1__ (9 May 2015)
+	- __New Modal presentation__	
+	- __New Loader__(PQFBallDrop)
 	- New demo
 	- New methods to create the loaders
 	- All the properties are now with description
 			<img src="Images/properties.png" height="60px" />
 	- Fixed layout problems in some rare cases
 	- Improvements
-* **0.0.1** Initial version
+* __0.0.1__ Initial version
+
 
 Demo Apps
 --------
-___
 
+<p align="center">
 PQFCustomLoaders Demo:
+</p>
 
+<p align="center">
 <img src="Images/demo.png" height="400px"/>
+</p>
 
+<p align="center">
 Inspectable Demo:
+</p>
 
+<p align="center">
 <img src="Images/InspectableDemo.png" height="400px"/>
+</p>
 
 Installation
 --------
@@ -103,7 +142,7 @@ self.loader.jumpAmount = 50;
 self.loader.zoomAmount = 20;
 self.loader.separation = 20;
 ```
-__The only properties that can be changes once the loader is on screen are:__
+__The only properties that can be changes once the loader is on screen are:__ 
 
 * cornerRadius
 * loaderColor
@@ -160,116 +199,125 @@ Loader Styles
 
 <img src="Images/bouncing.gif" height="120px" />
 
-####__Properties:__
-** Text label of the Loader (Hidden if text is nil) :** label;
+####__Properties:__ 
+__Text label of the Loader (Hidden if text is nil):__ label;
 
-** Corner radius of the Loader background :** cornerRadius;
+__Corner radius of the Loader background:__ cornerRadius;
 
-** Color of the Loader :** loaderColor;
+__Color of the Loader:__ loaderColor;
 
-** Alpha of the loader :** loaderAlpha;
+__Alpha of the loader:__ loaderAlpha;
 
-** Diameter of the bouncing balls :** diameter;
+__Diameter of the bouncing balls:__ diameter;
 
-** Movement amount on the X axis :** jumpAmount;
+__Movement amount on the X axis:__ jumpAmount;
 
-** Separation between the bouncing balls :** separation;
+__Separation between the bouncing balls:__ separation;
 
-** Ball added size when jumping :** zoomAmount;
+__Ball added size when jumping:__ zoomAmount;
 
-** Duration of each animation :** duration;
+__Duration of each animation:__ duration;
 
-** Size of the label text :** fontSize;
+__Size of the label text:__ fontSize;
 
-** Alpha of the hole view :** alpha;
+__Alpha of the hole view:__ alpha;
 
 
 ###PQFBarsInCircles
 
 <img src="Images/bars.gif" height="120px" />
 
-####__Properties:__
-** Text label of the Loader (Hidden if text is nil) :** label;
+####__Properties:__ 
+__Text label of the Loader (Hidden if text is nil):__ label;
 
-** Corner radius of the Loader background :** cornerRadius;
+__Corner radius of the Loader background:__ cornerRadius;
 
-** Color of the Loader :** loaderColor;
+__Color of the Loader:__ loaderColor;
 
-** Alpha of the loader :** loaderAlpha;
+__Alpha of the loader:__ loaderAlpha;
 
-** Duration of each animation :** duration;
+__Duration of each animation:__ duration;
 
-** Size of the label text :** fontSize;
+__Size of the label text:__ fontSize;
 
-** Number of rotating bars :** numberOfBars;
+__Number of rotating bars:__ numberOfBars;
 
-** Minimum height of the bars :** barHeightMin;
+__Minimum height of the bars:__ barHeightMin;
 
-** Maximum height of the bars :** barHeightMax;
+__Maximum height of the bars:__ barHeightMax;
 
-** Minimum width of the bars :** barWidthMin;
+__Minimum width of the bars:__ barWidthMin;
 
-** Maximum width of the bars :** barWidthMax;
+__Maximum width of the bars:__ barWidthMax;
 
-** Rotation speed in seconds (Less amount, more speed) :** rotationSpeed;
+__Rotation speed in seconds (Less amount, more speed):__ rotationSpeed;
 
-** Bar size speed in seconds (Less amount, more speed) :** barsSpeed;
+__Bar size speed in seconds (Less amount, more speed):__ barsSpeed;
 
-** Alpha of the hole view :** alpha;
+__Alpha of the hole view:__ alpha;
 
 ###PQFCirclesInTriangle
 
 <img src="Images/circles.gif" height="120px" />
 
-####__Properties:__
-** Text label of the Loader (Hidden if text is nil) :** label;
+####__Properties:__ 
+__Text label of the Loader (Hidden if text is nil):__ label;
 
-** Corner radius of the Loader background :** cornerRadius;
+__Corner radius of the Loader background:__ cornerRadius;
 
-** Color of the Loader :** loaderColor;
+__Color of the Loader:__ loaderColor;
 
-** Alpha of the loader :** loaderAlpha;
+__Alpha of the loader:__ loaderAlpha;
 
-** Duration of each animation :** duration;
+__Duration of each animation:__ duration;
 
-** Size of the label text :** fontSize;
+__Size of the label text:__ fontSize;
 
-** Number of circles to animate. 3 or 6 are the recommended values :** numberOfCircles;
+__Number of circles to animate. 3 or 6 are the recommended values:__ numberOfCircles;
 
-** Maximum diameter of the circles :** maxDiam;
+__Maximum diameter of the circles:__ maxDiam;
 
-** Separation between the circles :** separation;
+__Separation between the circles:__ separation;
 
-** Border width of the circles:** borderWidth;
+__Border width of the circles:__ borderWidth;
 
-** Delay between the animations :** delay;
+__Delay between the animations:__ delay;
 
-** Alpha of the hole view :** alpha;
+__Alpha of the hole view:__ alpha;
 
 ###PQFBallDrop
 
 <img src="Images/drop.gif" height="120px" />
 
-####__Properties:__
-** Text label of the Loader (Hidden if text is nil) :** label;
+####__Properties:__ 
+__Text label of the Loader (Hidden if text is nil):__ label;
 
-** Corner radius of the Loader background :** cornerRadius;
+__Corner radius of the Loader background:__ cornerRadius;
 
-** Color of the Loader :** loaderColor;
+__Color of the Loader:__ loaderColor;
 
-** Alpha of the loader :** loaderAlpha;
+__Alpha of the loader:__ loaderAlpha;
 
-** Duration of each animation :** duration;
+__Duration of each animation:__ duration;
 
-** Size of the label text :** fontSize;
+__Size of the label text:__ fontSize;
 
-** Maximum diameter of the circles :** maxDiam;
+__Maximum diameter of the circles:__ maxDiam;
 
-** Delay between the animations :** delay;
+__Delay between the animations:__ delay;
 
-** Ball added size when droping :** amountZoom;
+__Ball added size when droping:__ amountZoom;
 
-** Alpha of the hole view :** alpha;
+__Alpha of the hole view:__ alpha;
+
+Interface builder
+-------
+
+PQFCustomLoaders is `Interface Builder` friendly, you can easily customize any loader within the `Storyboard`
+
+<img src="Images/IBDesignable.png" height="400px" />
+
+
 
 
 Licenses

@@ -110,7 +110,7 @@
     [super setBackgroundColor:[UIColor clearColor]];
     self.restart = YES;
     self.loaderAlpha = 1.0;
-    self.loaderColor = [UIColor flatCloudsColor];
+    self.loaderColor = [UIColor flatTurquoiseColor];
     self.maxDiam = 50;
     self.amountZoom = 5;
     self.delay = 1.7;
@@ -332,7 +332,8 @@
 
 #pragma mark - Draw rect for IB_DESIGNABLE
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
 #if TARGET_INTERFACE_BUILDER
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.maxDiam + 30);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);

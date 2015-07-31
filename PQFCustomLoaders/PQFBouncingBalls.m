@@ -107,7 +107,7 @@
     [super setBackgroundColor:[UIColor clearColor]];
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
-    self.loaderColor = [UIColor flatCloudsColor];
+    self.loaderColor = [UIColor flatTurquoiseColor];
     self.diameter = 16;
     self.jumpAmount = 50;
     self.separation = 20;
@@ -364,7 +364,8 @@
 
 #pragma mark - Draw rect for IB_DESIGNABLE
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
 #if TARGET_INTERFACE_BUILDER
     self.rectSize = self.diameter + self.jumpAmount + self.zoomAmount/2;
     self.loaderView.frame = CGRectMake(0, 0, self.superview.frame.size.width, self.rectSize + 30);

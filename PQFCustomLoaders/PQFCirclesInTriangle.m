@@ -108,7 +108,7 @@
     self.numberOfCircles = 6;
     self.cornerRadius = 0;
     self.loaderAlpha = 1.0;
-    self.loaderColor = [UIColor flatCloudsColor];
+    self.loaderColor = [UIColor flatTurquoiseColor];
     self.maxDiam = 50;
     self.separation = 8.0;
     self.borderWidth = 2.0;
@@ -363,7 +363,8 @@
 
 #pragma mark - Draw rect for IB_DESIGNABLE
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
 #if TARGET_INTERFACE_BUILDER
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.separation*2 + self.maxDiam + 10);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);

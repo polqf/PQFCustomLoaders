@@ -112,7 +112,7 @@
     self.numberOfBars = 35;
     self.loaderAlpha = 1.0;
     self.cornerRadius = 0;
-    self.loaderColor = [UIColor flatCloudsColor];
+    self.loaderColor = [UIColor flatTurquoiseColor];
     self.barHeightMin = 20;
     self.barHeightMax = 32;
     self.barWidthMin = 2;
@@ -355,7 +355,8 @@
 
 #pragma mark - Draw rect for IB_DESIGNABLE
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
 #if TARGET_INTERFACE_BUILDER
     self.loaderView.frame = CGRectMake(0, 0, self.frame.size.width, self.barHeightMax*2 + 10);
     self.loaderView.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
