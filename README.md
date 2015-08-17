@@ -1,3 +1,5 @@
+![](https://img.shields.io/badge/language-Objective-C-blue.svg)
+![](https://img.shields.io/badge/version-1.1.0-red.svg)
 #PQFCustomLoaders 1.1.0
 
 ####Collection of highly customizable loaders for your iOS projects.
