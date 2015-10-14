@@ -51,7 +51,7 @@
 
 - (void)showLoader
 {
-    [self performSelector:@selector(startShowingLoader) withObject:nil afterDelay:0];
+    [self startShowingLoader];
 }
 
 - (void)startShowingLoader
