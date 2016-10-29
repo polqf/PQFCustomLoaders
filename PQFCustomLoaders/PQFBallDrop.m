@@ -7,7 +7,7 @@
 //
 
 #import "PQFBallDrop.h"
-#import <UIColor+FlatColors/UIColor+FlatColors.h>
+#import <UIColor_FlatColors/UIColor+FlatColors.h>
 #import <pop/POP.h>
 
 @interface PQFBallDrop () <POPAnimationDelegate, UICollisionBehaviorDelegate, PQFLoaderProtocol>

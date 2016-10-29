@@ -7,7 +7,7 @@
 //
 
 #import "PQFBouncingBalls.h"
-#import <UIColor+FlatColors/UIColor+FlatColors.h>
+#import <UIColor_FlatColors/UIColor+FlatColors.h>
 
 @interface PQFBouncingBalls () <PQFLoaderProtocol>
 @property (nonatomic, strong) UIView *loaderView;

@@ -7,7 +7,7 @@
 //
 
 #import "PQFBarsInCircle.h"
-#import <UIColor+FlatColors/UIColor+FlatColors.h>
+#import <UIColor_FlatColors/UIColor+FlatColors.h>
 
 #define degreesToRadians(x) (M_PI * x /180.0)
 
