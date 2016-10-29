@@ -1,8 +1,7 @@
 platform :ios, "8.0"
+use_frameworks!
 
-pod 'UIColor+FlatColors'
-pod 'pop', '~> 1.0'
-
-target :PQFCustomLoadersDemoTests, :exclusive => true do
-  # pod 'Kiwi'
+target :PQFCustomLoadersDemo do
+  pod 'UIColor+FlatColors'
+  pod 'pop', '~> 1.0'
 end

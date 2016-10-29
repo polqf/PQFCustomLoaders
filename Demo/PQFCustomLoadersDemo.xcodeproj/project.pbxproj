@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08E878130921E3D869926E88 /* Pods_PQFCustomLoadersDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53055DEB7C778B8F136E6201 /* Pods_PQFCustomLoadersDemo.framework */; };
 		C1CCD2EF1AB4B1C0005F0B7E /* PQFBarsInCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DA45641AAA3A9100F738C8 /* PQFBarsInCircle.m */; };
 		C1D2C16E1A5ADBF4006DF47E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C16D1A5ADBF4006DF47E /* main.m */; };
 		C1D2C1711A5ADBF4006DF47E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D2C1701A5ADBF4006DF47E /* AppDelegate.m */; };
@@ -21,7 +22,6 @@
 		C1DA45621AAA3A7A00F738C8 /* PQFBouncingBalls.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DA45611AAA3A7A00F738C8 /* PQFBouncingBalls.m */; };
 		C1DA45681AAA3AB200F738C8 /* PQFCirclesInTriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DA45671AAA3AB200F738C8 /* PQFCirclesInTriangle.m */; };
 		C1DA456B1AAA3ABE00F738C8 /* PQFBallDrop.m in Sources */ = {isa = PBXBuildFile; fileRef = C1DA456A1AAA3ABE00F738C8 /* PQFBallDrop.m */; };
-		D66346A3EA182671D9815DEB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0F08A3B0A32D39E0205137E /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +35,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42C6E944ED511DA67AFBCEA5 /* Pods-PQFCustomLoadersDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PQFCustomLoadersDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PQFCustomLoadersDemo/Pods-PQFCustomLoadersDemo.release.xcconfig"; sourceTree = "<group>"; };
+		53055DEB7C778B8F136E6201 /* Pods_PQFCustomLoadersDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PQFCustomLoadersDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63ABD20E4B8C50AE723C45F7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9FF2D68D2FC22A7CAC7BE99A /* Pods-PQFCustomLoadersDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PQFCustomLoadersDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PQFCustomLoadersDemo/Pods-PQFCustomLoadersDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		AB70CEC19EB88C5D490D74B5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		C1D2C1681A5ADBF4006DF47E /* PQFCustomLoadersDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PQFCustomLoadersDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1D2C16C1A5ADBF4006DF47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D66346A3EA182671D9815DEB /* libPods.a in Frameworks */,
+				08E878130921E3D869926E88 /* Pods_PQFCustomLoadersDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				E0F08A3B0A32D39E0205137E /* libPods.a */,
+				53055DEB7C778B8F136E6201 /* Pods_PQFCustomLoadersDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -100,6 +104,8 @@
 			children = (
 				63ABD20E4B8C50AE723C45F7 /* Pods.debug.xcconfig */,
 				AB70CEC19EB88C5D490D74B5 /* Pods.release.xcconfig */,
+				9FF2D68D2FC22A7CAC7BE99A /* Pods-PQFCustomLoadersDemo.debug.xcconfig */,
+				42C6E944ED511DA67AFBCEA5 /* Pods-PQFCustomLoadersDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -211,11 +217,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C1D2C1911A5ADBF4006DF47E /* Build configuration list for PBXNativeTarget "PQFCustomLoadersDemo" */;
 			buildPhases = (
-				0BD6C784D2EC15B18BA8938B /* Check Pods Manifest.lock */,
+				0BD6C784D2EC15B18BA8938B /* [CP] Check Pods Manifest.lock */,
 				C1D2C1641A5ADBF4006DF47E /* Sources */,
 				C1D2C1651A5ADBF4006DF47E /* Frameworks */,
 				C1D2C1661A5ADBF4006DF47E /* Resources */,
-				80A89D36836650CA4F9E8016 /* Copy Pods Resources */,
+				80A89D36836650CA4F9E8016 /* [CP] Copy Pods Resources */,
+				B409052F1B29F5C570F32C9B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -302,14 +309,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BD6C784D2EC15B18BA8938B /* Check Pods Manifest.lock */ = {
+		0BD6C784D2EC15B18BA8938B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,19 +324,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		80A89D36836650CA4F9E8016 /* Copy Pods Resources */ = {
+		80A89D36836650CA4F9E8016 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PQFCustomLoadersDemo/Pods-PQFCustomLoadersDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B409052F1B29F5C570F32C9B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PQFCustomLoadersDemo/Pods-PQFCustomLoadersDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -470,7 +492,7 @@
 		};
 		C1D2C1921A5ADBF4006DF47E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 63ABD20E4B8C50AE723C45F7 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 9FF2D68D2FC22A7CAC7BE99A /* Pods-PQFCustomLoadersDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PQFCustomLoadersDemo/Info.plist;
@@ -481,7 +503,7 @@
 		};
 		C1D2C1931A5ADBF4006DF47E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB70CEC19EB88C5D490D74B5 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 42C6E944ED511DA67AFBCEA5 /* Pods-PQFCustomLoadersDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = PQFCustomLoadersDemo/Info.plist;
